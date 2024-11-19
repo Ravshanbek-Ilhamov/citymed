@@ -11,7 +11,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        echo "Karochi ravhsan siz menga ishonin menga ishonsez boli";
     }
 
     /**
