@@ -11,6 +11,8 @@
             <h3 class="fw-bold mb-3">Dashboard hullas nimadir chiqiqshi kerak shu yerda</h3>
             <h1>hello</h1>
             
+                
+            <h3>this text is for testing</h3>
             <h6 class="op-7 mb-2">Free Bootstrap 5 Admin Dashboard</h6>
         </div>
         <div class="ms-md-auto py-2 py-md-0">
