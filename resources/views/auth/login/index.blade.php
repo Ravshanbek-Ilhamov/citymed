@@ -38,7 +38,7 @@
               @csrf
               <div class="form-group first m-1">
                 <label for="login">Login</label>
-                <input type="text" name = 'login' class="form-control" id="login">
+                <input type="email" name = 'email' class="form-control" id="login">
               </div>
 
               <div class="form-group last mb-4 m-1">

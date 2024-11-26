@@ -14,13 +14,15 @@ class AuthController extends Controller
 
     public function login(LoginUserRequest $request){
 
-        dd($request->all());
+        // dd($request->all());
 
 
-        $credentials = $request->only('login', 'password');
+        $credentials = $request->only('email', 'password');
+
+        // dd($credentials);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard'); // Redirect to the intended page or dashboard
+            return redirect()->route('dashboard'); 
         } else {
             return back()->withErrors(['login' => 'These credentials do not match our records.']);
         }
