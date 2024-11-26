@@ -310,3 +310,16 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     right: -85%; } }
 
 /*# sourceMappingURL=demo.css.map */
+span.sub-item::before {
+  content: none !important;
+  display: none;
+}
+
+.nav-item a i{
+  margin-right: 5px !important;
+
+}
+.sub-item {
+  margin-left: 5px !important;
+
+}

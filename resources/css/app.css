@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a , ul , li{
+    text-decoration: none !important;
+    list-style: none !important;
+}
+span.sub-item::before {
+    content: none ;
+}
