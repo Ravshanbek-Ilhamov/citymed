@@ -92,7 +92,7 @@
                       <a data-bs-toggle="collapse" href="#subnav1">
                         <i class="fas fa-stethoscope"></i> <!-- Icon for the main item -->
                         <span  class="sub-item">Therapeutic S</span>
-                        {{-- <span  class="caret"></span> --}}
+                        <span  class="caret"></span>
                       </a>
                       <div class="collapse" id="subnav1">
                         <ul class="nav nav-collapse subnav">
@@ -151,6 +151,7 @@
                     </li>
                     <li>
                       <a data-bs-toggle="collapse" href="#subnav4">
+                        <i class="fas fa-hospital"></i>
                         <span class="sub-item">Surgical Services:</span>
                         <span class="caret"></span>
                       </a>
@@ -172,6 +173,7 @@
                     </li>
                     <li>
                       <a data-bs-toggle="collapse" href="#subnav5">
+                        <i class="fas fa-wheelchai"></i>
                         <span class="sub-item">Specialized Treatments:</span>
                         <span class="caret"></span>
                       </a>
@@ -249,6 +251,12 @@
                     </li>
                   </ul>
                 </div>
+              </li>
+              <li class="nav-item">
+                {{-- <a href="{{route('doctors.index')}}"> --}}
+                  <i class="fas fa-user-md"></i>
+                  <p>Shifokorlar</p>
+                </a>
               </li>
             </ul>
           </div>
