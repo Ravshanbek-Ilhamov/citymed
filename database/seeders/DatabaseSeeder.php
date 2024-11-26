@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'username' => 'testUser',
             'role_id' => 2,
             'password' => Hash::make('12345678'),
         ]);
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'SuperAdmin',
             'email' => 'superadmin@gmail.com',
+            'username' => 'SuperAdmin@',
             'role_id' => 2,
             'password' => Hash::make('12345678'),
         ]);
