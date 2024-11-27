@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <title>Citymed</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -12,6 +12,12 @@
       href="{{ asset('assets/img/kaiadmin/favicon.ico') }}"
       type="image/x-icon"
     />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -48,7 +54,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
+            <a href="/dashboard" class="logo">
               <img
                 src="assets/img/kaiadmin/logo_light.svg"
                 alt="navbar brand"
@@ -73,6 +79,12 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-chart-bar"></i>
+                  <p>Statistics</p>
+                </a>
+              </li>
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
@@ -172,8 +184,9 @@
                     </li>
                     <li>
                       <a data-bs-toggle="collapse" href="#subnav5">
+                        <i class="fas fa-wheelchair"></i>
                         <i class="fas fa-wheelchai"></i>
-                        <span class="sub-item">Specialized Treatments:</span>
+                        <span class="sub-item">Specialized Treatments</span>
                         <span class="caret"></span>
                       </a>
                       <div class="collapse" id="subnav5">
@@ -196,6 +209,7 @@
                 </div>
               </li>
               <li class="nav-item">
+<<<<<<< HEAD
                 <a data-bs-toggle="collapse" href="#base">
                   <i class="fas fa-layer-group"></i>
                   <p>Base</p>
@@ -253,8 +267,66 @@
               </li>
               <li class="nav-item">
                 <a href="{{route('doctors.index')}}">
+=======
+                <a href="#">
+>>>>>>> 08f311fb864fd12952d67285ec7c8459b8dacf4a
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-syringe"></i>
+                  <p>Hamshira</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="far fa-money-bill-alt HG"></i>
+                  <p>Kassir</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-user"></i>
+                  <p>Manager</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-bed"></i>
+
+                  <p>Bemorlar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-user-alt"></i>
+                  <p>Registratorlar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-briefcase"></i>
+                  <p>Lavozimlar</p>
+                </a>
+              </li> 
+             <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-warehouse"></i>
+                  <p>Sklad</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-house"></i>
+                  <p>Mini sklad</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#">
+                  <i class="fas fa-tags"></i>
+                  <p>Mahsulotlar</p>
                 </a>
               </li>
             </ul>
@@ -882,39 +954,18 @@
     <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-    
-    <!-- jQuery Scrollbar -->
     <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
-    
-    <!-- Chart JS -->
     <script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
-    
-    <!-- jQuery Sparkline -->
     <script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
-    
-    <!-- Chart Circle -->
     <script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
-    
-    <!-- Datatables -->
     <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
-    
-    <!-- Bootstrap Notify -->
     <script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-    
-    <!-- jQuery Vector Maps -->
     <script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
-    
-    <!-- Sweet Alert -->
     <script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-    
-    <!-- Kaiadmin JS -->
     <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
-    
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
     <script src="{{ asset('assets/js/demo.js') }}"></script>
-    
     <script>
       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
         type: "line",
