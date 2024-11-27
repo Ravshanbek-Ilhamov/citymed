@@ -12,3 +12,4 @@ Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::get('/dashboard',[AuthController::class,'dashboard'])->name('dashboard');
 
 Route::resource('doctors', DoctorController::class);
+// Route::resource('doctors', DoctorController::class);
