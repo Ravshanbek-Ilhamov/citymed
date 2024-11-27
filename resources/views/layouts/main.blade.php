@@ -9,7 +9,6 @@
     />
     <link
       rel="icon"
-      {{-- href="assets/img/kaiadmin/favicon.ico" --}}    q
       href="{{ asset('assets/img/kaiadmin/favicon.ico') }}"
       type="image/x-icon"
     />
@@ -253,7 +252,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                {{-- <a href="{{route('doctors.index')}}"> --}}
+                <a href="{{route('doctors.index')}}">
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
                 </a>

@@ -1,4 +1,5 @@
-@extends('layouts.main');
+@extends('layouts.main')      
+
 
 @section('title','Index Page')
     
@@ -16,7 +17,7 @@
             </div>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-sm-6 col-md-3">
             <div class="card card-stats card-round">
                 <div class="card-body">
@@ -101,8 +102,8 @@
             </div>
         </div>
         </div>
-        </div>
-        <div class="row">
+        </div> --}}
+        {{-- <div class="row">
         <div class="col-md-8">
         <div class="card card-round">
             <div class="card-header">
@@ -134,9 +135,9 @@
             <div id="myChartLegend"></div>
             </div>
         </div>
-        </div>
-        <div class="col-md-4">
-        <div class="card card-primary card-round">
+        </div> --}}
+        {{-- <div class="col-md-4"> --}}
+        {{-- <div class="card card-primary card-round">
             <div class="card-header">
             <div class="card-head-row">
                 <div class="card-title">Daily Sales</div>
@@ -175,8 +176,8 @@
                 <canvas id="dailySalesChart"></canvas>
             </div>
             </div>
-        </div>
-        <div class="card card-round">
+        </div> --}}
+        {{-- <div class="card card-round">
             <div class="card-body pb-0">
             <div class="h1 fw-bold float-end text-primary">+5%</div>
             <h2 class="mb-2">17</h2>
@@ -187,8 +188,8 @@
             </div>
         </div>
         </div>
-        </div>
-        <div class="row">
+        </div> --}}
+        {{-- <div class="row">
         <div class="col-md-12">
         <div class="card card-round">
             <div class="card-header">
@@ -317,8 +318,8 @@
             </div>
         </div>
         </div>
-        </div>
-        <div class="row">
+        </div> --}}
+        {{-- <div class="row">
         <div class="col-md-4">
         <div class="card card-round">
             <div class="card-body">
@@ -464,8 +465,8 @@
             </div>
             </div>
         </div>
-        </div>
-        <div class="col-md-8">
+        </div> --}}
+        {{-- <div class="col-md-8">
         <div class="card card-round">
             <div class="card-header">
             <div class="card-head-row card-tools-still-right">
@@ -619,7 +620,7 @@
             </div>
             </div>
         </div>
-        </div>
-        </div>
+        </div> --}}
+        {{-- </div> --}}
 
 @endsection
