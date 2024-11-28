@@ -38,14 +38,14 @@
         },
       });
     </script>
+  @livewireStyles
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
 
-<!-- CSS Files -->
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
-
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
   </head>
   <body>
     <div class="wrapper">
@@ -209,67 +209,7 @@
                 </div>
               </li>
               <li class="nav-item">
-<<<<<<< HEAD
-                <a data-bs-toggle="collapse" href="#base">
-                  <i class="fas fa-layer-group"></i>
-                  <p>Base</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="base">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="components/avatars.html">
-                        <span class="sub-item">Avatars</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/buttons.html">
-                        <span class="sub-item">Buttons</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/gridsystem.html">
-                        <span class="sub-item">Grid System</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/panels.html">
-                        <span class="sub-item">Panels</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/notifications.html">
-                        <span class="sub-item">Notifications</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/sweetalert.html">
-                        <span class="sub-item">Sweet Alert</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/font-awesome-icons.html">
-                        <span class="sub-item">Font Awesome Icons</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/simple-line-icons.html">
-                        <span class="sub-item">Simple Line Icons</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/typography.html">
-                        <span class="sub-item">Typography</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('doctors.index')}}">
-=======
-                <a href="#">
->>>>>>> 08f311fb864fd12952d67285ec7c8459b8dacf4a
+                <a href="/doctors">
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
                 </a>
@@ -994,5 +934,6 @@
         fillColor: "rgba(255, 165, 52, .14)",
       });
     </script>
+    @livewireScripts
   </body>
 </html>
