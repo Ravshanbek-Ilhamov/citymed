@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 @extends('layouts.main')      
 
-=======
-@extends('layouts.main')
->>>>>>> 08f311fb864fd12952d67285ec7c8459b8dacf4a
 
 @section('title','Index Page')
     
