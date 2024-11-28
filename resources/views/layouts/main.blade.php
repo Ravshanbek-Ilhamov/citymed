@@ -38,14 +38,14 @@
         },
       });
     </script>
+  @livewireStyles
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
 
-<!-- CSS Files -->
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
-
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
   </head>
   <body>
     <div class="wrapper">
@@ -104,7 +104,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('doctors.index')}}">
+                <a href="/doctors">
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
                 </a>
@@ -829,5 +829,6 @@
         fillColor: "rgba(255, 165, 52, .14)",
       });
     </script>
+    @livewireScripts
   </body>
 </html>
