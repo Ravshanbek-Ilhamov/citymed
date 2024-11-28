@@ -5,6 +5,8 @@ use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LayoutsController;
 use App\Http\Controllers\ServiceController;
+use App\Livewire\DirectionComponent;
+use App\Livewire\ServiceComponent;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,5 +16,5 @@ Route::get('/dashboard',[AuthController::class,'dashboard'])->name('dashboard');
 Route::get('/layouts' , [LayoutsController::class, 'index']);
 
 Route::resource('doctors', DoctorController::class);
-Route::resource('direction' , DirectionController::class);
-Route::resource('service' , ServiceController::class);
+Route::get('/direction' , DirectionComponent::class);
+Route::get('service' , ServiceComponent::class);
