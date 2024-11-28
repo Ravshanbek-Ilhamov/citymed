@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             DirectionSeeder::class,
+            ServiceSeeder::class,
         ]);
 
     }

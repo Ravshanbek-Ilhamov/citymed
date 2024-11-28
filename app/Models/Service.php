@@ -5,19 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Direction extends Model
+class Service extends Model
 {
-    /** @use HasFactory<\Database\Factories\DirectionFactory> */
+    /** @use HasFactory<\Database\Factories\ServiceFactory> */
     use HasFactory;
+
 
     protected $fillable = 
     [
+        'direction_id',
         'name',
-        'is_active',
+        'is_active'
     ];
 
-    public function services()
+    public function direction()
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsTo(Direction::class);
     }
 }
