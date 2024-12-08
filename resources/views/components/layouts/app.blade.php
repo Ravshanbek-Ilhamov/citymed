@@ -104,7 +104,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/doctors">
+                <a href="/doctors" wire:navigate>
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
                 </a>
@@ -556,7 +556,9 @@
         <div class="container">
           <div class="page-inner">
             
-            @yield('content')
+            {{$slot}}
+
+            {{-- @yield('content') --}}
 
           </div>
         </div>
