@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreDirectionRequest;
-use App\Http\Requests\UpdateDirectionRequest;
-use App\Models\Direction;
+use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 
-class DirectionController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $directions = Direction::all();
-        return view('directions.index' , compact('directions'));
+        $services = Service::all(); 
+        return view('services.index' , compact('services'));
     }
 
     /**
@@ -29,7 +28,7 @@ class DirectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDirectionRequest $request)
+    public function store(StoreServiceRequest $request)
     {
         //
     }
@@ -37,7 +36,7 @@ class DirectionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Direction $direction)
+    public function show(Service $service)
     {
         //
     }
@@ -45,7 +44,7 @@ class DirectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Direction $direction)
+    public function edit(Service $service)
     {
         //
     }
@@ -53,7 +52,7 @@ class DirectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDirectionRequest $request, Direction $direction)
+    public function update(UpdateServiceRequest $request, Service $service)
     {
         //
     }
@@ -61,7 +60,7 @@ class DirectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Direction $direction)
+    public function destroy(Service $service)
     {
         //
     }

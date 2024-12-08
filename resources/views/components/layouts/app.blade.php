@@ -92,124 +92,19 @@
                 <h4 class="text-section">Components</h4>
               </li>
               <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#submenu">
+                <a href="{{route('direction.index')}}">
                   <i class="fas fa-copy"></i>
-                  <p>Hizmatlar</p>
-                  <span class="caret"></span>
+                  <p>Directions</p>
                 </a>
-                <div class="collapse" id="submenu">
-                  <ul style="list-style: none" class="nav nav-collapse">
-                    <li>
-                      <a data-bs-toggle="collapse" href="#subnav1">
-                        <i class="fas fa-stethoscope"></i> <!-- Icon for the main item -->
-                        <span  class="sub-item">Therapeutic S</span>
-                        <span  class="caret"></span>
-                      </a>
-                      <div class="collapse" id="subnav1">
-                        <ul class="nav nav-collapse subnav">
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">General Therapy</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">Pediatrics</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    
-                    <li>
-                    <li>
-                        <a data-bs-toggle="collapse" href="#subnav2">
-                          <i class="fas fa-vials"></i>
-                          <span class="sub-item">Diagnostics: </span>
-                          <span class="caret"></span>
-                        </a>
-                        <div class="collapse" id="subnav2">
-                          <ul class="nav nav-collapse subnav">
-                            <li>
-                              <a href="#">
-                                <span class="sub-item">MRI (Magnetic Resonance Imaging)</span>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <span class="sub-item">X-ray Diagnostics</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                      <a data-bs-toggle="collapse" href="#subnav3">
-                        <i class="fas fa-female"></i>
-                        <span class="sub-item">Women's Health:
-                        </span>
-                        <span class="caret"></span>
-                      </a>
-                      <div class="collapse" id="subnav3">
-                        <ul class="nav nav-collapse subnav">
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">Gynecology</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li>
-                      <a data-bs-toggle="collapse" href="#subnav4">
-                        <i class="fas fa-hospital"></i>
-                        <span class="sub-item">Surgical Services:</span>
-                        <span class="caret"></span>
-                      </a>
-                      <div class="collapse" id="subnav4">
-                        <ul class="nav nav-collapse subnav">
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">General Surgery</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">Emergency Surgery
-                              </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li>
-                      <a data-bs-toggle="collapse" href="#subnav5">
-                        <i class="fas fa-wheelchair"></i>
-                        <i class="fas fa-wheelchai"></i>
-                        <span class="sub-item">Specialized Treatments</span>
-                        <span class="caret"></span>
-                      </a>
-                      <div class="collapse" id="subnav5">
-                        <ul class="nav nav-collapse subnav">
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">Otolaryngology (ENT services)</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">Urology
-                              </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
               </li>
               <li class="nav-item">
-                <a href="/doctors">
+                <a href="{{route('service.index')}}">
+                  <i class="fas fa-list-ol"></i>
+                  <p>Services</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/doctors" wire:navigate>
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
                 </a>
@@ -661,7 +556,9 @@
         <div class="container">
           <div class="page-inner">
             
-            @yield('content')
+            {{$slot}}
+
+            {{-- @yield('content') --}}
 
           </div>
         </div>
