@@ -216,7 +216,7 @@
                                 <td>
                                     <!-- Full Name and Email layout -->
                                     <div class="d-flex flex-column">
-                                        <a href="/doctor-details/{{$doctor->id}}" wire:navigate class="text-decoration-none">
+                                        <a href="#" wire:click="SetDeatailingDoctor({{$doctor->id}})" class="text-decoration-none">
                                             <span style="font-weight: bold; color: #4A90E2;">
                                                 {{$doctor->first_name}} {{$doctor->last_name}}
                                             </span>
