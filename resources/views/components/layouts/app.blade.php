@@ -38,14 +38,15 @@
         },
       });
     </script>
+  @livewireStyles
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
 
-<!-- CSS Files -->
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" />
-@livewireStyles
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+
   </head>
   <body>
     <div class="wrapper">
@@ -92,7 +93,7 @@
                 <h4 class="text-section">Components</h4>
               </li>
               <li class="nav-item">
-                <a href="/direction" wire:navigate>
+                <a href="{{route('direction.index')}}">
                   <i class="fas fa-copy"></i>
                   <p>Directions</p>
                 </a>
@@ -104,7 +105,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('doctors.index')}}">
+                <a href="/doctors" wire:navigate>
                   <i class="fas fa-user-md"></i>
                   <p>Shifokorlar</p>
                 </a>
@@ -556,8 +557,6 @@
         <div class="container">
           <div class="page-inner">
             {{$slot}}
-            {{-- @yield('content') --}}
-
           </div>
         </div>
 
@@ -790,7 +789,6 @@
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
@@ -889,6 +887,6 @@
               });
             });
           </script>
-        @livewireScripts
+    @livewireScripts
   </body>
 </html>
