@@ -166,6 +166,11 @@ class DoctorsComponent extends Component
         session()->flash('message', 'Doctor deleted successfully!');
     }
 
+    public function SetDeatailingDoctor($id){
+        session(['detailing_doctor' => $id]);
+        return $this->redirect('/doctor-details');
+    }
+
     public function SetcreateForm(){
         $this->createForm = true;
     }
