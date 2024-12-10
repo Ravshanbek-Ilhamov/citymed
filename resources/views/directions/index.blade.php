@@ -58,11 +58,58 @@
                                     <tr>
                                         <td>{{ $direction->id }}</td>
                                         <td>{{ $direction->name }}</td>
-                                        <td>{{ $direction->is_active ? 'Yes' : 'No' }}</td>
                                         <td>
-                                            <i class="fas fa-edit text-primary" style="cursor: pointer; margin-right: 10px;" wire:click="edit({{ $direction->id }})"></i>
-                                            <i class="fas fa-trash-alt text-danger" style="cursor: pointer;"></i>
+                                            <div class="form-check form-switch">
+                                              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked_{{ $direction->id }}" name="is_active_{{ $direction->id }}" value="1" {{ $direction->is_active ? 'checked' : '' }} wire:click="updateStatus({{ $direction->id }}, $event.target.checked)">
+                                              <label class="form-check-label" for="flexSwitchCheckChecked_{{ $direction->id }}"></label>
+                                            </div>
+                                          </td>
+                                        <td>
+                                            <div class="form-button-action d-flex align-items-center" style="gap: 4px;">
+                                                <button
+                                                    wire:click.prevent="edit({{ $direction->id }})"
+                                                    type="button"
+                                                    class="btn btn-sm btn-primary"
+                                                    title="Edit Direction">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                        
+                                                <button 
+                                                    wire:click="prepareDelete({{ $direction->id }})" 
+                                                    class="btn btn-sm btn-danger"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#deleteModal">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
                                         </td>
+                                        
+                                        
+                                        <!-- Delete Confirmation Modal -->
+                                        <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete this direction?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <button 
+                                                            type="button" 
+                                                            class="btn btn-danger" 
+                                                            wire:click="deleteConfirmed"
+                                                            data-bs-dismiss="modal">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>

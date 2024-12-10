@@ -233,51 +233,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="form-group">
-                                        <input
-                                          type="email"
-                                          class="form-control"
-                                          id="email2"
-                                          placeholder="Email"
-                                        />
-                                      </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input
-                                          type="tel"
-                                          class="form-control"
-                                          id="phone_number2"
-                                          placeholder="Number"
-                                        />
-                                      </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          id="specialization2"
-                                          placeholder="Specialization"
-                                        />
-                                      </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input
-                                          type="number"
-                                          class="form-control"
-                                          id="per_patient_time2"
-                                          placeholder="Patient Time"
-                                        />
-                                      </div>
-                                </td>
-                                <td></td>
-                            </tr> --}}
                             @foreach ($doctors as $doctor)
                             <tr>
                                 <td>{{$doctor->id}}</td>
