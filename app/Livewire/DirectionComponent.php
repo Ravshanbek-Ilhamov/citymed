@@ -14,6 +14,7 @@ class DirectionComponent extends Component
     public $directionId;
     public $editMode = false;
     public $showForm = false;
+    public $deleteId;
 
     public function submit()
     {
@@ -47,38 +48,39 @@ class DirectionComponent extends Component
         $this->editMode = true;
         $this->showForm = true;
     }
-    
+
+    public function prepareDelete($id)
+    {
+        $this->deleteId = $id;
+    }
+
+    public function deleteConfirmed()
+    {
+        $direction = Direction::findOrFail($this->deleteId);
+        $direction->delete();
+
+        session()->flash('message', 'Direction deleted successfully!');
+        $this->reset(['deleteId']);
+    }
+
     public function resetForm()
     {
         $this->reset(['name', 'is_active', 'showForm', 'editMode', 'directionId']);
     }
-    
-    public function update()
-    {
-        $this->validate([
-            'name' => 'required',
-            'is_active' => 'required|boolean'
-        ]);
-    
-        $direction = Direction::find($this->directionId);
-        $direction->name = $this->name;
-        $direction->is_active = $this->is_active;
-        $direction->save();
-    
-        $this->reset(['name', 'is_active', 'directionId']);
-    
-        $this->dispatch('hideEditModal');
-    }
-    public function delete($id)
-    {
-        $direction = Direction::findOrFail($id);
-        $direction->delete();
 
-        session()->flash('message', 'Direction deleted successfully!');
-    }
     public function render()
     {
         $this->directions = Direction::all();
         return view('directions.index');
     }
+
+    public function updateStatus($directionId, $isActive)
+    {
+        $direction = Direction::findOrFail($directionId);
+        $direction->is_active = $isActive;
+        $direction->save();
+
+        session()->flash('message', 'Status updated successfully!');
+    }
+
 }
