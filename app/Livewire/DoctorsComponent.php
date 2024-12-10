@@ -15,6 +15,8 @@ class DoctorsComponent extends Component
     use WithPagination;
     use WithFileUploads;
 
+    protected $listeners = ['deleteConfirmed'];
+    
     public $createForm = false;
     public $first_name, $last_name, $username, $password, $gender, $date_of_birth, $email, $phone_number, $address;
     public $specialization, $years_of_experience, $working_hours, $consultation_fee, $profile_picture, $bio, $per_patient_time;
@@ -34,7 +36,7 @@ class DoctorsComponent extends Component
         'address' => 'nullable|string',
         'specialization' => 'nullable|string',
         'years_of_experience' => 'nullable|numeric|min:0',
-        'working_hours' => 'nullable|string',
+        'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
         'consultation_fee' => 'nullable|numeric|min:0',
         // 'profile_picture' => 'nullable|image|max:2048',
         'bio' => 'nullable|string|max:500',
@@ -113,7 +115,7 @@ class DoctorsComponent extends Component
             'address' => 'nullable|string',
             'specialization' => 'nullable|string',
             'years_of_experience' => 'nullable|numeric|min:0',
-            'working_hours' => 'nullable|string',
+            'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
             'consultation_fee' => 'nullable|numeric|min:0',
             'profile_picture' => 'nullable|image|max:8192',
             'bio' => 'nullable|string|max:500',
@@ -180,11 +182,29 @@ class DoctorsComponent extends Component
         $this->editingForm = false;
         $this->reset();
     }
+    public $search = '';
 
     public function render(){
-        $doctors = Doctor::paginate( 10 );
+        $doctors = Doctor::where('first_name', 'like',$this->search . '%')
+        ->orWhere('last_name', 'like', $this->search . '%')
+        ->orWhere('email', 'like',$this->search . '%')
+        ->orWhere('specialization', 'like', $this->search . '%')
+        ->paginate(10);
+        // $doctors = Doctor::paginate( 10 );
         return view('doctors.index',['doctors' => $doctors]);
     }
 
+    public $deleteId;
+
+    public function prepareDelete($id)
+    {
+        $this->deleteId = $id;
+    }
+
+    public function deleteConfirmed()
+    {
+        $this->delete($this->deleteId);
+    }
+        
 
 }

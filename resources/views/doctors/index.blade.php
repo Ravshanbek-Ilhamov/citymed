@@ -1,7 +1,7 @@
 <div>
     <!-- Bootstrap 5 CSS (via CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wnpl6i29aAODbXc6Qtz7Aj0ZbCTDWCMnPS5nufY+OsWlWb/wl5U5YhQ/QHWGdVH1" crossorigin="anonymous">
-     
+
     <div class="page-header">
         <h3 class="fw-bold mb-3">Tables</h3>
         <ul class="breadcrumbs mb-3">
@@ -186,11 +186,39 @@
                
                 @else
 
-                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
-                    <div class="card-title">Doctors</div>
-                    <button wire:click="SetcreateForm" class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
+                <div class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">
+                    <!-- Card Title -->
+                    <h5 class="card-title text-primary m-0">Doctors</h5>
+                
+                    <!-- Search Bar -->
+                    <div class="row mb-0" style="width: 50%;">
+                        <div class="col">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 rounded-start" style="border-color: #ced4da;">
+                                    <i class="fa fa-search text-muted"></i>
+                                </span>
+                                <input 
+                                    type="search" 
+                                    wire:model.live.debounce.500ms="search" 
+                                    class="form-control border-start-1  ps-2" 
+                                    placeholder="Search doctors by name, email, or specialization..." 
+                                    style="border-color: #ced4da;"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Add Button -->
+                    <button 
+                        wire:click="SetcreateForm" 
+                        class="btn btn-primary d-flex align-items-center"
+                        style="gap: 0.5rem; background-color: #007bff; border-color: #007bff;"
+                    >
+                        <i class="fas fa-user-plus"></i>
+                        <span>Add Doctor</span>
+                    </button>
                 </div>
-                 
+                
                 <div class="card-body">
                     <table class="table table-striped mt-3">
                         <thead>
@@ -205,13 +233,65 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="form-group">
+                                        <input
+                                          type="email"
+                                          class="form-control"
+                                          id="email2"
+                                          placeholder="Email"
+                                        />
+                                      </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input
+                                          type="tel"
+                                          class="form-control"
+                                          id="phone_number2"
+                                          placeholder="Number"
+                                        />
+                                      </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          id="specialization2"
+                                          placeholder="Specialization"
+                                        />
+                                      </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input
+                                          type="number"
+                                          class="form-control"
+                                          id="per_patient_time2"
+                                          placeholder="Patient Time"
+                                        />
+                                      </div>
+                                </td>
+                                <td></td>
+                            </tr> --}}
                             @foreach ($doctors as $doctor)
                             <tr>
                                 <td>{{$doctor->id}}</td>
                                 <td>
-                                    <img class="rounded-circle"
-                                         src="{{ asset('storage/' . $doctor->profile_picture) }}" 
-                                         alt="Profile Picture" width="50" height="50">
+                                    @if($doctor->profile_picture && file_exists(storage_path('app/public/' . $doctor->profile_picture)))
+                                        <img class="rounded-circle"
+                                             src="{{ asset('storage/' . $doctor->profile_picture) }}"
+                                             width="50" height="50">
+                                    @else
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                             style="width: 50px; height: 50px; background-color: #007bff; color: white; font-weight: bold;">
+                                            {{ strtoupper(substr($doctor->first_name, 0, 1)) }}
+                                        </div>
+                                    @endif
                                 </td>
                                 <td>
                                     <!-- Full Name and Email layout -->
@@ -232,19 +312,44 @@
                                 <td>
                                     <div class="form-button-action d-flex justify-content-around align-items-center gap-1">
                                         <button
-                                            wire:click="SeteditForm({{$doctor->id}})"
+                                            wire:click.prevent="SeteditForm({{ $doctor->id }})"
                                             type="button"
                                             class="btn btn-sm btn-primary"
                                             title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button
-                                            wire:click="delete({{$doctor->id}})"
-                                            type="button"
-                                            class="btn btn-sm btn-danger"
-                                            title="Remove">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <button 
+                                        wire:click="prepareDelete({{ $doctor->id }})" 
+                                        class="btn btn-sm btn-danger"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    
+                                    <!-- Delete Confirmation Modal -->
+                                    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirm Deletion</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this doctor?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button 
+                                                        type="button" 
+                                                        class="btn btn-danger" 
+                                                        wire:click="deleteConfirmed"
+                                                        data-bs-dismiss="modal">
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </td>
                             </tr>
@@ -252,12 +357,8 @@
                             {{ $doctors->links('vendor.livewire.bootstrap') }}
                         </tbody>
                     </table>
-                    
                 </div>     
-
                 @endif
-
-
             </div>
         </div>
     </div>
@@ -274,7 +375,8 @@
         <!-- Kaiadmin DEMO methods, don't include it in your project! -->
         <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
     <!--   Core JS Files   -->
-    
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
     <script>
         $("#displayNotif").on("click", function () {
             var placementFrom = $("#notify_placement_from option:selected").val();
