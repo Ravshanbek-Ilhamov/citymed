@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LayoutsController;
-use App\Http\Controllers\ServiceController;
 use App\Livewire\DirectionComponent;
 use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
@@ -22,5 +20,3 @@ Route::get('service' , ServiceComponent::class);
 
 Route::get('/doctors', DoctorsComponent::class);
 Route::get('/doctor-details',DoctorDetailsComponent::class);
-Route::resource('direction' , DirectionController::class);
-Route::resource('service' , ServiceController::class);

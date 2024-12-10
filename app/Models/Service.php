@@ -23,4 +23,9 @@ class Service extends Model
     {
         return $this->belongsTo(Direction::class);
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class , 'doctor_id');
+    }
 }

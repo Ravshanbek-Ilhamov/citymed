@@ -12,30 +12,45 @@ class DirectionComponent extends Component
     public $name;
     public $is_active = true;
     public $directionId;
+    public $editMode = false;
+    public $showForm = false;
 
     public function submit()
     {
         $this->validate([
-            'name'=>'required',
-            'is_active'=>'required|boolean',
+            'name' => 'required',
+            'is_active' => 'required|boolean',
         ]);
 
-        Direction::create([
-            'name'=>$this->name,
-            'is_active'=>$this->is_active,
-        ]);
-        $this->dispatch('hideCreateModel');
+        if ($this->editMode) {
+            $direction = Direction::findOrFail($this->directionId);
+            $direction->update([
+                'name' => $this->name,
+                'is_active' => $this->is_active,
+            ]);
+        } else {
+            Direction::create([
+                'name' => $this->name,
+                'is_active' => $this->is_active,
+            ]);
+        }
+
+        $this->resetForm();
     }
 
     public function edit($id)
     {
-        $direction = Direction::find($id);
+        $direction = Direction::findOrFail($id);
+        $this->directionId = $direction->id;
         $this->name = $direction->name;
         $this->is_active = $direction->is_active;
-        $this->directionId = $id;
+        $this->editMode = true;
+        $this->showForm = true;
+    }
     
-        // Use dispatch() method
-        $this->dispatch('showEditModal');
+    public function resetForm()
+    {
+        $this->reset(['name', 'is_active', 'showForm', 'editMode', 'directionId']);
     }
     
     public function update()
@@ -50,7 +65,6 @@ class DirectionComponent extends Component
         $direction->is_active = $this->is_active;
         $direction->save();
     
-        // Reset fields
         $this->reset(['name', 'is_active', 'directionId']);
     
         $this->dispatch('hideEditModal');
