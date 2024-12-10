@@ -29,4 +29,9 @@ class Doctor extends Model
         'profile_picture',
         'bio',
     ];
+
+    public function service()
+    {
+        return $this->hasMany(Service::class);
+    }
 }
