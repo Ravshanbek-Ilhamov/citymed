@@ -1,6 +1,4 @@
 <div>
-
-    
     <div class="row">
         <div class="col-md-12">
                 <div class="container my-4">
@@ -14,10 +12,16 @@
                 <div class="card mb-4">
                     <div class="card-body d-flex align-items-center">
                         <div class="me-3">
-                            <img src="{{ asset('storage/'.$doctor->profile_picture) }}" 
-                                 alt="Doctor's profile picture" 
-                                 class="rounded-circle" 
-                                 style="width: 80px; height: 80px; object-fit: cover;">
+                            @if($doctor->profile_picture && file_exists(storage_path('app/public/' . $doctor->profile_picture)))
+                                <img src="{{ asset('storage/'.$doctor->profile_picture) }}" 
+                                     class="rounded-circle" 
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                            @else
+                                <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                     style="width: 80px; height: 80px; background-color: #007bff; color: white; font-weight: bold; font-size: 32px;">
+                                    {{ strtoupper(substr($doctor->first_name, 0, 1)) }}
+                                </div>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mb-1 fw-bold text-primary">Dr. {{$doctor->first_name}}</h5>
@@ -110,8 +114,4 @@
             </div>
         </div>
     </div>
-    
-    
-
-
 </div>

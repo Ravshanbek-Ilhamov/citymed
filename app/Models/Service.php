@@ -15,11 +15,17 @@ class Service extends Model
     [
         'direction_id',
         'name',
-        'is_active'
+        'is_active',
+        'doctor_id',
     ];
 
     public function direction()
     {
         return $this->belongsTo(Direction::class);
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class , 'doctor_id');
     }
 }
