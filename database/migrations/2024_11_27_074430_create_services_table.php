@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('is_active');
             $table->integer('doctor_id');
+            $table->integer('price');
             $table->timestamps();
         });
     }

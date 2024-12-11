@@ -50,6 +50,10 @@
                               </select>
                               @error('doctor_id') <span class="text-danger">{{ $message }}</span> @enderror
                           </div>
+                          <div class="mb-3">
+                            <label for="price" class="form-label">Service price</label>
+                            <input type="text" id="price" wire:model="price" class="form-control" placeholder="Enter service price">
+                            @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                           
                             <div class="mb-3 form-check">
                                 <input type="checkbox" id="is_active" wire:model="is_active" class="form-check-input">
@@ -86,10 +90,16 @@
                                 </select>
                                 @error('doctor_id') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Service Name</label>
+                                <input type="text" id="price" wire:model="price" class="form-control" placeholder="Enter service price">
+                                @error('price') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" id="is_active" wire:model="is_active" class="form-check-input">
                                 <label for="is_active" class="form-check-label">Is Active</label>
                             </div>
+
                             <button type="submit" class="btn btn-success">Update Service</button>
                         </form>
                     </div>
@@ -103,6 +113,7 @@
                                     <th>Name</th>
                                     <th>Is Active</th>
                                     <th>Doctor</th>
+                                    <th>Price</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -121,6 +132,7 @@
                                       </td>
                                       
                                       <td>{{ $service->doctor ? $service->doctor->first_name : 'No Doctor Assigned' }}</td>
+                                      <td>${{$service->price}}</td>
                                       <td>
                                         <div class="form-button-action d-flex align-items-center" style="gap: 4px;">
                                             <button
