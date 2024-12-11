@@ -20,3 +20,4 @@ Route::get('service' , ServiceComponent::class);
 
 Route::get('/doctors', DoctorsComponent::class);
 Route::get('/doctor-details',DoctorDetailsComponent::class);
+

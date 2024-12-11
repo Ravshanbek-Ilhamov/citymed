@@ -20,4 +20,9 @@ class Direction extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

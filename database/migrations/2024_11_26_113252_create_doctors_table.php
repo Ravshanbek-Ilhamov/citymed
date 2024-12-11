@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
             $table->string('address');
-            $table->string('specialization');
+            $table->foreignId('direction_id')->constrained('directions')->onDelete('cascade');
             $table->integer('years_of_experience');
             $table->integer('per_patient_time');
             $table->string('working_hours');

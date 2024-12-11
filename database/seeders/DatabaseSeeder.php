@@ -41,9 +41,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            DoctorSeeder::class,
             DirectionSeeder::class,
             ServiceSeeder::class,
+            DoctorSeeder::class,
         ]);
 
     }

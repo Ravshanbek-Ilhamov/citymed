@@ -21,7 +21,7 @@ class Doctor extends Model
         'email',
         'phone_number',
         'address',
-        'specialization',
+        'direction_id',
         'years_of_experience',
         'working_hours',
         'is_active',
@@ -30,8 +30,8 @@ class Doctor extends Model
         'bio',
     ];
 
-    public function service()
+    public function direction()
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsTo(Direction::class,'direction_id');
     }
 }
