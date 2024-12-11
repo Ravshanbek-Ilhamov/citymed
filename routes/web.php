@@ -16,5 +16,4 @@ Route::get('/layouts' , [LayoutsController::class, 'index']);
 
 Route::get('/doctors', DoctorsComponent::class);
 Route::get('/doctor-details',DoctorDetailsComponent::class);
-Route::resource('direction' , DirectionController::class);
-Route::resource('service' , ServiceController::class);
+

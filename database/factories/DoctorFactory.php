@@ -27,7 +27,7 @@ class DoctorFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone_number' => $this->faker->unique()->phoneNumber,
             'address' => $this->faker->address,
-            'specialization' => $this->faker->word,
+            'direction_id' => $this->faker->numberBetween(1, 10),
             'years_of_experience' => $this->faker->numberBetween(1, 30),
             'per_patient_time' => $this->faker->numberBetween(10,120),
             'working_hours' => $this->faker->time('H:i') . ' - ' . $this->faker->time('H:i'),

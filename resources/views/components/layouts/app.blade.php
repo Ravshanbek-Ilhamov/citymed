@@ -92,7 +92,7 @@
                 <h4 class="text-section">Components</h4>
               </li>
               <li class="nav-item">
-                <a href="{{route('direction.index')}}">
+                <a href="/direction" wire:navigate>
                   <i class="fas fa-copy"></i>
                   <p>Directions</p>
                 </a>

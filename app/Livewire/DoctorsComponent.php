@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Direction;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -15,10 +16,13 @@ class DoctorsComponent extends Component
     use WithPagination;
     use WithFileUploads;
 
+    protected $listeners = ['deleteConfirmed'];
+    public $search = '';
+    public $deleteId;
     public $createForm = false;
-    public $first_name, $last_name, $username, $password, $gender, $date_of_birth, $email, $phone_number, $address;
+    public $first_name, $last_name, $username, $password, $gender, $date_of_birth, $email, $phone_number, $address,$direction_id;
     public $specialization, $years_of_experience, $working_hours, $consultation_fee, $profile_picture, $bio, $per_patient_time;
-    public $is_active;
+    public $is_active,$directions;
     public $userId,$editingDoctor,$editingForm = false;
 
 
@@ -32,7 +36,7 @@ class DoctorsComponent extends Component
         'email' => 'required|email|unique:users,email',
         'phone_number' => 'required|string|max:15',
         'address' => 'nullable|string',
-        'specialization' => 'nullable|string',
+        'direction_id' => 'required|exists:directions,id',
         'years_of_experience' => 'nullable|numeric|min:0',
         'working_hours' => 'nullable|string',
         'consultation_fee' => 'nullable|numeric|min:0',
@@ -41,6 +45,17 @@ class DoctorsComponent extends Component
         'is_active' => 'required|boolean',
         'per_patient_time' => 'nullable|numeric|min:0',
     ];
+
+    public function render(){
+        $doctors = Doctor::where('first_name', 'like',$this->search . '%')
+        ->orWhere('last_name', 'like', $this->search . '%')
+        ->orWhere('email', 'like',$this->search . '%')
+        // ->orWhere('specialization', 'like', $this->search . '%')
+        ->paginate(10);
+
+        $this->directions = Direction::all();
+        return view('doctors.index',['doctors' => $doctors]);
+    }
 
     public function store()
     {
@@ -56,7 +71,7 @@ class DoctorsComponent extends Component
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'specialization' => $this->specialization,
+            'direction_id' => $this->direction_id,
             'years_of_experience' => $this->years_of_experience,
             'working_hours' => $this->working_hours,
             'consultation_fee' => $this->consultation_fee,
@@ -88,7 +103,7 @@ class DoctorsComponent extends Component
         $this->email = $doctor->email;
         $this->phone_number = $doctor->phone_number;
         $this->address = $doctor->address;
-        $this->specialization = $doctor->specialization;
+        $this->direction_id = $doctor->direction_id;
         $this->years_of_experience = $doctor->years_of_experience;
         $this->working_hours = $doctor->working_hours;
         $this->consultation_fee = $doctor->consultation_fee;
@@ -111,7 +126,7 @@ class DoctorsComponent extends Component
             'email' => 'required|email|unique:users,email,' . $this->editingDoctor->id . ',id',
             'phone_number' => 'required|string|max:15',
             'address' => 'nullable|string',
-            'specialization' => 'nullable|string',
+            'direction_id' => 'required|exists:directions,id',
             'years_of_experience' => 'nullable|numeric|min:0',
             'working_hours' => 'nullable|string',
             'consultation_fee' => 'nullable|numeric|min:0',
@@ -130,7 +145,7 @@ class DoctorsComponent extends Component
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'specialization' => $this->specialization,
+            'direction_id' => $this->direction_id,
             'years_of_experience' => $this->years_of_experience,
             'working_hours' => $this->working_hours,
             'consultation_fee' => $this->consultation_fee,
@@ -180,11 +195,14 @@ class DoctorsComponent extends Component
         $this->editingForm = false;
         $this->reset();
     }
-
-    public function render(){
-        $doctors = Doctor::paginate( 10 );
-        return view('doctors.index',['doctors' => $doctors]);
+    public function prepareDelete($id)
+    {
+        $this->deleteId = $id;
     }
 
-
+    public function deleteConfirmed()
+    {
+        $this->delete($this->deleteId);
+    }
+        
 }

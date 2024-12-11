@@ -70,7 +70,7 @@
                         <div class="col-md-6">
                             <label for="gender" class="form-label">Gender</label>
                             <select class="form-select" id="gender" wire:model.blur="gender" required>
-                                <option value="" disabled selected>Select Gender</option>
+                                <option value="" selected>Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -109,9 +109,14 @@
                     <!-- Row 6: Specialization and Experience -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="specialization" class="form-label">Specialization</label>
-                            <input type="text" class="form-control" id="specialization" wire:model.blur="specialization" required>
-                            @error('specialization') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="direction_id" class="form-label">Direction</label>
+                            <select class="form-select" wire:model.blur="direction_id"  id="direction_id">
+                                <option value=""  selected>Select Direction</option>
+                                @foreach ($directions as $direction)
+                                    <option value="{{ $direction->id }}">{{ $direction->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('direction_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="years_of_experience" class="form-label">Years of Experience</label>
@@ -139,7 +144,7 @@
                         <div class="col-md-6">
                             <label for="profile_picture" class="form-label">Profile Picture</label>
                             <input type="file" class="form-control" id="profile_picture" wire:model.blur="profile_picture">
-                            @if ($profile_picture)
+                            @if ($profile_picture && file_exists(storage_path('app/public/' . $profile_picture)))
                                 <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_picture)}}" alt=" Profile Picture ">
                             @endif
                             @error('profile_picture') <span class="text-danger">{{ $message }}</span> @enderror
@@ -227,7 +232,7 @@
                                     </div>
                                 </td>
                                 <td>{{$doctor->phone_number}}</td>
-                                <td>{{$doctor->specialization}}</td>
+                                <td>{{$doctor->direction->name}}</td>
                                 <td>{{$doctor->per_patient_time}} minutes</td>
                                 <td>
                                     <div class="form-button-action d-flex justify-content-around align-items-center gap-1">
