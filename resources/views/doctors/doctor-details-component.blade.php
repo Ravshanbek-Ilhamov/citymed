@@ -97,12 +97,11 @@
                             <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($doctor->birth_of_date)->age }}</p>
                             <p><strong>Address: </strong>{{$doctor->address}}</p>
                             <p><strong>Gender: </strong>{{$doctor->gender}}</p>
-                            <p><strong>Email: </strong>{{$doctor->eamil}}</p>
-
+                            <p><strong>Email: </strong>{{$doctor->email}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <p><strong>Phone Number: </strong>{{$doctor->phone_number}}</p>
-                            <p><strong>Specialization: </strong>{{$doctor->specialization}}</p>
+                            <p><strong>Specialization: </strong>{{$doctor->direction->name}}</p>
                             <p><strong>Years of Experience: </strong>{{$doctor->years_of_experience}}</p>
                             <p><strong>Per Patient Time: </strong>{{$doctor->per_patient_time}}</p>
                             <p><strong>Working Hours: </strong>{{$doctor->working_hours}}</p>
