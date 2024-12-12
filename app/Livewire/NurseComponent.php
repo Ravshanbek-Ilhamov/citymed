@@ -8,6 +8,6 @@ class NurseComponent extends Component
 {
     public function render()
     {
-        return view('livewire.nurse-component');
+        return view('nurses.nurse-component');
     }
 }
