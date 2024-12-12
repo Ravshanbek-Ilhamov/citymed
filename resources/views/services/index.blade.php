@@ -15,10 +15,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex align-items-cetern">
                     <h4>Services</h4>
-                    <button class="btn btn-primary btn-sm float-end" wire:click="toggleAddForm">
-                        {{ $showAddForm ? 'Back to List' : 'Add Service' }}
+                    <button class="btn btn-primary btn-round ms-auto" wire:click="toggleForm">
+                        <i class="fa fa-plus me-1"></i>{{ ($showAddForm || $showEditForm) ? 'Back to List' : 'Add Service' }}
                     </button>
                 </div>
 
@@ -33,37 +33,25 @@
                             <div class="mb-3">
                                 <label for="direction_id" class="form-label">Direction</label>
                                 <select id="direction_id" wire:model="direction_id" class="form-control">
-                                    <option value="">-- Select Direction --</option>
+                                    <option value="">Select Direction</option>
                                     @foreach($directions as $direction)
                                         <option value="{{ $direction->id }}">{{ $direction->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('direction_id') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3">
-                              <label for="doctor_id" class="form-label">Doctor</label>
-                              <select id="doctor_id" wire:model="doctor_id" class="form-control">
-                                  <option value="">-- Select Doctor --</option>
-                                  @foreach($doctors as $doctor)
-                                      <option value="{{ $doctor->id }}">{{ $doctor->first_name }}</option>
-                                  @endforeach
-                              </select>
-                              @error('doctor_id') <span class="text-danger">{{ $message }}</span> @enderror
-                          </div>
+                        
                           <div class="mb-3">
                             <label for="price" class="form-label">Service price</label>
                             <input type="text" id="price" wire:model="price" class="form-control" placeholder="Enter service price">
                             @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                           
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" id="is_active" wire:model="is_active" class="form-check-input">
-                                <label for="is_active" class="form-check-label">Is Active</label>
-                            </div>
-                            <button type="submit" class="btn btn-success">Add Service</button>
+                            <button type="submit" class="btn btn-success btn-round  mt-3"><i class="fa fa-plus "></i> Add Service</button>
                         </form>
                     </div>
                     @elseif($showEditForm)
                     <div class="card-body">
+                        {{-- <button type="button" class="btn btn-secondary" wire:click="backToList">Back to List</button> --}}
                         <form wire:submit.prevent="update">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Service Name</label>
@@ -73,7 +61,7 @@
                             <div class="mb-3">
                                 <label for="direction_id" class="form-label">Direction</label>
                                 <select id="direction_id" wire:model="direction_id" class="form-control">
-                                    <option value="">-- Select Direction --</option>
+                                    <option value="">Select Direction</option>
                                     @foreach($directions as $direction)
                                         <option value="{{ $direction->id }}">{{ $direction->name }}</option>
                                     @endforeach
@@ -81,26 +69,12 @@
                                 @error('direction_id') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="doctor_id" class="form-label">Doctor</label>
-                                <select id="doctor_id" wire:model="doctor_id" class="form-control">
-                                    <option value="">-- Select Doctor --</option>
-                                    @foreach($doctors as $doctor)
-                                        <option value="{{ $doctor->id }}">{{ $doctor->first_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('doctor_id') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="mb-3">
                                 <label for="price" class="form-label">Service Name</label>
                                 <input type="text" id="price" wire:model="price" class="form-control" placeholder="Enter service price">
                                 @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" id="is_active" wire:model="is_active" class="form-check-input">
-                                <label for="is_active" class="form-check-label">Is Active</label>
-                            </div>
 
-                            <button type="submit" class="btn btn-success">Update Service</button>
+                            <button type="submit" class="btn btn-success btn-round mt-3">Update Service</button>
                         </form>
                     </div>
                 @else
@@ -112,7 +86,6 @@
                                     <th>Direction</th>
                                     <th>Name</th>
                                     <th>Is Active</th>
-                                    <th>Doctor</th>
                                     <th>Price</th>
                                     <th>Actions</th>
                                 </tr>
@@ -131,7 +104,6 @@
                                       </td>
                                       </td>
                                       
-                                      <td>{{ $service->doctor ? $service->doctor->first_name : 'No Doctor Assigned' }}</td>
                                       <td>${{$service->price}}</td>
                                       <td>
                                         <div class="form-button-action d-flex align-items-center" style="gap: 4px;">
@@ -178,8 +150,10 @@
                                     </div>
                                   </tr>
                               @endforeach
-                          </tbody>
-                          
+                              
+                              {{ $services->links('vendor.livewire.bootstrap') }}
+                            </tbody>
+                            
                         </table>
                     </div>
                 @endif

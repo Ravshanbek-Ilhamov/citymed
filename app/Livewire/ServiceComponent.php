@@ -6,27 +6,42 @@ use App\Models\Service;
 use App\Models\Direction;
 use App\Models\Doctor;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ServiceComponent extends Component
 {
-    public $services, $directions, $doctors, $name, $direction_id, $doctor_id, $is_active = false, $showAddForm = false, $showEditForm = false, $editingServiceId , $serviceToDelete , $price;
+
+    use WithPagination;
+
+    public $name, 
+    $direction_id, 
+    $showAddForm = false, $showEditForm = false, $editingServiceId , 
+    $serviceToDelete , $price, $directions;
 
     public function mount()
     {
         $this->directions = Direction::all();
-        $this->doctors = Doctor::all(); 
     }
+
 
     public function render()
     {
-        $this->services = Service::with('direction', 'doctor')->get();
-        return view('services.index');
+        // $this->services = Service::with('direction')->get();
+        $services = Service::paginate(10);
+
+        // dd($services);
+        return view('services.index' ,['services' =>$services]);
     }
 
-    public function toggleAddForm()
+    public function toggleForm()
     {
-        $this->resetForm();
-        $this->showAddForm = !$this->showAddForm;
+        if ($this->showAddForm || $this->showEditForm) {
+            $this->showAddForm = false;
+            $this->showEditForm = false;
+        } else {
+            $this->showAddForm = true;
+            $this->showEditForm = false;
+        }
     }
 
     public function store()
@@ -34,15 +49,12 @@ class ServiceComponent extends Component
         $this->validate([
             'name' => 'required',
             'direction_id' => 'required',
-            'doctor_id' => 'required|integer',
             'price'=>'required',
         ]);
 
         Service::create([
             'name' => $this->name,
             'direction_id' => $this->direction_id,
-            'doctor_id' => $this->doctor_id,
-            'is_active' => $this->is_active,
             'price'=>$this->price,
         ]);
 
@@ -70,8 +82,6 @@ class ServiceComponent extends Component
         $this->editingServiceId = $service->id;
         $this->name = $service->name;
         $this->direction_id = $service->direction_id;
-        $this->doctor_id = $service->doctor_id;
-        $this->is_active = $service->is_active;
         $this->price = $service->price;
         $this->showEditForm = true;
     }
@@ -81,7 +91,6 @@ class ServiceComponent extends Component
         $this->validate([
             'name' => 'required',
             'direction_id' => 'required',
-            'doctor_id' => 'required|integer',
             'price'=>'required',
         ]);
 
@@ -89,8 +98,6 @@ class ServiceComponent extends Component
         $service->update([
             'name' => $this->name,
             'direction_id' => $this->direction_id,
-            'doctor_id' => $this->doctor_id,
-            'is_active' => $this->is_active,
             'price'=>$this->price,
         ]);
 
@@ -104,9 +111,7 @@ class ServiceComponent extends Component
         $this->editingServiceId = null;
         $this->name = '';
         $this->direction_id = '';
-        $this->doctor_id = '';
         $this->price = '';
-        $this->is_active = false;
     }
 
     public function updateStatus($serviceId, $isActive)
@@ -116,5 +121,11 @@ class ServiceComponent extends Component
         $service->save();
 
         session()->flash('message', 'Status updated successfully!');
+    }
+    public function backToList()
+    {
+        $this->showEditForm = false;
+        $this->showAddForm = false;
+        $this->services = Service::all(); 
     }
 }

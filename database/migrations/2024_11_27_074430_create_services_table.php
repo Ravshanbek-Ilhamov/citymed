@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('direction_id')->constrained('directions')->onDelete('cascade');
             $table->string('name');
-            $table->boolean('is_active');
-            $table->integer('doctor_id');
+            $table->boolean('is_active')->default(1);
             $table->integer('price');
             $table->timestamps();
         });

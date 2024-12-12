@@ -20,7 +20,6 @@ class DirectionFactory extends Factory
     {
         return [
             'name'=>fake()->firstName(),
-            'is_active'=>fake()->boolean(),
         ];
     }
 }
