@@ -17,6 +17,7 @@ class Service extends Model
         'name',
         'is_active',
         'doctor_id',
+        'price',
     ];
 
     public function direction()
@@ -26,6 +27,6 @@ class Service extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class , 'doctor_id');
+        return $this->hasMany(Doctor::class );
     }
 }

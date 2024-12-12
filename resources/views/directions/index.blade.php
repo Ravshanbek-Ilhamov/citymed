@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header d-flex align-items-center">
+                <div class="card-header d-flex align-items-cetern">
                     <h3>Directions</h3>
                     <button class="btn btn-primary btn-round ms-auto" wire:click="$set('showForm', true)">
                         <i class="fa fa-plus"></i> Add Direction
@@ -32,14 +32,9 @@
                                     <input type="text" wire:model="name" class="form-control" placeholder="Enter direction name">
                                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                <div class="form-check mt-3">
-                                    <input type="checkbox" wire:model="is_active" class="form-check-input" id="isActiveCheckbox">
-                                    <label class="form-check-label" for="isActiveCheckbox">Is Active</label>
-                                    @error('is_active') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
                                 <div class="mt-3">
-                                    <button type="submit" class="btn btn-success">Save</button>
-                                    <button type="button" class="btn btn-secondary" wire:click="resetForm">Cancel</button>
+                                    <button type="submit" class="btn btn-success btn-round">Save</button>
+                                    <button type="button" class="btn btn-secondary btn-round" wire:click="resetForm">Cancel</button>
                                 </div>
                             </form>
                         </div>
