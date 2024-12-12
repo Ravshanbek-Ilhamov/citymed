@@ -10,7 +10,6 @@ class DirectionComponent extends Component
     public $directions;
 
     public $name;
-    public $is_active = true;
     public $directionId;
     public $editMode = false;
     public $showForm = false;
@@ -20,19 +19,16 @@ class DirectionComponent extends Component
     {
         $this->validate([
             'name' => 'required',
-            'is_active' => 'required|boolean',
         ]);
 
         if ($this->editMode) {
             $direction = Direction::findOrFail($this->directionId);
             $direction->update([
                 'name' => $this->name,
-                'is_active' => $this->is_active,
             ]);
         } else {
             Direction::create([
                 'name' => $this->name,
-                'is_active' => $this->is_active,
             ]);
         }
 
@@ -44,7 +40,6 @@ class DirectionComponent extends Component
         $direction = Direction::findOrFail($id);
         $this->directionId = $direction->id;
         $this->name = $direction->name;
-        $this->is_active = $direction->is_active;
         $this->editMode = true;
         $this->showForm = true;
     }
@@ -65,7 +60,7 @@ class DirectionComponent extends Component
 
     public function resetForm()
     {
-        $this->reset(['name', 'is_active', 'showForm', 'editMode', 'directionId']);
+        $this->reset(['name', 'showForm', 'editMode', 'directionId']);
     }
 
     public function render()
@@ -74,12 +69,11 @@ class DirectionComponent extends Component
         return view('directions.index');
     }
 
-    public function updateStatus($directionId, $isActive)
+    public function updateStatus($directionId, $is_active)
     {
         $direction = Direction::findOrFail($directionId);
-        $direction->is_active = $isActive;
-        $direction->save();
-
+        $direction->update(['is_active' => $is_active]);
+    
         session()->flash('message', 'Status updated successfully!');
     }
 
