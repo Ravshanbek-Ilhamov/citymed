@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ServiceComponent extends Component
 {
-    public $services, $directions, $doctors, $name, $direction_id, $doctor_id, $is_active = false, $showAddForm = false, $showEditForm = false, $editingServiceId;
+    public $services, $directions, $doctors, $name, $direction_id, $doctor_id, $is_active = false, $showAddForm = false, $showEditForm = false, $editingServiceId , $serviceToDelete , $price;
 
     public function mount()
     {
@@ -35,6 +35,7 @@ class ServiceComponent extends Component
             'name' => 'required',
             'direction_id' => 'required',
             'doctor_id' => 'required|integer',
+            'price'=>'required',
         ]);
 
         Service::create([
@@ -42,6 +43,7 @@ class ServiceComponent extends Component
             'direction_id' => $this->direction_id,
             'doctor_id' => $this->doctor_id,
             'is_active' => $this->is_active,
+            'price'=>$this->price,
         ]);
 
         $this->resetForm();
@@ -70,6 +72,7 @@ class ServiceComponent extends Component
         $this->direction_id = $service->direction_id;
         $this->doctor_id = $service->doctor_id;
         $this->is_active = $service->is_active;
+        $this->price = $service->price;
         $this->showEditForm = true;
     }
 
@@ -79,6 +82,7 @@ class ServiceComponent extends Component
             'name' => 'required',
             'direction_id' => 'required',
             'doctor_id' => 'required|integer',
+            'price'=>'required',
         ]);
 
         $service = Service::findOrFail($this->editingServiceId);
@@ -87,6 +91,7 @@ class ServiceComponent extends Component
             'direction_id' => $this->direction_id,
             'doctor_id' => $this->doctor_id,
             'is_active' => $this->is_active,
+            'price'=>$this->price,
         ]);
 
         $this->resetForm();
@@ -100,6 +105,7 @@ class ServiceComponent extends Component
         $this->name = '';
         $this->direction_id = '';
         $this->doctor_id = '';
+        $this->price = '';
         $this->is_active = false;
     }
 

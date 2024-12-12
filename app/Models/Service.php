@@ -17,6 +17,7 @@ class Service extends Model
         'name',
         'is_active',
         'doctor_id',
+        'price',
     ];
 
     public function direction()
