@@ -27,6 +27,6 @@ class Service extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class , 'doctor_id');
+        return $this->hasMany(Doctor::class );
     }
 }
