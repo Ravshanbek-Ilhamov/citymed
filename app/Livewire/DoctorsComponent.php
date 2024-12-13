@@ -112,11 +112,11 @@ class DoctorsComponent extends Component
         $this->is_active = $doctor->is_active;
         $this->per_patient_time = $doctor->per_patient_time;
     }
-    
-    
+
+
     public function update(){
         $this->editingForm = false;
-    
+
         $this->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -204,5 +204,4 @@ class DoctorsComponent extends Component
     {
         $this->delete($this->deleteId);
     }
-        
 }

@@ -11,7 +11,7 @@ class Service extends Model
     use HasFactory;
 
 
-    protected $fillable = 
+    protected $fillable =
     [
         'direction_id',
         'name',
@@ -28,5 +28,9 @@ class Service extends Model
     public function doctor()
     {
         return $this->hasMany(Doctor::class );
+    }
+    public function nurse()
+    {
+        return  $this->hasMany(Nurse::class);
     }
 }
