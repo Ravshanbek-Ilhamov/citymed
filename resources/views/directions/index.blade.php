@@ -46,7 +46,7 @@
                                     <th>Name</th>
                                     <th>Is Active</th>
                                     <th>Actions</th>
-                                </tr>
+                                </tr> 
                             </thead>
                             <tbody>
                                 @foreach ($directions as $direction)
