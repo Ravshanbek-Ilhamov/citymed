@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $role
             ]);
         }
-        
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
             DirectionSeeder::class,
             ServiceSeeder::class,
             DoctorSeeder::class,
+            NurseSeeder::class,
         ]);
 
     }

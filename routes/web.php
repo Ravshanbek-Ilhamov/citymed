@@ -8,6 +8,7 @@ use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
 use App\Livewire\NurseComponent;
+use App\Livewire\NurseDetailsComponent;
 use App\Livewire\SelectComponent;
 use App\Livewire\TestComponent;
 use App\Livewire\WorkerDetails;
@@ -27,6 +28,7 @@ Route::get('/doctors', DoctorsComponent::class);
 Route::get('/doctor-details',DoctorDetailsComponent::class);
 
 Route::get('/nurses',NurseComponent::class);
+Route::get('/nurse-details',NurseDetailsComponent::class);
 
 
 Route::get('/categories', SelectComponent::class);
