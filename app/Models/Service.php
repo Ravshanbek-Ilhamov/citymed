@@ -29,4 +29,6 @@ class Service extends Model
     {
         return $this->hasMany(Doctor::class );
     }
+
+    
 }

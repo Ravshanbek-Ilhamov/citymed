@@ -29,6 +29,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->decimal('consultation_fee', 8, 2);
             $table->string('profile_picture')->nullable();
+            $table->string('salary_type')->nullable();
+            $table->float('salary')->nullable();
             $table->text('bio')->nullable();
             $table->timestamps();
         });

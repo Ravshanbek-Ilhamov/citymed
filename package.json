@@ -13,5 +13,10 @@
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.13",
         "vite": "^5.0"
+    },
+    "dependencies": {
+        "alpinejs": "^3.14.7",
+        "choices.js": "^11.0.2",
+        "tom-select": "^2.4.1"
     }
 }
