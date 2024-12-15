@@ -8,6 +8,7 @@ use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
 use App\Livewire\NurseComponent;
+use App\Livewire\SelectComponent;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,3 +25,4 @@ Route::get('/doctor-details',DoctorDetailsComponent::class);
 
 Route::get('/nurses',NurseComponent::class);
 
+Route::get('/categories', SelectComponent::class);

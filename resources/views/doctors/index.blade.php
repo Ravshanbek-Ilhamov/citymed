@@ -1,9 +1,58 @@
 <div>
-    <!-- Bootstrap 5 CSS (via CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wnpl6i29aAODbXc6Qtz7Aj0ZbCTDWCMnPS5nufY+OsWlWb/wl5U5YhQ/QHWGdVH1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-wlpxaVfwE0jaufrGrO2BTKqfnKtvsLJwAnfhEZHY4f2FHOuRLqheNOzQ5W2E6Z7m" crossorigin="anonymous"></script>
+
+    <script>
+        // Ignore this in your implementation
+        window.isMbscDemo = true;
+    </script>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    {{-- <link rel="stylesheet" href="{{asset('select2/css/mobiscroll.javascript.min.css')}}"> --}}
+    {{-- <script src="{{asset('select2/js/mobiscroll.javascript.min.js')}}"></script> --}}
+    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.22.2/css/mobiscroll.min.css">
+
+    {{-- <style  --}}
+            {{-- type="text/css">
+                    body {
+                margin: 0;
+                padding: 0;
+            }
+
+            button {
+                display: inline-block;
+                margin: 5px 5px 0 0;
+                padding: 10px 30px;
+                outline: 0;
+                border: 0;
+                cursor: pointer;
+                background: #5185a8;
+                color: #fff;
+                text-decoration: none;
+                font-family: arial, verdana, sans-serif;
+                font-size: 14px;
+                font-weight: 100;
+            }
+
+            input {
+                width: 100%;
+                margin: 0 0 5px 0;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 0;
+                font-family: arial, verdana, sans-serif;
+                font-size: 14px;
+                box-sizing: border-box;
+                -webkit-appearance: none;
+            }
+
+            .mbsc-page {
+                padding: 1em;
+            } --}}
+
+    {{-- </style> --}}
 
     <div class="page-header">
-        <h3 class="fw-bold mb-3">Tables</h3>
+        {{-- <h3 class="fw-bold mb-3">Tables</h3> --}}
         <ul class="breadcrumbs mb-3">
         <li class="nav-home">
             <a href="#">
@@ -26,18 +75,46 @@
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>{{ session('message') }}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>                 
+                </div>                 
                 @endif
 
                 @if ($createForm || $editingForm)
 
+                {{-- <div mbsc-page class="demo-multiple-select">
+                    <div style="height: 100%;">
+                        <label>
+                            Multi-select
+                            <input 
+                                mbsc-input 
+                                id="demo-multiple-select-input" 
+                                placeholder="Please select..." 
+                                data-dropdown="true" 
+                                data-input-style="outline" 
+                                data-label-style="stacked" 
+                                data-tags="true" 
+                            />
+                        </label>
+                        <select id="demo-multiple-select" multiple>
+                            <option value="1">Books</option>
+                            <option value="2">Movies, Music & Games</option>
+                            <option value="3">Electronics & Computers</option>
+                            <option value="4">Home, Garden & Tools</option>
+                            <option value="5">Health & Beauty</option>
+                            <option value="6">Toys, Kids & Baby</option>
+                            <option value="7">Clothing & Jewelry</option>
+                            <option value="8">Sports & Outdoors</option>
+                        </select>
+                    </div>
+                </div> --}}
+                
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
                         <div class="card-title">Add Doctor</div>
-                        <button wire:click="cancel" class="btn btn-primary">Back</button>
+                        <button wire:click="cancel" class="btn btn-primary btn-round">Back</button>
                     </div>
 
                     <div class="card-body">
                     <!-- Row 1: Name -->
+  
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="first_name" class="form-label">First Name</label>
@@ -99,10 +176,15 @@
 
                     <!-- Row 5: Address -->
                     <div class="row mb-3">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" wire:model.blur="address" required>
                             @error('address') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="years_of_experience" class="form-label">Years of Experience</label>
+                            <input type="number" class="form-control" id="years_of_experience" wire:model.blur="years_of_experience" required>
+                            @error('years_of_experience') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -110,19 +192,26 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="direction_id" class="form-label">Direction</label>
-                            <select class="form-select" wire:model.blur="direction_id"  id="direction_id">
-                                <option value=""  selected>Select Direction</option>
+                            <select class="form-select" wire:model.live="direction_id" id="direction_id">
+                                <option value="" selected>Select Direction</option>
                                 @foreach ($directions as $direction)
                                     <option value="{{ $direction->id }}">{{ $direction->name }}</option>
                                 @endforeach
                             </select>
                             @error('direction_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
+
                         <div class="col-md-6">
-                            <label for="years_of_experience" class="form-label">Years of Experience</label>
-                            <input type="number" class="form-control" id="years_of_experience" wire:model.blur="years_of_experience" required>
-                            @error('years_of_experience') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="services" class="form-label">Service Selection</label>
+                            <select class="form-select" wire:model="selectedServices" id="services" multiple>
+                                {{-- <option value="" disabled>Select Service</option> --}}
+                                @foreach ($services as $service)
+                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('selectedServices') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
+                    </div>
                     </div>
 
                     <!-- Row 7: Working Hours -->
@@ -133,8 +222,8 @@
                             @error('working_hours') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="consultation_fee" class="form-label">Consultation Fee</label>
-                            <input type="number" class="form-control" id="consultation_fee" wire:model.blur="consultation_fee" required>
+                            <label for="consultation_fees" class="form-label">Consultation Fee</label>
+                            <input type="number" class="form-control" id="consultation_fees" wire:model.blur="consultation_fee" required>
                             @error('consultation_fee') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -150,9 +239,14 @@
                             @error('profile_picture') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="bio" class="form-label">Bio</label>
-                            <textarea class="form-control" id="bio" wire:model.blur="bio" rows="2"></textarea>
-                            @error('bio') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="salary_types" class="form-label">Salary Type</label>
+                            <select class="form-select" wire:model.blur="salary_type" id="salary_types">
+                                <option value="kpi+fixed" selected>KPI + Fixed</option>
+                                <option value="kpi">KPI</option>
+                                <option value="fixed">Fixed</option>
+                            </select>
+                            {{-- <textarea class="form-control" id="bio" wire:model.blur="bio" rows="2"></textarea> --}}
+                            @error('salary_type') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -161,7 +255,7 @@
                         <div class="col-md-6">
                             <label for="is_active" class="form-label">Active</label>
                             <select class="form-select" id="is_active" wire:model.blur="is_active" required>
-                                <option value="1">Yes</option>
+                                <option value="1" selected>Yes</option>
                                 <option value="0">No</option>
                             </select>
                             @error('is_active') <span class="text-danger">{{ $message }}</span> @enderror
@@ -173,17 +267,25 @@
                         </div>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="bio" wire:model.blur="bio" rows="2"></textarea>
+                            @error('bio') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
                     <!-- Row 10: Submit Button -->
                     @if ($editingForm)
                         <div class="row">
                             <div class="col-md-12">
-                                <button wire:click="update" type="submit" class="btn btn-primary">Update</button>
+                                <button wire:click="update" type="submit" class="btn btn-primary btn-round">Update</button>
                             </div>
                         </div>  
                     @else
                         <div class="row">
                             <div class="col-md-12">
-                                <button wire:click="store" type="submit" class="btn btn-primary">Submit</button>
+                                <button wire:click="store" type="submit" class="btn btn-primary btn-round">Submit</button>
                             </div>
                         </div> 
 
@@ -216,7 +318,7 @@
                     <!-- Add Button -->
                     <button 
                         wire:click="SetcreateForm" 
-                        class="btn btn-primary d-flex align-items-center"
+                        class="btn btn-primary d-flex btn-round align-items-center"
                         style="gap: 0.5rem; background-color: #007bff; border-color: #007bff;"
                     >
                         <i class="fas fa-user-plus"></i>
@@ -298,10 +400,10 @@
                                                     Are you sure you want to delete this doctor?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
                                                     <button 
                                                         type="button" 
-                                                        class="btn btn-danger" 
+                                                        class="btn btn-danger btn-round" 
                                                         wire:click="deleteConfirmed"
                                                         data-bs-dismiss="modal">
                                                         Delete
@@ -323,50 +425,98 @@
         </div>
     </div>
     
-    <!--   Core JS Files   -->
         <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
         <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-
-        <!-- jQuery Scrollbar -->
         <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
-        <!-- Kaiadmin JS -->
         <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
-        <!-- Kaiadmin DEMO methods, don't include it in your project! -->
         <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
-    <!--   Core JS Files   -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-
-    <script>
-        $("#displayNotif").on("click", function () {
-            var placementFrom = $("#notify_placement_from option:selected").val();
-            var placementAlign = $("#notify_placement_align option:selected").val();
-            var state = $("#notify_state option:selected").val();
-            var style = $("#notify_style option:selected").val();
-            var content = {};
-
-            content.message =
-            'Turning standard Bootstrap alerts into "notify" like notifications';
-            content.title = "Bootstrap notify";
-            if (style == "withicon") {
-            content.icon = "fa fa-bell";
-            } else {
-            content.icon = "none";
+    
+        {{-- <script>
+            // Mobiscroll options and initialization
+            function initializeMultiSelect() {
+                mobiscroll.setOptions({
+                    locale: mobiscroll.localeEn,
+                    theme: 'ios',
+                    themeVariant: 'light'
+                });
+        
+                mobiscroll.select('#demo-multiple-select', {
+                    inputElement: document.getElementById('demo-multiple-select-input')
+                });
             }
-            content.url = "index.html";
-            content.target = "_blank";
-
-            $.notify(content, {
-            type: state,
-            placement: {
-                from: placementFrom,
-                align: placementAlign,
-            },
-            time: 1000,
+        
+            // Reinitialize Mobiscroll after Livewire updates
+            document.addEventListener('livewire:load', function () {
+                initializeMultiSelect();
             });
+        
+            document.addEventListener('livewire:updated', function () {
+                initializeMultiSelect();
+            });
+        </script> --}}
+        
+        <script src="https://cdn.mobiscroll.com/5.22.2/js/mobiscroll.jquery.min.js"></script>
+<script>
+    // Ensure Mobiscroll options are set
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeEn, // Set language
+        theme: 'ios', // Choose theme
+        themeVariant: 'light' // Light theme
+    });
+
+    // Initialize the multi-select widget
+    mobiscroll.select('#demo-multiple-select', {
+        inputElement: document.getElementById('demo-multiple-select-input'), // Link input to select
+        touchUi: true // Enable touch-friendly UI
+    });
+
+    // Handle Livewire updates
+    document.addEventListener('livewire:load', function () {
+        mobiscroll.select('#demo-multiple-select', {
+            inputElement: document.getElementById('demo-multiple-select-input'),
+            touchUi: true
         });
-    </script>
-    <!-- Bootstrap 5 JS Bundle (via CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-wlpxaVfwE0jaufrGrO2BTKqfnKtvsLJwAnfhEZHY4f2FHOuRLqheNOzQ5W2E6Z7m" crossorigin="anonymous"></script>
+    });
+
+    document.addEventListener('livewire:updated', function () {
+        mobiscroll.select('#demo-multiple-select', {
+            inputElement: document.getElementById('demo-multiple-select-input'),
+            touchUi: true
+        });
+    });
+</script>
+
+
+        <script>
+            $("#displayNotif").on("click", function () {
+                var placementFrom = $("#notify_placement_from option:selected").val();
+                var placementAlign = $("#notify_placement_align option:selected").val();
+                var state = $("#notify_state option:selected").val();
+                var style = $("#notify_style option:selected").val();
+                var content = {};
+
+                content.message =
+                'Turning standard Bootstrap alerts into "notify" like notifications';
+                content.title = "Bootstrap notify";
+                if (style == "withicon") {
+                content.icon = "fa fa-bell";
+                } else {
+                content.icon = "none";
+                }
+                content.url = "index.html";
+                content.target = "_blank";
+
+                $.notify(content, {
+                type: state,
+                placement: {
+                    from: placementFrom,
+                    align: placementAlign,
+                },
+                time: 1000,
+                });
+            });
+        </script>
+        
 
 </div>

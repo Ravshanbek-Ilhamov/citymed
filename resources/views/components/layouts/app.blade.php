@@ -10,8 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -667,6 +665,29 @@
         });
     </script>
     @livewireScripts
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('select', () => ({
+                initSelect(selectElement) {
+                    // Use Tom Select for enhanced multi-select functionality
+                    new TomSelect(selectElement, {
+                        plugins: ['remove_button'],
+                        create: false,
+                        sortField: {
+                            field: 'text',
+                            direction: 'asc'
+                        },
+                        onInitialize: () => {
+                            this.$wire.set('selectedCategories', selectElement.values);
+                        },
+                        onChange: (values) => {
+                            this.$wire.set('selectedCategories', values);
+                        }
+                    });
+                }
+            }))
+        });
+    </script>
 </body>
 
 </html>
