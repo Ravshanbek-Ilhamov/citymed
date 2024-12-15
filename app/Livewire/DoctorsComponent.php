@@ -148,29 +148,12 @@ class DoctorsComponent extends Component
         $this->salary_type = $doctor->salary_type;
 
     }
-    
-    
+
+
     public function update(){
         $this->editingForm = false;
+
         // $this->validate();
-    //     dd($this->first_name,
-    //     $this->last_name,
-    //     $this->username,
-    //     $this->gender,
-    //     $this->date_of_birth,
-    //     $this->email,
-    //     $this->phone_number,
-    //     $this->address,
-    //     $this->direction_id,
-    //     $this->years_of_experience,
-    //     $this->working_hours,
-    //     $this->consultation_fee,
-    //     // $this->profile_picture,
-    //     $this->bio,
-    //     $this->is_active,
-    //     $this->per_patient_time,
-    //     $this->salary_type
-    // );
 
         $this->editingDoctor->update([
             'first_name' => $this->first_name,
@@ -245,5 +228,5 @@ class DoctorsComponent extends Component
     public function deleteConfirmed()
     {
         $this->delete($this->deleteId);
-    }        
+    }
 }
