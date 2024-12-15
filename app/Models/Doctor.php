@@ -28,10 +28,17 @@ class Doctor extends Model
         'consultation_fee',
         'profile_picture',
         'bio',
+        'salary_type',
+        'salary',
     ];
 
     public function direction()
     {
         return $this->belongsTo(Direction::class,'direction_id');
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'doctor_services', 'doctor_id', 'service_id');
     }
 }

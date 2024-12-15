@@ -16,7 +16,6 @@ class Service extends Model
         'direction_id',
         'name',
         'is_active',
-        'doctor_id',
         'price',
     ];
 
@@ -29,8 +28,10 @@ class Service extends Model
     {
         return $this->hasMany(Doctor::class );
     }
+
     public function nurse()
     {
         return  $this->hasMany(Nurse::class);
     }
+
 }

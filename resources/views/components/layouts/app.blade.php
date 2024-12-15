@@ -5,13 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Citymed</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/img/kaiadmin/logo.svg') }}" type="image/x-icon" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -53,8 +49,8 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="/dashboard" class="logo">
-                        <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand"
+                    <a href="/direction" class="logo">
+                        <img src="assets/img/kaiadmin/logok.svg" alt="navbar brand" class="navbar-brand"
                             height="20" />
                     </a>
                     <div class="nav-toggle">
@@ -124,6 +120,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/workers">
+                                <i class="fas fa-users"></i>
+                                <p>Hodimlar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="#">
                                 <i class="fas fa-bed"></i>
 
@@ -171,7 +173,7 @@
                 <div class="main-header-logo">
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
-                        <a href="index.html" class="logo">
+                        <a href="/direction" class="logo">
                             <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand"
                                 height="20" />
                         </a>
@@ -581,6 +583,8 @@
     <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
     <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
     <script src="{{ asset('assets/js/demo.js') }}"></script>
+
+
     <script>
         $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
             type: "line",
@@ -667,6 +671,29 @@
         });
     </script>
     @livewireScripts
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('select', () => ({
+                initSelect(selectElement) {
+                    // Use Tom Select for enhanced multi-select functionality
+                    new TomSelect(selectElement, {
+                        plugins: ['remove_button'],
+                        create: false,
+                        sortField: {
+                            field: 'text',
+                            direction: 'asc'
+                        },
+                        onInitialize: () => {
+                            this.$wire.set('selectedCategories', selectElement.values);
+                        },
+                        onChange: (values) => {
+                            this.$wire.set('selectedCategories', values);
+                        }
+                    });
+                }
+            }))
+        });
+    </script>
 </body>
 
 </html>

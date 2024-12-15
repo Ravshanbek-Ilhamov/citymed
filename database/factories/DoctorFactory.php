@@ -30,11 +30,12 @@ class DoctorFactory extends Factory
             'direction_id' => $this->faker->numberBetween(1, 10),
             'years_of_experience' => $this->faker->numberBetween(1, 30),
             'per_patient_time' => $this->faker->numberBetween(10,120),
-            'working_hours' => $this->faker->time('H:i') . ' - ' . $this->faker->time('H:i'),
+            'working_hours' => $this->faker->time('H:i') . '-' . $this->faker->time('H:i'),
             'is_active' => $this->faker->boolean(80), // 80% chance to be active
             'consultation_fee' => $this->faker->randomFloat(2, 50, 500), // Fees between 50 and 500
             'profile_picture' => $this->faker->imageUrl(200, 200, 'people', true, 'doctor'),
             'bio' => $this->faker->paragraph,
+            'salary_type' => $this->faker->randomElement(['kpi','kpi+fixed', 'fixed']),
         ];
     }
 }

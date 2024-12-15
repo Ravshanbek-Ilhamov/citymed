@@ -3,33 +3,34 @@
         <div class="col-md-12">
                 <div class="container my-4">
                     <div class="d-flex justify-content-between mb-4 align-items-center">
-                        <h3 class="fw-bold">Doctor Details</h3>
+                        <h3 class="fw-bold">Worker Details</h3>
                         <div class="d-flex ms-auto">
-                            <a href="/doctors" wire:navigate class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+                            <a href="/workers" wire:navigate class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
                         </div>
                     </div>
                     
                 <div class="card mb-4">
                     <div class="card-body d-flex align-items-center">
                         <div class="me-3">
-                            @if($doctor->profile_picture && file_exists(storage_path('app/public/' . $doctor->profile_picture)))
-                                <img src="{{ asset('storage/'.$doctor->profile_picture) }}" 
-                                     class="rounded-circle" 
+                            @if($worker->profile_image && file_exists(storage_path('app/public/' . $worker->profile_image)))
+                                <img src="{{ asset('storage/'.$worker->profile_image) }}" 
+                                     class="roun1ed-circle" 
                                      style="width: 80px; height: 80px; object-fit: cover;">
                             @else
                                 <div class="rounded-circle d-flex align-items-center justify-content-center" 
                                      style="width: 80px; height: 80px; background-color: #007bff; color: white; font-weight: bold; font-size: 32px;">
-                                    {{ strtoupper(substr($doctor->first_name, 0, 1)) }}
+                                    {{ strtoupper(substr($worker->first_name, 0, 1)) }}
                                 </div>
                             @endif
                         </div>
                         <div>
-                            <h5 class="mb-1 fw-bold text-primary">Dr. {{$doctor->first_name}}</h5>
+                            <h5 class="mb-1 fw-bold text-primary">{{$worker->first_name}}  {{$worker->last_name}}</h5>
+
                             <p class="mb-1 text-muted">
-                                <i class="fas fa-envelope me-2"></i> {{$doctor->email}}
+                                <i class="fas fa-phone me-2"></i> {{$worker->phone_number}}
                             </p>
-                            <span class="badge bg-{{$doctor->is_active ? 'success' : 'danger'}}">
-                                {{ $doctor->is_active ? 'Active' : 'Inactive' }}
+                            <span class="badge bg-{{$worker->is_active ? 'success' : 'danger'}}">
+                                {{ $worker->is_active ? 'Active' : 'Inactive' }}
                             </span>
                         </div>
                     </div>
@@ -69,7 +70,7 @@
                 <ul class="nav nav-tabs mb-4">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Overview</a>
-                    </li>
+                    {{-- </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Cases</a>
                     </li>
@@ -84,33 +85,23 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Payrolls</a>
-                    </li>
+                    </li> --}}
                 </ul>
-           
+            
                 <!-- Overview Section -->
                 <div class="card">
                     <div class="card-body row">
                         <div class="col-md-6 mb-3">
-                            <p><strong>Full Name: </strong>{{$doctor->first_name}} {{$doctor->last_name}}</p>
-                            <p><strong>Username: </strong>{{$doctor->username}}</p>
-                            <p><strong>Age:</strong> 
-                                {{ (int) \Carbon\Carbon::parse($doctor->date_of_birth)->diffInYears(\Carbon\Carbon::now()) }}
-                            </p>
-                            <p><strong>Address: </strong>{{$doctor->address}}</p>
-                            <p><strong>Gender: </strong>{{$doctor->gender}}</p>
-                            <p><strong>Email: </strong>{{$doctor->email}}</p>
-                            <p><strong>Salary Type: </strong>{{$doctor->salary_type}}</p>
-                            <p><strong>Avaliable Services: </strong>{{$doctor->services->pluck('name')->implode(', ')}}</p>
+                            <p><strong>Full Name: </strong>{{$worker->first_name}} {{$worker->last_name}}</p>
+                            <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($worker->date_of_birth)->age }}</p>
+                            <p><strong>Address: </strong>{{$worker->address}}</p>
+                            <p><strong>Gender: </strong>{{$worker->gender}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <p><strong>Phone Number: </strong>{{$doctor->phone_number}}</p>
-                            <p><strong>Specialization: </strong>{{$doctor->direction->name}}</p>
-                            <p><strong>Years of Experience: </strong>{{$doctor->years_of_experience}}</p>
-                            <p><strong>Per Patient Time: </strong>{{$doctor->per_patient_time}}</p>
-                            <p><strong>Working Hours: </strong>{{$doctor->working_hours}}</p>
-                            <p><strong>Salary: </strong>{{$doctor->salary ?? 'N/A'}}</p>
-                            <p><strong>Consultation Fee: </strong>{{$doctor->consultation_fee}}</p>
-                            <p><strong>BIO: </strong>{{$doctor->bio}}</p>
+                            <p><strong>Phone Number: </strong>{{$worker->phone_number}}</p>
+                            <p><strong>Working Hours: </strong>{{$worker->working_hours}}</p>
+                            <p><strong>Job: </strong>{{$worker->specialization}}</p>
+                            <p><strong>Salary type: </strong>{{$worker->salary_type}}</p>
                         </div>
                     </div>
                 </div>
