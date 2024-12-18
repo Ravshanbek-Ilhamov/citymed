@@ -50,8 +50,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="/direction" class="logo">
-                        <img src="assets/img/kaiadmin/logok.svg" alt="navbar brand" class="navbar-brand"
-                            height="20" />
+                        <img src="assets/img/kaiadmin/logo.svg" alt="navbar brand" class="navbar-brand mr-4"
+                            height="20" /> <h5 class="mt-3 ml-5" >Citymed</h5>
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -101,7 +101,7 @@
                             </a>
                         </li>
                         <li class="nav-item {{ Request::is('nurses') ? 'active' : '' }}">
-                            <a href="/nurses">
+                            <a href="/nurses" wire:navigate>
                                 <i class="fas fa-syringe"></i>
                                 <p>Hamshira</p>
                             </a>
@@ -109,7 +109,7 @@
 
                         <li class="nav-item">
                             <a href="#">
-                                <i class="far fa-money-bill-alt HG"></i>
+                                <i class="fas fa-money-bill-wave"></i>
                                 <p>Kassir</p>
                             </a>
                         </li>
@@ -119,19 +119,27 @@
                                 <p>Manager</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/workers">
+                        <li class="nav-item {{ Request::is('workers') ? 'active' : '' }}">
+                            <a href="/workers" wire:navigate>
                                 <i class="fas fa-users"></i>
                                 <p>Hodimlar</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{ Request::is('patients') ? 'active' : '' }}">
+                            <a href="/patients" wire:navigate>
                                 <i class="fas fa-bed"></i>
 
                                 <p>Bemorlar</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="/medicines">
+                                <i class="fas fa-pills"></i>
+                                <p>Medicines</p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="#">
                                 <i class="fas fa-user-alt"></i>

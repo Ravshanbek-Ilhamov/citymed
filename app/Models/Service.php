@@ -34,4 +34,9 @@ class Service extends Model
         return  $this->hasMany(Nurse::class);
     }
 
+    public function patientNurces()
+    {
+        return $this->hasMany(PatientNurse::class);
+    }
+
 }
