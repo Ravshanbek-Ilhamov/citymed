@@ -79,33 +79,6 @@
                 @endif
 
                 @if ($createForm || $editingForm)
-
-                {{-- <div mbsc-page class="demo-multiple-select">
-                    <div style="height: 100%;">
-                        <label>
-                            Multi-select
-                            <input 
-                                mbsc-input 
-                                id="demo-multiple-select-input" 
-                                placeholder="Please select..." 
-                                data-dropdown="true" 
-                                data-input-style="outline" 
-                                data-label-style="stacked" 
-                                data-tags="true" 
-                            />
-                        </label>
-                        <select id="demo-multiple-select" multiple>
-                            <option value="1">Books</option>
-                            <option value="2">Movies, Music & Games</option>
-                            <option value="3">Electronics & Computers</option>
-                            <option value="4">Home, Garden & Tools</option>
-                            <option value="5">Health & Beauty</option>
-                            <option value="6">Toys, Kids & Baby</option>
-                            <option value="7">Clothing & Jewelry</option>
-                            <option value="8">Sports & Outdoors</option>
-                        </select>
-                    </div>
-                </div> --}}
                 
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
                         <div class="card-title">Add Doctor</div>
@@ -431,30 +404,6 @@
         <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
         <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
         <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
-    
-        {{-- <script>
-            // Mobiscroll options and initialization
-            function initializeMultiSelect() {
-                mobiscroll.setOptions({
-                    locale: mobiscroll.localeEn,
-                    theme: 'ios',
-                    themeVariant: 'light'
-                });
-        
-                mobiscroll.select('#demo-multiple-select', {
-                    inputElement: document.getElementById('demo-multiple-select-input')
-                });
-            }
-        
-            // Reinitialize Mobiscroll after Livewire updates
-            document.addEventListener('livewire:load', function () {
-                initializeMultiSelect();
-            });
-        
-            document.addEventListener('livewire:updated', function () {
-                initializeMultiSelect();
-            });
-        </script> --}}
         
         <script src="https://cdn.mobiscroll.com/5.22.2/js/mobiscroll.jquery.min.js"></script>
 <script>
