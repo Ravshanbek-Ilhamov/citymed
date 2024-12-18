@@ -91,9 +91,6 @@ select {
                 @endif
 
                 @if ($createForm || $editingForm)
-
-                
-                
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
                         <div class="card-title">Add Doctor</div>
                         <button wire:click="cancel" class="btn btn-primary btn-round">Back</button>
@@ -425,7 +422,6 @@ select {
         <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
         <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
         <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
-    
          <script>
             // Mobiscroll options and initialization
             function initializeMultiSelect() {
@@ -449,7 +445,6 @@ select {
                 initializeMultiSelect();
             });
         </script> --
-        
         <script src="https://cdn.mobiscroll.com/5.22.2/js/mobiscroll.jquery.min.js"></script>
 <script>
     // Ensure Mobiscroll options are set

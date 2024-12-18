@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             DoctorSeeder::class,
             NurseSeeder::class,
+            PatientSeeder::class
         ]);
     }
 }
