@@ -132,6 +132,14 @@
                                 <p>Bemorlar</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="/medicines">
+                                <i class="fas fa-pills"></i>
+                                <p>Medicines</p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="#">
                                 <i class="fas fa-user-alt"></i>

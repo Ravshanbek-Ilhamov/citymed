@@ -39,7 +39,7 @@ class DoctorsComponent extends Component
         'gender' => 'required|in:male,female',
         'date_of_birth' => 'required|date',
         'email' => 'required|email|unique:users,email',
-        'phone_number' => 'required|string|max:15',
+        'phone_number' => ['required', 'regex:/^\+998[0-9]{9}$/'], 
         'address' => 'nullable|string',
         'direction_id' => 'required|exists:directions,id',
         'years_of_experience' => 'nullable|numeric|min:0',

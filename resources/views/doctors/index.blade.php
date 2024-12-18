@@ -7,9 +7,8 @@
     </script>
 
     <!-- Mobiscroll JS and CSS Includes -->
-    {{-- <link rel="stylesheet" href="{{asset('select2/css/mobiscroll.javascript.min.css')}}"> --}}
-    {{-- <script src="{{asset('select2/js/mobiscroll.javascript.min.js')}}"></script> --}}
-    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.22.2/css/mobiscroll.min.css">
+    {{-- <link rel="stylesheet" href="{{asset('select2/css/mobiscroll.javascript.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.22.2/css/mobiscroll.min.css"> --}}
 
     {{-- <style  --}}
             {{-- type="text/css">
@@ -50,7 +49,20 @@
             } --}}
 
     {{-- </style> --}}
+    <style>
+        #output {
+  padding: 20px;
+  background: #dadada;
+}
 
+form {
+  margin-top: 20px;
+}
+
+select {
+  width: 300px;
+}
+    </style>
     <div class="page-header">
         {{-- <h3 class="fw-bold mb-3">Tables</h3> --}}
         <ul class="breadcrumbs mb-3">
@@ -80,32 +92,7 @@
 
                 @if ($createForm || $editingForm)
 
-                {{-- <div mbsc-page class="demo-multiple-select">
-                    <div style="height: 100%;">
-                        <label>
-                            Multi-select
-                            <input 
-                                mbsc-input 
-                                id="demo-multiple-select-input" 
-                                placeholder="Please select..." 
-                                data-dropdown="true" 
-                                data-input-style="outline" 
-                                data-label-style="stacked" 
-                                data-tags="true" 
-                            />
-                        </label>
-                        <select id="demo-multiple-select" multiple>
-                            <option value="1">Books</option>
-                            <option value="2">Movies, Music & Games</option>
-                            <option value="3">Electronics & Computers</option>
-                            <option value="4">Home, Garden & Tools</option>
-                            <option value="5">Health & Beauty</option>
-                            <option value="6">Toys, Kids & Baby</option>
-                            <option value="7">Clothing & Jewelry</option>
-                            <option value="8">Sports & Outdoors</option>
-                        </select>
-                    </div>
-                </div> --}}
+                
                 
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
                         <div class="card-title">Add Doctor</div>
@@ -169,8 +156,17 @@
                         </div>
                         <div class="col-md-6">
                             <label for="phone_number" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone_number" wire:model.blur="phone_number" required>
-                            @error('phone_number') <span class="text-danger">{{ $message }}</span> @enderror
+                            <input 
+                                type="tel" 
+                                class="form-control @error('phone_number') is-invalid @enderror" 
+                                id="phone_number" 
+                                wire:model.blur="phone_number" 
+                                required 
+                                placeholder="+998XXXXXXXXX"
+                            >
+                            @error('phone_number') 
+                                <span class="text-danger">{{ $message }}</span> 
+                            @enderror
                         </div>
                     </div>
 
@@ -204,14 +200,12 @@
                         <div class="col-md-6">
                             <label for="services" class="form-label">Service Selection</label>
                             <select class="form-select" wire:model="selectedServices" id="services" multiple>
-                                {{-- <option value="" disabled>Select Service</option> --}}
                                 @foreach ($services as $service)
                                     <option value="{{ $service->id }}">{{ $service->name }}</option>
                                 @endforeach
                             </select>
                             @error('selectedServices') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                    </div>
                     </div>
 
                     <!-- Row 7: Working Hours -->
@@ -432,7 +426,7 @@
         <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
         <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
     
-        {{-- <script>
+         <script>
             // Mobiscroll options and initialization
             function initializeMultiSelect() {
                 mobiscroll.setOptions({
@@ -454,7 +448,7 @@
             document.addEventListener('livewire:updated', function () {
                 initializeMultiSelect();
             });
-        </script> --}}
+        </script> --
         
         <script src="https://cdn.mobiscroll.com/5.22.2/js/mobiscroll.jquery.min.js"></script>
 <script>
@@ -517,6 +511,8 @@
                 });
             });
         </script>
+    <script src="{{asset('select2/js/mobiscroll.javascript.min.js')}}"></script>
+
         
 
 </div>
