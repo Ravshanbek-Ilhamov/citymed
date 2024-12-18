@@ -9,8 +9,9 @@ use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
 use App\Livewire\NurseComponent;
 use App\Livewire\NurseDetailsComponent;
+use App\Livewire\PatientComponent;
+use App\Livewire\PatientDetailscomponent;
 use App\Livewire\SelectComponent;
-use App\Livewire\TestComponent;
 use App\Livewire\WorkerDetails;
 use App\Livewire\WorkersComponent;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +35,6 @@ Route::get('/nurse-details',NurseDetailsComponent::class);
 Route::get('/categories', SelectComponent::class);
 Route::get('/workers' , WorkersComponent::class);
 Route::get('/worker-details' , WorkerDetails::class);
+
+Route::get('/patients' , PatientComponent::class);
+Route::get('/patient-details' , PatientDetailscomponent::class);
