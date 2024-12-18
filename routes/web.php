@@ -7,6 +7,9 @@ use App\Livewire\DirectionComponent;
 use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
+use App\Livewire\MedicineCategoryComponent;
+use App\Livewire\MedicineComponent;
+use App\Livewire\MedicineSuppliersComponent;
 use App\Livewire\NurseComponent;
 use App\Livewire\NurseDetailsComponent;
 use App\Livewire\PatientComponent;
@@ -31,10 +34,14 @@ Route::get('/doctor-details',DoctorDetailsComponent::class);
 Route::get('/nurses',NurseComponent::class);
 Route::get('/nurse-details',NurseDetailsComponent::class);
 
-
 Route::get('/categories', SelectComponent::class);
 Route::get('/workers' , WorkersComponent::class);
 Route::get('/worker-details' , WorkerDetails::class);
 
+Route::get('/medicines',MedicineComponent::class);
+Route::get('/medicine-category',MedicineCategoryComponent::class);
+Route::get('/medicine-suppliers',MedicineSuppliersComponent::class);
+
 Route::get('/patients' , PatientComponent::class);
 Route::get('/patient-details' , PatientDetailscomponent::class);
+

@@ -33,7 +33,7 @@
                     @if ($createForm || $editingForm)
     
                         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
-                            <div class="card-title btn-round ms-auto">Add Worker</div>
+                            <div class="card-title btn-round ">Add Worker</div>
                             <button wire:click="cancel" class="btn btn-primary btn-round ms-auto">Back</button>
                         </div>
     
@@ -177,9 +177,7 @@
                                     <button wire:click="store" type="submit" class="btn btn-primary btn-round ms-auto">Submit</button>
                                 </div>
                             </div> 
-    
                         @endif
-                   
                     @else
     
                     <div class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">
