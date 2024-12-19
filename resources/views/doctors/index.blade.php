@@ -208,26 +208,39 @@ select {
                     <!-- Row 7: Working Hours -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="working_hours" class="form-label">Working Hours</label>
-                            <input type="text" class="form-control" id="working_hours" wire:model.blur="working_hours" required>
-                            @error('working_hours') <span class="text-danger">{{ $message }}</span> @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="from_time" class="form-label">From</label>
+                                    <input type="time" class="form-control" id="from_time" wire:model.blur="from_time" required>
+                                    @error('from_time') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="to_time" class="form-label">To</label>
+                                    <input type="time" class="form-control" id="to_time" wire:model.blur="to_time" required>
+                                    @error('to_time') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
                         </div>
+                        
                         <div class="col-md-6">
-                            <label for="consultation_fees" class="form-label">Consultation Fee</label>
-                            <input type="number" class="form-control" id="consultation_fees" wire:model.blur="consultation_fee" required>
-                            @error('consultation_fee') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
+                            <label class="form-label fw-semibold">Doctor available days <span class="text-danger">*</span></label>
+                            <div class="d-flex gap-3">
+                                @foreach(['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'] as $day)
+                                    <div class="form-check">
+                                        <input type="checkbox" wire:model="working_days" value="{{ $day }}" id="{{ $day }}" class="form-check-input">
+                                        <label class="form-check-label" for="{{ $day }}">{{ $day }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
                     </div>
 
                     <!-- Row 8: Profile Picture and Bio -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="profile_picture" class="form-label">Profile Picture</label>
-                            <input type="file" class="form-control" id="profile_picture" wire:model.blur="profile_picture">
-                            @if ($profile_picture && file_exists(storage_path('app/public/' . $profile_picture)))
-                                <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_picture)}}" alt=" Profile Picture ">
-                            @endif
-                            @error('profile_picture') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="consultation_fees" class="form-label">Consultation Fee</label>
+                            <input type="number" class="form-control" id="consultation_fees" wire:model.blur="consultation_fee" required>
+                            @error('consultation_fee') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="salary_types" class="form-label">Salary Type</label>
@@ -244,12 +257,12 @@ select {
                     <!-- Row 9: Active Status -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="is_active" class="form-label">Active</label>
-                            <select class="form-select" id="is_active" wire:model.blur="is_active" required>
-                                <option value="1" selected>Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                            @error('is_active') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="profile_picture" class="form-label">Profile Picture</label>
+                            <input type="file" class="form-control" id="profile_picture" wire:model.blur="profile_picture">
+                            @if ($profile_picture && file_exists(storage_path('app/public/' . $profile_picture)))
+                                <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_picture)}}" alt=" Profile Picture ">
+                            @endif
+                            @error('profile_picture') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="per_patient_time" class="form-label">Per Patient Time (Minutes)</label>
@@ -259,7 +272,15 @@ select {
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label for="is_active" class="form-label">Active</label>
+                            <select class="form-select" id="is_active" wire:model.blur="is_active" required>
+                                <option value="1" selected>Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            @error('is_active') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
                             <label for="bio" class="form-label">Bio</label>
                             <textarea class="form-control" id="bio" wire:model.blur="bio" rows="2"></textarea>
                             @error('bio') <span class="text-danger">{{ $message }}</span> @enderror
@@ -279,9 +300,7 @@ select {
                                 <button wire:click="store" type="submit" class="btn btn-primary btn-round">Submit</button>
                             </div>
                         </div> 
-
                     @endif
-               
                 @else
 
                 <div class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">

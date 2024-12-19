@@ -45,3 +45,4 @@ Route::get('/medicine-suppliers',MedicineSuppliersComponent::class);
 Route::get('/patients' , PatientComponent::class);
 Route::get('/patient-details' , PatientDetailscomponent::class);
 
+    

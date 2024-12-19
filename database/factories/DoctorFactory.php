@@ -28,6 +28,7 @@ class DoctorFactory extends Factory
             'phone_number' => $this->faker->unique()->phoneNumber,
             'address' => $this->faker->address,
             'direction_id' => $this->faker->numberBetween(1, 10),
+            'working_days' => $this->faker->randomElement(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']),
             'years_of_experience' => $this->faker->numberBetween(1, 30),
             'per_patient_time' => $this->faker->numberBetween(10,120),
             'working_hours' => $this->faker->time('H:i') . '-' . $this->faker->time('H:i'),
