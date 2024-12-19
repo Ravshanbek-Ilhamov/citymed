@@ -128,7 +128,6 @@
                         <li class="nav-item {{ Request::is('patients') ? 'active' : '' }}">
                             <a href="/patients" wire:navigate>
                                 <i class="fas fa-bed"></i>
-
                                 <p>Bemorlar</p>
                             </a>
                         </li>
@@ -146,8 +145,8 @@
                                 <p>Registratorlar</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{ Request::is('positions') ? 'active' : '' }}">
+                            <a href="/positions">
                                 <i class="fas fa-briefcase"></i>
                                 <p>Lavozimlar</p>
                             </a>
