@@ -32,22 +32,22 @@
     <div class="page-header">
         <ul class="breadcrumbs mb-3">
             <li class="nav-item active">
-                <a href="/medicine-category">Medicine Categories</a>
+                <a wire:navigate href="/medicine-category">Medicine Categories</a>
             </li>
             <li class="nav-item">
-                <a href="/medicine-suppliers">Medicine Suppliers</a>
+                <a wire:navigate href="/medicine-suppliers">Medicine Suppliers</a>
             </li>
             <li class="nav-item">
-                <a href="/medicines">Medicines</a>
+                <a wire:navigate href="/medicines">Medicines</a>
             </li>
             <li class="nav-item">
-                <a href="#">Purchase Medicine</a>
+                <a wire:navigate href="#">Purchase Medicine</a>
             </li>
             <li class="nav-item">
-                <a href="#">Used Medicine</a>
+                <a wire:navigate href="#">Used Medicine</a>
             </li>
             <li class="nav-item">
-                <a href="#">Medicine Bills</a>
+                <a wire:navigate href="#">Medicine Bills</a>
             </li>
         </ul>
     </div>
@@ -144,54 +144,59 @@
                         </thead>
                         <tbody>
                             @foreach ($medicineCategories as $medicineCategory)
-                            <tr>
-                                <td>{{$medicineCategory->id}}</td>
-                                <td>{{$medicineCategory->name}}</td>
-                                <td>{{$medicineCategory->description}}</td>
-                                <td>
-                                    <div class="form-button-action d-flex justify-content-around align-items-center gap-1">
-                                        <button
-                                            wire:click.prevent="SeteditForm({{ $medicineCategory->id }})"
-                                            type="button"
-                                            class="btn btn-sm btn-primary"
-                                            title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button 
-                                        wire:click="prepareDelete({{ $medicineCategory->id }})" 
-                                        class="btn btn-sm btn-danger"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#deleteModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    
-                                    <!-- Delete Confirmation Modal -->
-                                    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Confirm Deletion</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure you want to delete this doctor?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
-                                                    <button 
-                                                        type="button" 
-                                                        class="btn btn-danger btn-round" 
-                                                        wire:click="deleteConfirmed"
-                                                        data-bs-dismiss="modal">
-                                                        Delete
-                                                    </button>
+                                <tr>
+                                    <td>{{$medicineCategory->id}}</td>
+                                    <td>
+                                        <span style="font-weight: bold; color: #4A90E2;">
+                                            {{$medicineCategory->name}}
+                                        </span>
+                                    </td>
+                                    <td>{{$medicineCategory->description}}</td>
+                                    <td>
+                                        <div class="form-button-action d-flex align-items-center gap-1">
+                                            <button
+                                                wire:click.prevent="SeteditForm({{ $medicineCategory->id }})"
+                                                type="button"
+                                                class="btn btn-sm btn-primary"
+                                                title="Edit Task">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            
+                                            <button 
+                                                wire:click="prepareDelete({{ $medicineCategory->id }})" 
+                                                class="btn btn-sm btn-danger"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#deleteModal">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        
+                                            <!-- Delete Confirmation Modal -->
+                                            <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Confirm Deletion</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete this doctor?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
+                                                            <button 
+                                                                type="button" 
+                                                                class="btn btn-danger btn-round" 
+                                                                wire:click="deleteConfirmed"
+                                                                data-bs-dismiss="modal">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             @endforeach
                             {{ $medicineCategories->links('vendor.livewire.bootstrap') }}
                         </tbody>

@@ -32,22 +32,22 @@
     <div class="page-header">
         <ul class="breadcrumbs mb-3">
             <li class="nav-item">
-                <a href="/medicine-category">Medicine Categories</a>
+                <a wire:navigate href="/medicine-category">Medicine Categories</a>
             </li>
             <li class="nav-item">
-                <a href="/medicine-suppliers">Medicine Suppliers</a>
+                <a wire:navigate href="/medicine-suppliers">Medicine Suppliers</a>
             </li>
             <li class="nav-item active">
-                <a href="/medicines">Medicines</a>
+                <a wire:navigate href="/medicines">Medicines</a>
             </li>
             <li class="nav-item">
-                <a href="#">Purchase Medicine</a>
+                <a wire:navigate href="#">Purchase Medicine</a>
             </li>
             <li class="nav-item">
-                <a href="#">Used Medicine</a>
+                <a wire:navigate href="#">Used Medicine</a>
             </li>
             <li class="nav-item">
-                <a href="#">Medicine Bills</a>
+                <a wire:navigate href="#">Medicine Bills</a>
             </li>
         </ul>
     </div>
@@ -99,12 +99,9 @@
                                 @error('quantity_in_stock') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="is_prescription_required" class="form-label">Prescription Required</label>
-                                <select class="form-select" id="is_prescription_required" wire:model.blur="is_prescription_required" required>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                @error('is_prescription_required') <span class="text-danger">{{ $message }}</span> @enderror
+                                <label for="minimum_stock_level" class="form-label">Minimum Stock Level</label>
+                                <input type="number" class="form-control" id="minimum_stock_level" wire:model.blur="minimum_stock_level" required>
+                                @error('minimum_stock_level') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
@@ -116,9 +113,12 @@
                                 @error('batch_number') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="minimum_stock_level" class="form-label">Minimum Stock Level</label>
-                                <input type="number" class="form-control" id="minimum_stock_level" wire:model.blur="minimum_stock_level" required>
-                                @error('minimum_stock_level') <span class="text-danger">{{ $message }}</span> @enderror
+                                <label for="is_prescription_required" class="form-label">Prescription Required</label>
+                                <select class="form-select" id="is_prescription_required" wire:model.blur="is_prescription_required" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                                @error('is_prescription_required') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@
                                 <select class="form-select" id="supplier_id" wire:model.blur="supplier_id" required>
                                     <option value="" selected>Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
-                                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                        <option value="{{ $supplier->id }}">{{ $supplier->first_name  . ' ' . $supplier->last_name }}</option>
                                     @endforeach
                                 </select>
                                 @error('supplier_id') <span class="text-danger">{{ $message }}</span> @enderror
@@ -219,22 +219,6 @@
                             </div>
                         </div>
                     </div>
-
-                        <!-- Row 10: Submit Button -->
-                        {{-- @if ($editingForm)
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button wire:click="update" type="submit" class="btn btn-primary btn-round">Update</button>
-                                </div>
-                            </div>  
-                        @else
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button wire:click="store" type="submit" class="btn btn-primary btn-round">Submit</button>
-                                </div>
-                            </div> 
-
-                        @endif --}}
                     </div>
                 @else
 
@@ -253,7 +237,7 @@
                                     type="search" 
                                     wire:model.live.debounce.500ms="search" 
                                     class="form-control border-start-1  ps-2" 
-                                    placeholder="Search doctors by name..." 
+                                    placeholder="Search medicines by name..." 
                                     style="border-color: #ced4da;"
                                 >
                             </div>
@@ -287,13 +271,13 @@
                         <tbody>
                             @foreach ($medicines as $medicine)
                             <tr>
-                                <td>{{$medicine->id}}</td>
-                                <td>
+                                <td class="text-center">{{$medicine->id}}</td>
+                                <td >
                                     <!-- Full Name and Email layout -->
                                     <div class="d-flex flex-column">
-                                        <a href="#" wire:click="SetDeatailingDoctor({{$medicine->id}})" class="text-decoration-none">
+                                        <a href="#" wire:click="SetDeatailingMedicine({{$medicine->id}})" class="text-decoration-none">
                                             <span style="font-weight: bold; color: #4A90E2;">
-                                                {{$medicine->name}}
+                                                {{strtoupper($medicine->name[0])}}{{substr($medicine->name, 1)}}
                                             </span>
                                         </a>
                                         <span style="font-size: 0.9rem; color: #6c757d;">
@@ -301,12 +285,12 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td>{{$medicine->category_id}}</td>
-                                <td>{{$medicine->quantity_in_stock}}</td>
-                                <td>${{$medicine->selling_price}}</td>
-                                <td>{{$medicine->expiry_date}}</td>
+                                <td class="text-center">{{$medicine->category->name}}</td>
+                                <td class="text-center" >{{$medicine->quantity_in_stock}}</td>
+                                <td class="text-center">${{$medicine->selling_price}}</td>
+                                <td class="text-center">{{$medicine->expiry_date}}</td>
                                 <td>
-                                    <div class="form-button-action d-flex justify-content-around align-items-center gap-1">
+                                    <div class="form-button-action d-flex align-items-center gap-1">
                                         <button
                                             wire:click.prevent="SeteditForm({{ $medicine->id }})"
                                             type="button"
