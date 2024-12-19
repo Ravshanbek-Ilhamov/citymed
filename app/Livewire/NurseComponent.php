@@ -17,11 +17,12 @@ class NurseComponent extends Component
     protected $listeners = ['deleteConfirmed'];
     public $search = '';
     public $deleteId;
+    public $selectedServices = [];
     public $createForm = false;
-    public $first_name, $last_name, $gender, $date_of_birth, $email, $phone_number, $address, $service_id;
-    public $working_hours, $profile_picture;
-    public $is_active,$services;
-    public $userId,$editingNurse,$editingForm = false;
+    public $first_name, $last_name, $gender, $date_of_birth, $email, $phone_number, $address;
+    public $working_hours, $profile_picture, $salary_type;
+    public $is_active, $services;
+    public $userId, $editingNurse, $editingForm = false;
 
 
     protected $rules = [
@@ -32,27 +33,28 @@ class NurseComponent extends Component
         'email' => 'required|email|unique:users,email',
         'phone_number' => 'required|string|max:15',
         'address' => 'nullable|string',
-        'service_id' => 'required|exists:services,id',
+        'selectedServices' => 'array|exists:services,id',
         'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
-        // 'profile_picture' => 'nullable|image|max:2048',
+        'profile_picture' => 'nullable|image|max:2048',
+        'salary_type' => 'nullable|string',
         'is_active' => 'required|boolean',
     ];
 
-    public function render(){
-        $nurses = Nurse::where('first_name', 'like',$this->search . '%')
-        ->orWhere('last_name', 'like', $this->search . '%')
-        ->orWhere('email', 'like',$this->search . '%')
-        // ->orWhere('specialization', 'like', $this->search . '%')
-        ->paginate(10);
+    public function render()
+    {
+        $nurses = Nurse::where('first_name', 'like', $this->search . '%')
+            ->orWhere('last_name', 'like', $this->search . '%')
+            ->orWhere('email', 'like', $this->search . '%')
+            // ->orWhere('specialization', 'like', $this->search . '%')
+            ->paginate(10);
 
         $this->services = Service::all();
-        return view('nurses.index',['nurses' => $nurses]);
+        return view('nurses.index', ['nurses' => $nurses]);
     }
 
     public function store()
     {
         $this->validate();
-
         $data = [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -61,7 +63,7 @@ class NurseComponent extends Component
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'service_id' => $this->service_id,
+            'service_id' => $this->selectedServices[0],
             'working_hours' => $this->working_hours,
             'is_active' => $this->is_active,
         ];
@@ -69,14 +71,14 @@ class NurseComponent extends Component
         if ($this->profile_picture) {
             $data['profile_picture'] = $this->profile_picture->store('nurses/profile_pictures', 'public');
         }
-
         Nurse::create($data);
 
-        session()->flash('message', 'Doctor created successfully!');
+        session()->flash('message', 'Nurse created successfully!');
         $this->reset();
     }
 
-    public function SeteditForm(Nurse $nurse){
+    public function SeteditForm(Nurse $nurse)
+    {
         $this->editingNurse = $nurse;
         $this->editingForm = true;
 
@@ -87,14 +89,15 @@ class NurseComponent extends Component
         $this->email = $nurse->email;
         $this->phone_number = $nurse->phone_number;
         $this->address = $nurse->address;
-        $this->service_id = $nurse->service_id;
+        // $this->selectedServices[0] = $nurse->service_id;
         $this->working_hours = $nurse->working_hours;
         $this->profile_picture = $nurse->profile_picture;
         $this->is_active = $nurse->is_active;
     }
 
 
-    public function update(){
+    public function update()
+    {
         $this->editingForm = false;
 
         $this->validate([
@@ -102,16 +105,16 @@ class NurseComponent extends Component
             'last_name' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
             'date_of_birth' => 'required|date',
-            'email' => 'required|email|unique:users,email,' . $this->editingDoctor->id . ',id',
+            'email' => 'required|email|unique:users,email,' . $this->editingNurse->id . ',id',
             'phone_number' => 'required|string|max:15',
             'address' => 'nullable|string',
-            'service_id' => 'required|exists:services,id',
+            // 'service_id' => 'required|exists:services,id',
             'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
             'profile_picture' => 'nullable|image|max:8192',
             'is_active' => 'required|boolean',
         ]);
-
-        $this->editingDoctor->update([
+        dd($this->selectedServices);
+        $this->editingNurse->update([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'gender' => $this->gender,
@@ -119,23 +122,24 @@ class NurseComponent extends Component
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'service_id' => $this->service_id,
+            // 'service_id' => $this->selectedServices[0],
             'working_hours' => $this->working_hours,
             'is_active' => $this->is_active,
         ]);
 
         if ($this->profile_picture) {
-            if ($this->editingDoctor->profile_picture && Storage::disk('public')->exists($this->editingDoctor->profile_picture)) {
-                Storage::disk('public')->delete($this->editingDoctor->profile_picture);
+            if ($this->editingNurse->profile_picture && Storage::disk('public')->exists($this->editingNurse->profile_picture)) {
+                Storage::disk('public')->delete($this->editingNurse->profile_picture);
             }
-            $this->editingDoctor->update(['profile_picture' => $this->profile_picture->store('doctors/profile_pictures', 'public')]);
+            $this->editingNurse->update(['profile_picture' => $this->profile_picture->store('nurses/profile_pictures', 'public')]);
         }
 
-        session()->flash('message', 'Doctor updated successfully!');
+        session()->flash('message', 'Nurse updated successfully!');
         $this->reset();
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $nurse = Nurse::findOrFail($id);
 
         if ($nurse->profile_picture && Storage::disk('public')->exists($nurse->profile_picture)) {
@@ -144,19 +148,22 @@ class NurseComponent extends Component
 
         $nurse->delete();
 
-        session()->flash('message', 'Doctor deleted successfully!');
+        session()->flash('message', 'Nurse deleted successfully!');
     }
 
-    public function SetDeatailingNurse($id){
+    public function SetDeatailingNurse($id)
+    {
         session(['detailing_nurse' => $id]);
         return $this->redirect('/nurse-details');
     }
 
-    public function SetcreateForm(){
+    public function SetcreateForm()
+    {
         $this->createForm = true;
     }
 
-    public function cancel(){
+    public function cancel()
+    {
         $this->createForm = false;
         $this->editingForm = false;
         $this->reset();

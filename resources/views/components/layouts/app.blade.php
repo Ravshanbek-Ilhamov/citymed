@@ -119,7 +119,7 @@
                                 <p>Manager</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ Request::is('workers') ? 'active' : '' }}">
                             <a href="/workers">
                                 <i class="fas fa-users"></i>
                                 <p>Hodimlar</p>
@@ -128,7 +128,6 @@
                         <li class="nav-item">
                             <a href="#">
                                 <i class="fas fa-bed"></i>
-
                                 <p>Bemorlar</p>
                             </a>
                         </li>
@@ -138,8 +137,8 @@
                                 <p>Registratorlar</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{ Request::is('positions') ? 'active' : '' }}">
+                            <a href="/positions">
                                 <i class="fas fa-briefcase"></i>
                                 <p>Lavozimlar</p>
                             </a>
