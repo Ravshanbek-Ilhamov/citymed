@@ -25,7 +25,6 @@ class NurseFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone_number' => $this->faker->unique()->phoneNumber,
             'address' => $this->faker->address,
-            'service_id' => $this->faker->numberBetween(1, 10),
             'working_hours' => $this->faker->time('H:i') . ' - ' . $this->faker->time('H:i'),
             'is_active' => $this->faker->boolean(80),
             'profile_picture' => $this->faker->imageUrl(200, 200, 'people', true, 'doctor'),
