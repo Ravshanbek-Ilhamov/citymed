@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('last_name');
             $table->enum('gender', ['male', 'female']);
             $table->date('date_of_birth');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('phone_number')->unique();
             $table->string('address');
-            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
             $table->string('working_hours');
             $table->boolean('is_active')->default(true);
             $table->string('profile_picture')->nullable();
+            $table->string('salary_type')->nullable();
             $table->timestamps();
         });
     }
