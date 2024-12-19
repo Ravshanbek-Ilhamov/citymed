@@ -9,9 +9,8 @@
     </script>
 
     <!-- Mobiscroll JS and CSS Includes -->
-    {{-- <link rel="stylesheet" href="{{asset('select2/css/mobiscroll.javascript.min.css')}}"> --}}
-    {{-- <script src="{{asset('select2/js/mobiscroll.javascript.min.js')}}"></script> --}}
-    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.22.2/css/mobiscroll.min.css">
+    {{-- <link rel="stylesheet" href="{{asset('select2/css/mobiscroll.javascript.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.22.2/css/mobiscroll.min.css"> --}}
 
     {{-- <style  --}}
     {{-- type="text/css">
@@ -52,7 +51,20 @@
             } --}}
 
     {{-- </style> --}}
+    <style>
+        #output {
+  padding: 20px;
+  background: #dadada;
+}
 
+form {
+  margin-top: 20px;
+}
+
+select {
+  width: 300px;
+}
+    </style>
     <div class="page-header">
         {{-- <h3 class="fw-bold mb-3">Tables</h3> --}}
         <ul class="breadcrumbs mb-3">
@@ -179,25 +191,26 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <!-- Row 4: Contact Information -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" wire:model.blur="email"
-                                    required>
-                                @error('email')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="phone_number" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone_number"
-                                    wire:model.blur="phone_number" required>
-                                @error('phone_number')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                    <!-- Row 4: Contact Information -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" wire:model.blur="email" required>
+                            @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone_number" class="form-label">Phone Number</label>
+                            <input 
+                                type="tel" 
+                                class="form-control @error('phone_number') is-invalid @enderror" 
+                                id="phone_number" 
+                                wire:model.blur="phone_number" 
+                                required 
+                                placeholder="+998XXXXXXXXX"
+                            >
+                            @error('phone_number') 
+                                <span class="text-danger">{{ $message }}</span> 
+                            @enderror
                         </div>
 
                         <!-- Row 5: Address -->
@@ -234,19 +247,14 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            <div class="col-md-6">
-                                <label for="services" class="form-label">Service Selection</label>
-                                <select class="form-select" wire:model="selectedServices" id="services" multiple>
-                                    {{-- <option value="" disabled>Select Service</option> --}}
-                                    @foreach ($services as $service)
-                                        <option value="{{ $service->id }}">{{ $service->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('selectedServices')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <div class="col-md-6">
+                            <label for="services" class="form-label">Service Selection</label>
+                            <select class="form-select" wire:model="selectedServices" id="services" multiple>
+                                @foreach ($services as $service)
+                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('selectedServices') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -484,6 +492,8 @@
     <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
 
     {{-- <script>
+ 
+         <script>
             // Mobiscroll options and initialization
             function initializeMultiSelect() {
                 mobiscroll.setOptions({
@@ -505,15 +515,27 @@
             document.addEventListener('livewire:updated', function () {
                 initializeMultiSelect();
             });
-        </script> --}}
+        </script> --
+        <script src="https://cdn.mobiscroll.com/5.22.2/js/mobiscroll.jquery.min.js"></script>
+<script>
+    // Ensure Mobiscroll options are set
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeEn, // Set language
+        theme: 'ios', // Choose theme
+        themeVariant: 'light' // Light theme
+    });
 
-    <script src="https://cdn.mobiscroll.com/5.22.2/js/mobiscroll.jquery.min.js"></script>
-    <script>
-        // Ensure Mobiscroll options are set
-        mobiscroll.setOptions({
-            locale: mobiscroll.localeEn, // Set language
-            theme: 'ios', // Choose theme
-            themeVariant: 'light' // Light theme
+    // Initialize the multi-select widget
+    mobiscroll.select('#demo-multiple-select', {
+        inputElement: document.getElementById('demo-multiple-select-input'), // Link input to select
+        touchUi: true // Enable touch-friendly UI
+    });
+
+    // Handle Livewire updates
+    document.addEventListener('livewire:load', function () {
+        mobiscroll.select('#demo-multiple-select', {
+            inputElement: document.getElementById('demo-multiple-select-input'),
+            touchUi: true
         });
 
         // Initialize the multi-select widget
@@ -566,8 +588,8 @@
                 },
                 time: 1000,
             });
-        });
-    </script>
 
+        </script>
+    <script src="{{asset('select2/js/mobiscroll.javascript.min.js')}}"></script>
 
 </div>

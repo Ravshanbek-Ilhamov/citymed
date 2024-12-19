@@ -100,7 +100,7 @@
                             <p><strong>Gender: </strong>{{$doctor->gender}}</p>
                             <p><strong>Email: </strong>{{$doctor->email}}</p>
                             <p><strong>Salary Type: </strong>{{$doctor->salary_type}}</p>
-                            <p><strong>Avaliable Services: </strong>{{$doctor->services->pluck('name')->implode(', ')}}</p>
+                            <p><strong>Avaliable Services: </strong>{{$doctor->services->pluck('name')->implode(', ') ?? 'N/A'  }}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <p><strong>Phone Number: </strong>{{$doctor->phone_number}}</p>
