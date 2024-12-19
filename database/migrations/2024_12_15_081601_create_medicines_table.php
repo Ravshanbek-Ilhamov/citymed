@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('country_of_origin')->nullable();
             $table->date('manufacture_date')->nullable();
             $table->date('expiry_date');
-            $table->string('storage_temperature')->nullable();
+            $table->float('storage_temperature')->nullable();
             $table->string('license_number')->nullable();
             $table->boolean('is_prescription_required')->default(false);
             $table->timestamps();
