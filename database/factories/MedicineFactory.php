@@ -33,7 +33,7 @@ class MedicineFactory extends Factory
             'country_of_origin' => $this->faker->country(),
             'manufacture_date' => $this->faker->dateTimeBetween('-2 years', '-1 year')->format('Y-m-d'),
             'expiry_date' => $this->faker->dateTimeBetween('+6 months', '+3 years')->format('Y-m-d'),
-            'storage_temperature' => $this->faker->randomElement(['2-8°C', '15-25°C', 'Below 30°C']),
+            'storage_temperature' => $this->faker->randomElement([8, 25, 30]),
             'license_number' => $this->faker->optional(0.8, null)->regexify('[A-Z]{3}-[0-9]{5}'),
             'is_prescription_required' => $this->faker->boolean(30), // 30% chance of requiring a prescription
         ];

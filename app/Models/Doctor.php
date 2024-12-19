@@ -28,6 +28,7 @@ class Doctor extends Model
         'consultation_fee',
         'profile_picture',
         'bio',
+        'working_days',
         'salary_type',
         'salary',
     ];

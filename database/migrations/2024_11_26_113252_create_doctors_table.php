@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('direction_id')->constrained('directions')->onDelete('cascade');
             $table->integer('years_of_experience');
             $table->integer('per_patient_time');
+            $table->string('working_days');
             $table->string('working_hours');
             $table->boolean('is_active')->default(true);
             $table->decimal('consultation_fee', 8, 2);

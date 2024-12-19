@@ -85,8 +85,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Payrolls</a>
                     </li>
-                </ul>
-           
+                </ul>           
                 <!-- Overview Section -->
                 <div class="card">
                     <div class="card-body row">
@@ -110,6 +109,7 @@
                             <p><strong>Working Hours: </strong>{{$doctor->working_hours}}</p>
                             <p><strong>Salary: </strong>{{$doctor->salary ?? 'N/A'}}</p>
                             <p><strong>Consultation Fee: </strong>{{$doctor->consultation_fee}}</p>
+                            <p><strong>Avaliable Days: </strong>{{$doctor->working_days }}</p>
                             <p><strong>BIO: </strong>{{$doctor->bio}}</p>
                         </div>
                     </div>

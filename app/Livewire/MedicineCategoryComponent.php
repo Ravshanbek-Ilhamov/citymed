@@ -20,7 +20,7 @@ class MedicineCategoryComponent extends Component
 
     public function render()
     {
-        $medicineCategories = MedicineCategory::orWhere('name', 'like',$this->search . '%')
+        $medicineCategories = MedicineCategory::where('name', 'like' ,$this->search . '%')
         ->paginate(10);
         return view('medicines.medicine-category', compact('medicineCategories'));
     }

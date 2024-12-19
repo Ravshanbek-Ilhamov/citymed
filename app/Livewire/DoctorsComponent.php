@@ -25,7 +25,7 @@ class DoctorsComponent extends Component
     public $createForm = false;
     public $first_name, $last_name, $username, $password, $gender, $date_of_birth, $email, $phone_number, $address,$direction_id;
     public $specialization, $years_of_experience, $working_hours, $consultation_fee, $profile_picture, $bio, $per_patient_time,$salary_type;
-    public $is_active,$directions;
+    public $is_active,$directions,$from_time,$to_time,$times,$working_days = [];
     public $userId,$editingDoctor,$editingForm = false;
     public $selectedValues = [];
     public $options;
@@ -43,7 +43,9 @@ class DoctorsComponent extends Component
         'address' => 'nullable|string',
         'direction_id' => 'required|exists:directions,id',
         'years_of_experience' => 'nullable|numeric|min:0',
-        'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
+        'from_time' => 'required|date_format:H:i', // Validate from_time
+        'to_time' => 'required|date_format:H:i|after:from_time', // Validate to_time
+        // 'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
         'consultation_fee' => 'nullable|numeric|min:0',
         // 'profile_picture' => 'nullable|image|max:2048',
         'bio' => 'nullable|string|max:500',
@@ -84,7 +86,6 @@ class DoctorsComponent extends Component
         $doctors = Doctor::where('first_name', 'like',$this->search . '%')
         ->orWhere('last_name', 'like', $this->search . '%')
         ->orWhere('email', 'like',$this->search . '%')
-        // ->orWhere('specialization', 'like', $this->search . '%')
         ->paginate(10);
         $this->directions = Direction::all();
         return view('doctors.index',['doctors' => $doctors]);
@@ -93,7 +94,7 @@ class DoctorsComponent extends Component
     public function store()
     {
         $this->validate();
-
+        // dd($this->working_days);
         $data = [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -106,9 +107,10 @@ class DoctorsComponent extends Component
             'address' => $this->address,
             'direction_id' => $this->direction_id,
             'years_of_experience' => $this->years_of_experience,
-            'working_hours' => $this->working_hours,
+            'working_hours' => $this->from_time . '-' . $this->to_time, // Combine the times
             'consultation_fee' => $this->consultation_fee,
             'bio' => $this->bio,
+            'working_days' => implode(',', $this->working_days),
             'is_active' => $this->is_active,
             'per_patient_time' => $this->per_patient_time,
             'salary_type' => $this->salary_type,
@@ -139,7 +141,13 @@ class DoctorsComponent extends Component
         $this->address = $doctor->address;
         $this->direction_id = $doctor->direction_id;
         $this->years_of_experience = $doctor->years_of_experience;
-        $this->working_hours = $doctor->working_hours;
+
+        $this->times = explode('-', $doctor->working_hours);
+        $this->from_time = $this->times[0];
+        $this->to_time = $this->times[1];
+
+        $this->working_days = explode(',', $doctor->working_days);
+        
         $this->consultation_fee = $doctor->consultation_fee;
         $this->profile_picture = $doctor->profile_picture;
         $this->bio = $doctor->bio;
@@ -166,7 +174,8 @@ class DoctorsComponent extends Component
             'address' => $this->address,
             'direction_id' => $this->direction_id,
             'years_of_experience' => $this->years_of_experience,
-            'working_hours' => $this->working_hours,
+            'working_hours' => $this->from_time . '-' . $this->to_time,
+            'working_days' => implode(',', $this->working_days),
             'consultation_fee' => $this->consultation_fee,
             'bio' => $this->bio,
             'is_active' => $this->is_active,
