@@ -23,7 +23,7 @@ class Nurse extends Model
     ];
     public function services()
     {
-        return $this->belongsTo(Service::class,'service_id');
+        return $this->belongsToMany(Service::class, 'nurse_services', 'nurse_id', 'service_id');
     }
 
     public function patientNurse()

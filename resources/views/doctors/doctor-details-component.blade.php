@@ -85,8 +85,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Payrolls</a>
                     </li>
-                </ul>
-           
+                </ul>           
                 <!-- Overview Section -->
                 <div class="card">
                     <div class="card-body row">
@@ -97,21 +96,22 @@
                                 {{ (int) \Carbon\Carbon::parse($doctor->date_of_birth)->diffInYears(\Carbon\Carbon::now()) }}
                             </p>
                             <p><strong>Address: </strong>{{$doctor->address}}</p>
-                            <p><strong>Gender: </strong>{{$doctor->gender}}</p>
+                            <p><strong>Gender: </strong>{{ ucfirst($doctor->gender)}}</p>
                             <p><strong>Email: </strong>{{$doctor->email}}</p>
                             <p><strong>Salary Type: </strong>{{$doctor->salary_type}}</p>
-                            <p><strong>Avaliable Services: </strong>{{$doctor->services->pluck('name')->implode(', ') ?? 'N/A'  }}</p>
+                            <p><strong>Avaliable Services: </strong>{{ ucfirst($doctor->services->pluck('name')->implode(', ') ?? 'N/A'  )}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <p><strong>Phone Number: </strong>{{$doctor->phone_number}}</p>
-                            <p><strong>Specialization: </strong>{{$doctor->direction->name}}</p>
+                            <p><strong>Specialization: </strong>{{ ucfirst($doctor->direction->name)}}</p>
                             <p><strong>Years of Experience: </strong>{{$doctor->years_of_experience}}</p>
                             <p><strong>Per Patient Time: </strong>{{$doctor->per_patient_time}}</p>
                             <p><strong>Working Hours: </strong>{{$doctor->working_hours}}</p>
                             <p><strong>Salary: </strong>{{$doctor->salary ?? 'N/A'}}</p>
                             <p><strong>Consultation Fee: </strong>{{$doctor->consultation_fee}}</p>
-                            <p><strong>BIO: </strong>{{$doctor->bio}}</p>
+                            <p><strong>Avaliable Days: </strong>{{$doctor->working_days }}</p>
                         </div>
+                        <p><strong>BIO: </strong>{{$doctor->bio}}</p>
                     </div>
                 </div>
             </div>

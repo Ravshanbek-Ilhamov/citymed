@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');              // Supplier's firstname
             $table->string('last_name');               // Supplier's lastname
-            $table->string('email')->unique();   // Email must be unique
-            $table->string('phone_number')->unique();   // Phone must be unique
+            $table->string('email');   // Email must be unique
+            $table->string('phone_number');   // Phone must be unique
             $table->text('address');             // Full address
             $table->string('company_name');      // Name of the company
             $table->string('country');           // Country of operation

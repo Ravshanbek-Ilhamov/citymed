@@ -32,35 +32,34 @@
     <div class="page-header">
         <ul class="breadcrumbs mb-3">
             <li class="nav-item">
-                <a href="/medicine-category">Medicine Categories</a>
+                <a wire:navigate href="/medicine-category">Medicine Categories</a>
             </li>
             <li class="nav-item active">
-                <a href="/medicine-suppliers">Medicine Suppliers</a>
+                <a wire:navigate href="/medicine-suppliers">Medicine Suppliers</a>
             </li>
             <li class="nav-item">
-                <a href="/medicines">Medicines</a>
+                <a wire:navigate href="/medicines">Medicines</a>
             </li>
             <li class="nav-item">
-                <a href="#">Purchase Medicine</a>
+                <a wire:navigate href="#">Purchase Medicine</a>
             </li>
             <li class="nav-item">
-                <a href="#">Used Medicine</a>
+                <a wire:navigate href="#">Used Medicine</a>
             </li>
             <li class="nav-item">
-                <a href="#">Medicine Bills</a>
+                <a wire:navigate href="#">Medicine Bills</a>
             </li>
         </ul>
     </div>
-    
 
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 @if (session('message'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>{{ session('message') }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>                 
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{ session('message') }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>                 
                 @endif
 
                 @if ($createForm || $editingForm)
@@ -146,7 +145,6 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 @else
 
                 <div class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">
@@ -164,7 +162,7 @@
                                     type="search" 
                                     wire:model.live.debounce.500ms="search" 
                                     class="form-control border-start-1  ps-2" 
-                                    placeholder="Search categories by name..." 
+                                    placeholder="Search suppliers by name, email, company name..." 
                                     style="border-color: #ced4da;"
                                 >
                             </div>
@@ -176,7 +174,7 @@
                         wire:click="SetcreateForm" 
                         class="btn btn-primary d-flex btn-round align-items-center"
                         style="gap: 0.5rem; background-color: #007bff; border-color: #007bff;"
-                    >
+                     >
                         <i class="fas fa-user-plus"></i>
                         <span>Add Supplier</span>
                     </button>
@@ -192,75 +190,76 @@
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone Number</th>
                                 <th scope="col">Contact Person</th>
-                                <th scope="col">Country</th>
+                                {{-- <th scope="col">Country</th> --}}
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($medicineSuppliers as $medicineSupplier)
-                            <tr>
-                                <td>{{$medicineSupplier->id}}</td>
-                                <td>
-                                    <!-- Full Name and Email layout -->
-                                    <div class="d-flex flex-column">
-                                        <a href="#" wire:click="SetDeatailingSupplier({{$medicineSupplier->id}})" class="text-decoration-none">
-                                            <span style="font-weight: bold; color: #4A90E2;">
-                                                {{$medicineSupplier->first_name}} {{$medicineSupplier->last_name}}
+                                <tr>
+                                    <td>{{$medicineSupplier->id}}</td>
+                                    <td>
+                                        <!-- Full Name and Email layout -->
+                                        <div class="d-flex flex-column">
+                                            <a href="#" wire:click="SetDeatailingSupplier({{$medicineSupplier->id}})" class="text-decoration-none">
+                                                <span style="font-weight: bold; color: #4A90E2;">
+                                                    {{$medicineSupplier->first_name}} {{$medicineSupplier->last_name}}
+                                                </span>
+                                            </a>
+                                            <span style="font-size: 0.9rem; color: #6c757d;">
+                                                {{$medicineSupplier->email}}
                                             </span>
-                                        </a>
-                                        <span style="font-size: 0.9rem; color: #6c757d;">
-                                            {{$medicineSupplier->email}}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>{{$medicineSupplier->company_name}}</td>
-                                <td>{{$medicineSupplier->address}}</td>
-                                <td>{{$medicineSupplier->phone_number}}</td>
-                                <td>{{$medicineSupplier->contact_person}}</td>
-                                <td>{{$medicineSupplier->country}}</td>
-                                <td>
-                                    <div class="form-button-action d-flex justify-content-around align-items-center gap-1">
-                                        <button
-                                            wire:click.prevent="SeteditForm({{ $medicineSupplier->id }})"
-                                            type="button"
-                                            class="btn btn-sm btn-primary"
-                                            title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button 
-                                        wire:click="prepareDelete({{ $medicineSupplier->id }})" 
-                                        class="btn btn-sm btn-danger"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#deleteModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    <!-- Delete Confirmation Modal -->
-                                    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Confirm Deletion</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure you want to delete this doctor?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
-                                                    <button 
-                                                        type="button" 
-                                                        class="btn btn-danger btn-round" 
-                                                        wire:click="deleteConfirmed"
-                                                        data-bs-dismiss="modal">
-                                                        Delete
-                                                    </button>
+                                        </div>
+                                    </td>
+                                    <td>{{$medicineSupplier->company_name}}</td>
+                                    <td>{{$medicineSupplier->address}}</td>
+                                    <td>{{$medicineSupplier->phone_number}}</td>
+                                    <td>{{$medicineSupplier->contact_person}}</td>
+                                    {{-- <td>{{$medicineSupplier->country}}</td> --}}
+                                    <td>
+                                        <div class="form-button-action d-flex justify-content-around align-items-center gap-1">
+                                            <button
+                                                wire:click.prevent="SeteditForm({{ $medicineSupplier->id }})"
+                                                type="button"
+                                                class="btn btn-sm btn-primary"
+                                                title="Edit Task">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button 
+                                                wire:click="prepareDelete({{ $medicineSupplier->id }})" 
+                                                class="btn btn-sm btn-danger"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#deleteModal">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+
+                                            <!-- Delete Confirmation Modal -->
+                                            <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Confirm Deletion</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete this supplier?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
+                                                            <button 
+                                                                type="button" 
+                                                                class="btn btn-danger btn-round" 
+                                                                wire:click="deleteConfirmed"
+                                                                data-bs-dismiss="modal">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             @endforeach
                             {{ $medicineSuppliers->links('vendor.livewire.bootstrap') }}
                         </tbody>

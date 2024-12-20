@@ -12,7 +12,7 @@ class MedicineSuppliersComponent extends Component
 
     public $createForm = false , $editingForm = false;
 
-    public $supplier_id,$supplierBeingEdited, $first_name, $last_name,
+    public $supplier_id,$supplierBeingEdited, $first_name, $last_name,$search = '',
             $address, $phone_number, $email, $contact_person, $country, $company_name,$deleteId;
 
     protected $rules = [
@@ -28,7 +28,11 @@ class MedicineSuppliersComponent extends Component
 
     public function render()
     {
-        $medicineSuppliers = Supplier::paginate(10);
+        $medicineSuppliers = Supplier::where('first_name', 'like', '%' . $this->search . '%')
+                                    ->orWhere('last_name', 'like', '%' . $this->search . '%')
+                                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                                    ->orWhere('company_name', 'like', '%' . $this->search . '%')
+                                    ->paginate(10);
         return view('medicines.medicine-suppliers', compact('medicineSuppliers'));
     }
 
