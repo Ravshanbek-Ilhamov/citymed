@@ -107,8 +107,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{Request::is('cashier') ? 'active' : ''}}">
+                            <a href="/cashier" wire:navigate>
                                 <i class="fas fa-money-bill-wave"></i>
                                 <p>Kassir</p>
                             </a>
@@ -133,8 +133,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/medicines">
+                        <li class="nav-item {{Request::is('medicines') ? 'active' : ''}}">
+                            <a href="/medicines" wire:navigate>
                                 <i class="fas fa-pills"></i>
                                 <p>Medicines</p>
                             </a>
