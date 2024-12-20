@@ -132,8 +132,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/medicines">
+                        <li class="nav-item {{ Request::is('medicines') ? 'active' : '' }}">
+                            <a href="/medicines" wire:navigate>
                                 <i class="fas fa-pills"></i>
                                 <p>Medicines</p>
                             </a>
@@ -151,8 +151,8 @@
                                 <p>Lavozimlar</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{ Request::is('warehouses') ? 'active' : '' }}">
+                            <a href="/warehouses" wire:navigate>
                                 <i class="fas fa-warehouse"></i>
                                 <p>Sklad</p>
                             </a>

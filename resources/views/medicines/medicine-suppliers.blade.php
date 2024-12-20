@@ -51,7 +51,6 @@
             </li>
         </ul>
     </div>
-    
 
     <div class="row">
         <div class="col-md-12">
@@ -243,7 +242,7 @@
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Are you sure you want to delete this doctor?
+                                                            Are you sure you want to delete this supplier?
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
