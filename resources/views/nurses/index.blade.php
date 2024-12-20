@@ -170,7 +170,6 @@
                         </div>
                     </div>
 
-
                     @if ($editingForm)
                         <div class="row">
                             <div class="col-md-12">

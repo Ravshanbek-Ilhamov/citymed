@@ -200,16 +200,16 @@ select {
                         </div>
                         <div class="col-md-6">
                             <label for="phone_number" class="form-label">Phone Number</label>
-                            <input 
-                                type="tel" 
-                                class="form-control @error('phone_number') is-invalid @enderror" 
-                                id="phone_number" 
-                                wire:model.blur="phone_number" 
-                                required 
+                            <input
+                                type="tel"
+                                class="form-control @error('phone_number') is-invalid @enderror"
+                                id="phone_number"
+                                wire:model.blur="phone_number"
+                                required
                                 placeholder="+998XXXXXXXXX"
                             >
-                            @error('phone_number') 
-                                <span class="text-danger">{{ $message }}</span> 
+                            @error('phone_number')
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -500,8 +500,8 @@ select {
     <script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
     <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
 
-    {{-- <script>
- 
+    <script>
+
          <script>
             // Mobiscroll options and initialization
             function initializeMultiSelect() {
