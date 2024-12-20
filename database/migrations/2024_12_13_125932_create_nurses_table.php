@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('address');
             $table->string('working_hours');
+            $table->string('working_days');
             $table->boolean('is_active')->default(true);
             $table->string('profile_picture')->nullable();
             $table->string('salary_type')->nullable();
+            $table->float('salary')->nullable();
             $table->timestamps();
         });
     }

@@ -6,13 +6,12 @@ use App\Models\Nurse;
 use App\Models\Service;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class NurseComponent extends Component
 {
-    use WithPagination;
-    use WithFileUploads;
+    use WithPagination, WithFileUploads;
 
     protected $listeners = ['deleteConfirmed'];
     public $search = '';
@@ -20,10 +19,9 @@ class NurseComponent extends Component
     public $selectedServices = [];
     public $createForm = false;
     public $first_name, $last_name, $gender, $date_of_birth, $email, $phone_number, $address;
-    public $working_hours, $profile_picture, $salary_type;
-    public $is_active, $services;
+    public $working_hours, $profile_picture, $from_time, $to_time, $times, $salary_type;
+    public $is_active, $services, $working_days = [];
     public $userId, $editingNurse, $editingForm = false;
-
 
     protected $rules = [
         'first_name' => 'required|string|max:255',
@@ -34,7 +32,8 @@ class NurseComponent extends Component
         'phone_number' => 'required|string|max:15',
         'address' => 'nullable|string',
         'selectedServices' => 'array|exists:services,id',
-        'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
+        'from_time' => 'required|date_format:H:i',
+        'to_time' => 'required|date_format:H:i|after:from_time',
         'profile_picture' => 'nullable|image|max:2048',
         'salary_type' => 'nullable|string',
         'is_active' => 'required|boolean',
@@ -45,9 +44,7 @@ class NurseComponent extends Component
         $nurses = Nurse::where('first_name', 'like', $this->search . '%')
             ->orWhere('last_name', 'like', $this->search . '%')
             ->orWhere('email', 'like', $this->search . '%')
-            // ->orWhere('specialization', 'like', $this->search . '%')
             ->paginate(10);
-
         $this->services = Service::all();
         return view('nurses.index', ['nurses' => $nurses]);
     }
@@ -55,6 +52,7 @@ class NurseComponent extends Component
     public function store()
     {
         $this->validate();
+
         $data = [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -63,15 +61,17 @@ class NurseComponent extends Component
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'service_id' => $this->selectedServices[0],
-            'working_hours' => $this->working_hours,
+            'working_hours' => $this->from_time . '-' . $this->to_time,
+            'working_days' => implode(',', $this->working_days),
             'is_active' => $this->is_active,
+            'salary_type' => $this->salary_type,
         ];
 
         if ($this->profile_picture) {
             $data['profile_picture'] = $this->profile_picture->store('nurses/profile_pictures', 'public');
         }
-        Nurse::create($data);
+        $nurse = Nurse::create($data);
+        $nurse->services()->sync($this->selectedServices);
 
         session()->flash('message', 'Nurse created successfully!');
         $this->reset();
@@ -89,31 +89,20 @@ class NurseComponent extends Component
         $this->email = $nurse->email;
         $this->phone_number = $nurse->phone_number;
         $this->address = $nurse->address;
-        // $this->selectedServices[0] = $nurse->service_id;
-        $this->working_hours = $nurse->working_hours;
+
+        $this->times = explode('-', $nurse->working_hours);
+        $this->from_time = $this->times[0];
+        $this->to_time = $this->times[1];
+        $this->working_days = explode(',', $nurse->working_days);
         $this->profile_picture = $nurse->profile_picture;
         $this->is_active = $nurse->is_active;
+        $this->salary_type = $nurse->salary_type;
     }
-
 
     public function update()
     {
         $this->editingForm = false;
 
-        $this->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'gender' => 'required|in:male,female',
-            'date_of_birth' => 'required|date',
-            'email' => 'required|email|unique:users,email,' . $this->editingNurse->id . ',id',
-            'phone_number' => 'required|string|max:15',
-            'address' => 'nullable|string',
-            // 'service_id' => 'required|exists:services,id',
-            'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
-            'profile_picture' => 'nullable|image|max:8192',
-            'is_active' => 'required|boolean',
-        ]);
-        dd($this->selectedServices);
         $this->editingNurse->update([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -122,10 +111,15 @@ class NurseComponent extends Component
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            // 'service_id' => $this->selectedServices[0],
-            'working_hours' => $this->working_hours,
+            'working_hours' => $this->from_time . '-' . $this->to_time,
             'is_active' => $this->is_active,
+            'working_days' => implode(',', $this->working_days),
+            'salary_type' => $this->salary_type,
         ]);
+
+        if (!empty($this->selectedServices)) {
+            $this->editingNurse->services()->sync($this->selectedServices);
+        }
 
         if ($this->profile_picture) {
             if ($this->editingNurse->profile_picture && Storage::disk('public')->exists($this->editingNurse->profile_picture)) {
@@ -168,6 +162,7 @@ class NurseComponent extends Component
         $this->editingForm = false;
         $this->reset();
     }
+
     public function prepareDelete($id)
     {
         $this->deleteId = $id;

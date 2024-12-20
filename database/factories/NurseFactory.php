@@ -26,8 +26,10 @@ class NurseFactory extends Factory
             'phone_number' => $this->faker->unique()->phoneNumber,
             'address' => $this->faker->address,
             'working_hours' => $this->faker->time('H:i') . ' - ' . $this->faker->time('H:i'),
+            'working_days' => $this->faker->randomElement(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']),
             'is_active' => $this->faker->boolean(80),
             'profile_picture' => $this->faker->imageUrl(200, 200, 'people', true, 'doctor'),
+            'salary_type' => $this->faker->randomElement(['kpi','kpi+fixed', 'fixed']),
         ];
     }
 }
