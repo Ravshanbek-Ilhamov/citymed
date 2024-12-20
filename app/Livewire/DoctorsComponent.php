@@ -57,7 +57,6 @@ class DoctorsComponent extends Component
 
     public function mount()
     {
-        // Prepare your options, e.g., from a database
         $this->options = [
             '1' => 'Option 1',
             '2' => 'Option 2',
@@ -84,13 +83,18 @@ class DoctorsComponent extends Component
 
     public function render()
     {
-        $doctors = Doctor::where('first_name', 'like', $this->search . '%')
-            ->orWhere('last_name', 'like', $this->search . '%')
-            ->orWhere('email', 'like', $this->search . '%')
-            ->paginate(10);
+        $doctors = Doctor::whereHas('direction', function ($query) {
+            $query->where('name', 'like', $this->search . '%');
+        })
+        ->orWhere('first_name', 'like', $this->search . '%')
+        ->orWhere('last_name', 'like', $this->search . '%')
+        ->orWhere('email', 'like', $this->search . '%')
+        ->paginate(10);
+
         $this->directions = Direction::all();
         return view('doctors.index', ['doctors' => $doctors]);
     }
+
 
     public function store()
     {
@@ -149,6 +153,8 @@ class DoctorsComponent extends Component
         $this->to_time = $this->times[1];
 
         $this->working_days = explode(',', $doctor->working_days);
+
+        $this->services = Service::where('direction_id', $doctor->direction_id)->get();
 
         $this->consultation_fee = $doctor->consultation_fee;
         $this->profile_picture = $doctor->profile_picture;
