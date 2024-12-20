@@ -99,8 +99,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <p><strong>Phone Number: </strong>{{ $nurse->phone_number }}</p>
-                        <p><strong>Specialization: </strong>{{ $nurse->services->name }}</p>
                         <p><strong>Working Hours: </strong>{{ $nurse->working_hours }}</p>
+                        <p><strong>Working Days: </strong>{{ $nurse->working_days }}</p>
                     </div>
                 </div>
             </div>
