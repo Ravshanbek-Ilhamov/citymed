@@ -191,7 +191,30 @@
                                 @enderror
                             </div>
                         </div>
-                        <!-- Row 4: Contact Information -->
+
+                    <!-- Row 4: Contact Information -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" wire:model.blur="email" required>
+                            @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone_number" class="form-label">Phone Number</label>
+                            <input
+                                type="tel"
+                                class="form-control @error('phone_number') is-invalid @enderror"
+                                id="phone_number"
+                                wire:model.blur="phone_number"
+                                required
+                                placeholder="+998XXXXXXXXX"
+                            >
+                            @error('phone_number')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Row 5: Address -->
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email</label>
@@ -528,7 +551,7 @@
     <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
 
     <script>
-        < script >
+         <script>
             // Mobiscroll options and initialization
             function initializeMultiSelect() {
                 mobiscroll.setOptions({
