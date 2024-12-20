@@ -12,6 +12,7 @@ use App\Livewire\MedicineComponent;
 use App\Livewire\MedicineSuppliersComponent;
 use App\Livewire\NurseComponent;
 use App\Livewire\NurseDetailsComponent;
+use App\Livewire\PositionComponent;
 use App\Livewire\PatientComponent;
 use App\Livewire\PatientDetailscomponent;
 use App\Livewire\SelectComponent;
@@ -38,6 +39,8 @@ Route::get('/nurse-details',NurseDetailsComponent::class);
 Route::get('/categories', SelectComponent::class);
 Route::get('/workers' , WorkersComponent::class);
 Route::get('/worker-details' , WorkerDetails::class);
+
+Route::get('/positions',PositionComponent::class);
 
 Route::get('/medicines',MedicineComponent::class);
 Route::get('/medicine-category',MedicineCategoryComponent::class);
