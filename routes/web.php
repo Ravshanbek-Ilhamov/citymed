@@ -16,6 +16,7 @@ use App\Livewire\PositionComponent;
 use App\Livewire\PatientComponent;
 use App\Livewire\PatientDetailscomponent;
 use App\Livewire\SelectComponent;
+use App\Livewire\WarehouseComponent;
 use App\Livewire\WorkerDetails;
 use App\Livewire\WorkersComponent;
 use Illuminate\Support\Facades\Route;
@@ -48,3 +49,4 @@ Route::get('/medicine-suppliers',MedicineSuppliersComponent::class);
 Route::get('/patients' , PatientComponent::class);
 Route::get('/patient-details' , PatientDetailscomponent::class);
 
+Route::get('/warehouses', WarehouseComponent::class);
