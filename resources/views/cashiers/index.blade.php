@@ -15,7 +15,7 @@
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a href="/workers">Workers</a>
+                <a href="/cashiers">Cashiers</a>
             </li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
                     @if ($createForm || $editingForm)
     
                         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;"> 
-                            <div class="card-title btn-round ">Add Worker</div>
+                            <div class="card-title btn-round ">Add Cashier</div>
                             <button wire:click="cancel" class="btn btn-primary btn-round ms-auto">Back</button>
                         </div>
     
@@ -92,42 +92,41 @@
                                 <input type="text" class="form-control" id="address" wire:model.blur="address" required>
                                 @error('address') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+                            
                         </div>
     
-
+                        
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="profile_image" class="form-label">Profile Picture</label>
-                                <input type="file" class="form-control" id="profile_image" wire:model.blur="profile_image">
-                                @if ($profile_image and file_exists(storage_path('app/public/' . $profile_image)))
-                                    <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_image) }}" alt="Profile Picture">
+                                <label for="profile_picture" class="form-label">Profile Picture</label>
+                                <input type="file" class="form-control" id="profile_picture" wire:model.blur="profile_picture">
+                                @if ($profile_picture and file_exists(storage_path('app/public/' . $profile_picture)))
+                                    <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_picture) }}" alt="Profile Picture">
                                 @endif
-                                @error('profile_image') 
+                                @error('profile_picture') 
                                     <span class="text-danger">{{ $message }}</span> 
                                 @enderror
                             </div>
-                            
                             <div class="col-md-6">
-                                <label for="is_active" class="form-label">Active</label>
-                                <select class="form-select" id="is_active" wire:model.blur="is_active" required>
-                                    <option value="" selected>Activity</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                @error('is_active') <span class="text-danger">{{ $message }}</span> @enderror
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" wire:model.blur="email" required>
+                                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="specialization" class="form-label">Job</label>
-                                <select class="form-select" id="specialization" wire:model.blur="specialization" required>
-                                    <option value="" selected>Select Job</option>
-                                    <option value="Qorovul">Qorovul</option>
-                                    <option value="Farrosh">Farrosh</option>
-                                </select>
-                                @error('specialization') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
+
+                                <div class="col-md-6">
+                                        <label for="salary_type" class="form-label">Salary type</label>
+                                        <select class="form-select" id="salary_type" wire:model="salary_type" required>
+                                            <option value="" selected>Select Salary type</option>
+                                            <option value="kpi">KPI</option>
+                                            <option value="fixed">FIXED</option>
+                                            <option value="kpi+fixed">KPI+FIXED</option>
+                                        </select>
+                                        @error('salary_type') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                    
                             <div class="col-md-2">
                                 <label for="from_time" class="form-label">From</label>
                                 <input type="time" class="form-control" id="from_time" wire:model="from_time" required>
@@ -144,21 +143,22 @@
                             
                             
                         </div>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="salary_type" class="form-label">Salary type</label>
-                                <select class="form-select" id="salary_type" wire:model.blur="salary_type" required>
-                                    <option value="" selected>Select Salary type</option>
-                                    <option value="kpi">KPI</option>
-                                    <option value="fixed">FIXED</option>
-                                    <option value="fixed+kpi">FIXED+KPI</option>
-                                </select>
-                                @error('salary_type') <span class="text-danger">{{ $message }}</span> @enderror
+                        <label class="form-label fw-semibold">Cashier Available Days <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-3">
+                            @foreach(['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'] as $day)
+                            <div class="form-check">
+                                <input type="checkbox" 
+                                       wire:model="working_days.{{ $day }}" 
+                                       id="{{ $day }}" 
+                                       class="form-check-input">
+                                <label class="form-check-label" for="{{ $day }}">{{ $day }}</label>
                             </div>
+                            @endforeach
                         </div>
+                        
+
+
     
-                        <!-- Row 10: Submit Button -->
                         @if ($editingForm)
                             <div class="row">
                                 <div class="col-md-12">
@@ -176,7 +176,7 @@
     
                     <div class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">
                         <!-- Card Title -->
-                        <h5 class="card-title text-primary m-0">Workers</h5>
+                        <h5 class="card-title text-primary m-0">Cashiers</h5>
                     
                         <!-- Search Bar -->
                         <div class="row mb-0" align="center" style="width: 50%;">
@@ -189,7 +189,7 @@
                                         type="search" 
                                         wire:model.live.debounce.500ms="search"  
                                         class="form-control border-start-1  ps-2" 
-                                        placeholder="Search workers  by name or specialization..." 
+                                        placeholder="Search cashiers  by name or specialization..." 
                                         style="border-color: #ced4da;"
                                     >
                                 </div>
@@ -203,7 +203,7 @@
                             style="gap: 0.5rem; background-color: #007bff; border-color: #007bff;"
                         >
                             <i class="fas fa-user-plus"></i>
-                            <span>Add Worker</span>
+                            <span>Add cashier</span>
                         </button>
                     </div>
                     
@@ -215,51 +215,49 @@
                                     <th scope="col">Image</th>
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Phone Number</th>
-                                    <th scope="col">Specialization</th>
-                                    <th scope="col">Salary</th>
+                                    <th scope="col">Salary type</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($workers as $worker)
+                                @foreach ($cashiers as $cashier)
                                 <tr>
-                                    <td>{{$worker->id}}</td>
+                                    <td>{{$cashier->id}}</td>
                                     <td>
-                                        @if($worker->profile_image && file_exists(storage_path('app/public/' . $worker->profile_image)))
+                                        @if($cashier->profile_picture && file_exists(storage_path('app/public/' . $cashier->profile_picture)))
                                             <img class="rounded-circle"
-                                                 src="{{ asset('storage/' . $worker->profile_image) }}"
+                                                 src="{{ asset('storage/' . $cashier->profile_picture) }}"
                                                  width="50" height="50">
                                         @else
                                             <div class="rounded-circle d-flex align-items-center justify-content-center" 
                                                  style="width: 50px; height: 50px; background-color: #007bff; color: white; font-weight: bold;">
-                                                {{ strtoupper(substr($worker->first_name, 0, 1)) }}
+                                                {{ strtoupper(substr($cashier->first_name, 0, 1)) }}
                                             </div>
                                         @endif
                                     </td>
                                     <td>
                                         <!-- Full Name and Email layout -->
                                         <div class="d-flex flex-column">
-                                            <a href="#" wire:click="SetDeatailingWorkers({{$worker->id}})" class="text-decoration-none">
+                                            <a href="#" wire:click="SetDeatailingcashiers({{$cashier->id}})" class="text-decoration-none">
                                                 <span style="font-weight: bold; color: #4A90E2;">
-                                                    {{$worker->first_name}} {{$worker->last_name}}
+                                                    {{$cashier->first_name}} {{$cashier->last_name}}
                                                 </span>
                                             </a>
                                         </div>
                                     </td>
-                                    <td>{{$worker->phone_number}}</td>
-                                    <td>{{$worker->specialization}}</td>
-                                    <td>{{$worker->salary_type}}</td>
+                                    <td>{{$cashier->phone_number}}</td>
+                                    <td>{{$cashier->salary_type}}</td>
                                     <td>
                                         <div class="form-button-action justify-content-around align-items-center gap-1">
                                             <button
-                                                wire:click.prevent="SeteditForm({{ $worker->id }})"
+                                                wire:click.prevent="SeteditForm({{ $cashier->id }})"
                                                 type="button"
                                                 class="btn btn-sm btn-primary"
                                                 title="Edit Task">
                                                 <i class="fa fa-edit"></i>
                                             </button>
                                             <button 
-                                            wire:click="prepareDelete({{ $worker->id }})" 
+                                            wire:click="prepareDelete({{ $cashier->id }})" 
                                             class="btn btn-sm btn-danger"
                                             data-bs-toggle="modal" 
                                             data-bs-target="#deleteModal">
@@ -275,7 +273,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Are you sure you want to delete this worker?
+                                                        Are you sure you want to delete this cashier?
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -294,7 +292,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                {{-- {{ $workers->links('vendor.livewire.bootstrap') }} --}}
+                                {{-- {{ $cashiers->links('vendor.livewire.bootstrap') }} --}}
                             </tbody>
                         </table>
                     </div>     

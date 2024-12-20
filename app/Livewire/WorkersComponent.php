@@ -57,6 +57,14 @@ class WorkersComponent extends Component
         $this->phone_number = $worker->phone_number;
         $this->address = $worker->address;
         $this->specialization = $worker->specialization;
+        
+        // Split working hours into from_time and to_time
+        if ($worker->working_hours) {
+            $hours = explode(' - ', $worker->working_hours);
+            $this->from_time = $hours[0] ?? null;
+            $this->to_time = $hours[1] ?? null;
+        }
+        
         $this->working_hours = $worker->working_hours;
         $this->profile_image = $worker->profile_image;
         $this->is_active = $worker->is_active;
@@ -101,7 +109,7 @@ class WorkersComponent extends Component
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'specialization' => $this->specialization,
-            'working_hours' => $this->from_time . '-' . $this->to_time, // Combine the times
+            'working_hours' => $this->from_time . ' - ' . $this->to_time, 
             'salary_type' => $this->salary_type,
             'is_active' => $this->is_active,
             'profile_image' => $profileImagePath,
@@ -119,18 +127,20 @@ class WorkersComponent extends Component
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'specialization' => $this->specialization,
-            'working_hours' => $this->working_hours,
+            'working_hours' => $this->from_time . ' - ' . $this->to_time,
             'is_active' => $this->is_active,
             'salary_type' => $this->salary_type,
         ];
-
+    
         if ($this->profile_image && $this->profile_image instanceof \Illuminate\Http\UploadedFile) {
             if ($worker->profile_image && Storage::exists('public/' . $worker->profile_image)) {
                 Storage::delete('public/' . $worker->profile_image);
             }
             $data['profile_image'] = $this->profile_image->store('workers/profile_images', 'public');
+        } else {
+            $data['profile_image'] = $worker->profile_image;
         }
-
+    
         return $data;
     }
 
@@ -144,11 +154,11 @@ class WorkersComponent extends Component
             'phone_number' => 'required|string|max:15',
             'address' => 'required|string|max:255',
             'specialization' => 'required|string|max:255',
-            'from_time' => 'required|date_format:H:i', // Validate from_time
-            'to_time' => 'required|date_format:H:i|after:from_time', // Validate to_time
+            'from_time' => 'required|date_format:H:i',
+            'to_time' => 'required|date_format:H:i|after:from_time', 
             'salary_type' => 'required|string|in:kpi,fixed',
             'is_active' => 'required|boolean',
-            'profile_image' => 'required|image|max:1024', // Example validation for an image
+            'profile_image' => 'required|image|max:5024',
         ];
     }
     
