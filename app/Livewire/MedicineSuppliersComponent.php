@@ -20,7 +20,7 @@ class MedicineSuppliersComponent extends Component
         'last_name' => 'required|string|max:255',
         'address' => 'required|string',
         'phone_number' => 'required|string|max:15|regex:/^\+998[0-9]{9}$/',
-        'email' => 'required|email|unique:suppliers,email',
+        'email' => 'required|email',
         'contact_person' => 'required|string|max:255',
         'country' => 'required|string|max:255',
         'company_name' => 'required|string|max:255',
