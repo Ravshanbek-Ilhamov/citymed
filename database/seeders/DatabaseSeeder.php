@@ -44,13 +44,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MedicineCategorySeeder::class,
             SupplierSeeder::class,
-            WarehouseSeeder::class,
             MedicineSeeder::class,
             DirectionSeeder::class,
             ServiceSeeder::class,
             DoctorSeeder::class,
             NurseSeeder::class,
-            PatientSeeder::class
+            WarehouseSeeder::class,
+            PatientSeeder::class,
+            RegistratorSeeder::class,
         ]);
     }
 }
