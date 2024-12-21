@@ -13,10 +13,10 @@ class Warehouse extends Model
     protected $fillable = [
         'name',                 // Name of the warehouse
         'code',                 // Unique identifier for the warehouse
-        'address',              // Detailed address of the warehouse
+        'login',             // Unique username for the warehouse
+        'password',             // Password for the warehouse
         'capacity',             // Total capacity of the warehouse
-        'manager_name',         // Name of the warehouse manager
-        'manager_contact',      // Contact details of the manager
+        'nurse_id',             // ID of the nurse responsible for the warehouse
         'status',               // Operational status of the warehouse
         'notes',                // (Optional) Additional comments or notes
     ];
@@ -25,5 +25,9 @@ class Warehouse extends Model
     {
         return $this->belongsToMany(Medicine::class, 'warehouse_medicines', 'warehouse_id', 'medicine_id');
     }
-    
+
+    public function nurse()
+    {
+        return $this->belongsTo(Nurse::class, 'nurse_id');
+    }
 }

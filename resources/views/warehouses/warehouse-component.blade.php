@@ -53,22 +53,22 @@
             </li>
         </ul>
     </div> --}}
-<div class="page-header">
-    {{-- <h3 class="fw-bold mb-3">Tables</h3> --}}
-    <ul class="breadcrumbs mb-3">
-        <li class="nav-home">
-            <a href="#">
-                <i class="icon-home"></i>
-            </a>
-        </li>
-        <li class="separator">
-            <i class="icon-arrow-right"></i>
-        </li>
-        <li class="nav-item">
-            <a href="#">WareHouses</a>
-        </li>
-    </ul>
-</div>
+    <div class="page-header">
+        {{-- <h3 class="fw-bold mb-3">Tables</h3> --}}
+        <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+                <a href="#">
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">WareHouses</a>
+            </li>
+        </ul>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -104,32 +104,43 @@
                     <!-- Row 2: Category and Description -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="capacity" class="form-label">Capacity</label>
-                            <input type="number" class="form-control" id="capacity" wire:model.blur="capacity" required>
-                            @error('capacity') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="login" class="form-label">Login</label>
+                            <input type="text" class="form-control" id="login" wire:model.blur="login" required>
+                            @error('login') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="manager_name" class="form-label">Manager Name</label>
-                            <input type="text" class="form-control" id="manager_name" wire:model.blur="manager_name"
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" wire:model.blur="password"
                                 required>
-                            @error('manager_name') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <!-- Row 3: Batch Number and Quantity -->
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="manager_contact" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control @error('manager_contact') is-invalid @enderror"
-                                id="manager_contact" wire:model.blur="manager_contact" required
-                                placeholder="+998XXXXXXXXX">
-                            @error('manager_contact')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
 
                         <div class="col-md-6">
-                            <label for="note" class="form-label">Note</label>
+                            <label for="nurse_id" class="form-label">Select Nurse:(Nullable)</label>
+                            <select class="form-select"  wire:model.blur="nurse_id" id="nurse_id">
+                                <option value= "null" selected>Select Nurse </option>
+                                @foreach ($nurses as $nurse) 
+                                    <option value="{{ $nurse->id }}">{{ $nurse->first_name }} {{ $nurse->last_name}}</option>
+                                @endforeach
+                            </select>
+                            @error('nurse_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label for="capacity" class="form-label">Capacity</label>
+                            <input type="number" class="form-control" id="capacity" wire:model.blur="capacity" required>
+                            @error('capacity') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="note" class="form-label">Note (Nullable)</label>
                             <textarea class="form-control" wire:model.blur="note" id="note" cols="30"
                                 rows="2"></textarea>
                             @error('note') <span class="text-danger">{{ $message }}</span> @enderror
@@ -183,10 +194,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name & Code</th>
-                            {{-- <th scope="col">Code</th> --}}
-                            <th scope="col">Manager Name</th>
-                            <th scope="col">Manager Contact</th>
+                            <th scope="col">Name & Code</th>                            
+                            <th scope="col">Nurse</th>
                             {{-- <th scope="col">Note</th> --}}
                             <th scope="col">Capacity</th>
                             <th scope="col">Status</th>
@@ -211,11 +220,10 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="text-center">{{$warehouse->manager_name}}</td>
-                            <td class="text-center">{{$warehouse->manager_contact}}</td>
                             {{-- <td class="text-center">{{$warehouse->notes}}</td> --}}
-                            <td class="text-center">{{$warehouse->capacity}}</td>
-                            <td class="text-center">
+                            <td class="justify-content-center">{{ $warehouse->nurse ? $warehouse->nurse->first_name . ' ' . $warehouse->nurse->last_name : 'N/A'}}</td>
+                            <td class="justify-content-center">{{$warehouse->capacity}}</td>
+                            <td class="justify-content-center">
                                 <span wire:click="switchWerehouseSatus({{$warehouse->id}})"
                                     class="badge bg-{{$warehouse->status == 'active' ? 'success' : 'danger'}}"
                                     style="font-size: 0.9rem;">
@@ -285,11 +293,7 @@
                                             <strong>Code:</strong> {{ $selectedWarehouse->code }}
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <strong>Manager Name:</strong> {{ $selectedWarehouse->manager_name }}
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <strong>Manager Contact:</strong> {{ $selectedWarehouse->manager_contact }}
+                                            <strong>Login:</strong> {{ $selectedWarehouse->login }}
                                         </div>
 
                                         <div class="col-md-6 mb-3">
@@ -300,7 +304,7 @@
                                             <strong>Status:</strong> {{$selectedWarehouse->status}}
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <strong>Note:</strong> {{ $selectedWarehouse->note }}
+                                            <strong>Note:</strong> {{ $selectedWarehouse->notes }}
                                         </div>
                                     </div>
                                     @else

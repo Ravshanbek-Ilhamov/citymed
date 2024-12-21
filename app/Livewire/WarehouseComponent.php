@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Nurse;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,23 +12,23 @@ class WarehouseComponent extends Component
 {
     use WithPagination;
 
-    public $createForm = false, $editingForm = false, $search = '', $deleteId;
-    public $selectedWarehouse = null, $name, $code, $manager_name, $manager_contact, $capacity, $status, $note;
+    public $createForm = false, $editingForm = false, $search = '', $deleteId, $nurses;
+    public $selectedWarehouse = null, $name, $code, $login, $password, $capacity, $status, $note, $nurse_id = null;
     public $warehouseBeingEdited = null;
     protected $rules = [
         'name' => 'required',
         'code' => 'required',
-        'manager_name' => 'required|string|max:255',
-        'manager_contact' => ['required', 'regex:/^\+998[0-9]{9}$/'],
-        'capacity' => 'nullable',
-        'note' => 'required|string|max:255',
+        'nurse_id' => 'nullable|exists:nurses,id',
+        'login' => 'required|string|max:255',
+        'capacity' => 'nullable|numeric',
+        'note' => 'nullable|string',
     ];
   
     public function render()
     {
         $warehouses = Warehouse::where('name', 'like', '%'.$this->search.'%')
-                                    ->orWhere('manager_name', 'like', '%'.$this->search.'%')
                                     ->paginate(10);
+        $this->nurses = Nurse::all();
         return view('warehouses.warehouse-component', compact('warehouses'));
     }
 
@@ -40,16 +42,18 @@ class WarehouseComponent extends Component
         $warehouse->save();
     }
 
-
-
     public function store(){
         // dd($this->all());
         $this->validate();
+        $this->validate([
+            'password' => 'required|string|min:8',
+        ]);
         Warehouse::create([
             'name' => $this->name,
             'code' => $this->code,
-            'manager_name' => $this->manager_name,
-            'manager_contact' => $this->manager_contact,
+            'nurse_id' => $this->nurse_id,
+            'login' => $this->login,
+            'password' => Hash::make($this->password),
             'capacity' => $this->capacity,
             'notes' => $this->note,
         ]);
@@ -69,8 +73,8 @@ class WarehouseComponent extends Component
             $this->editingForm = true;
             $this->name = $warehouse->name;
             $this->code = $warehouse->code;
-            $this->manager_name = $warehouse->manager_name;
-            $this->manager_contact = $warehouse->manager_contact;
+            $this->nurse_id = $warehouse->nurse_id;
+            $this->login = $warehouse->login;
             $this->capacity = $warehouse->capacity;
             $this->status = $warehouse->status;
             $this->note = $warehouse->notes;
@@ -82,12 +86,19 @@ class WarehouseComponent extends Component
         $this->warehouseBeingEdited->update([
             'name' => $this->name,
             'code' => $this->code,
-            'manager_name' => $this->manager_name,
-            'manager_contact' => $this->manager_contact,
+            'nurse_id' => $this->nurse_id,
+            'login' => $this->login,
             'capacity' => $this->capacity,
             'status' => $this->status,
             'notes' => $this->note,
         ]);
+
+        if ($this->password) {
+            $this->warehouseBeingEdited->update([
+                'password' => Hash::make($this->password),
+            ]);
+        }
+
         $this->cancel();
         session()->flash('success', 'Warehouse updated successfully.');
     }
