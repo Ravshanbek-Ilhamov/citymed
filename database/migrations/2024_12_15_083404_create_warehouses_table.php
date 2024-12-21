@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // Name of the warehouse
             $table->string('code')->unique(); // Unique identifier for the warehouse
-            // $table->text('address'); // Detailed address
+            $table->string('login')->unique();
+            $table->string('password');
             $table->float('capacity')->nullable(); // Total capacity
-            $table->string('manager_name')->nallable(); // Name of the manager
-            $table->string('manager_contact')->nullable(); // Manager's contact
+            $table->foreignId('nurse_id')->nullable()->constrained('nurses')->onDelete('set null');
             $table->enum('status', ['active', 'inactive'])->default('active'); // Status
             $table->text('notes')->nullable(); // Additional comments or notes
             $table->timestamps();
