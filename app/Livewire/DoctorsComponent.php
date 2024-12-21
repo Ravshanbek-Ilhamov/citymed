@@ -92,7 +92,6 @@ class DoctorsComponent extends Component
         ->paginate(10);
 
         $this->directions = Direction::all();
-
         return view('doctors.index', ['doctors' => $doctors]);
     }
 
@@ -169,8 +168,6 @@ class DoctorsComponent extends Component
     public function update()
     {
         $this->editingForm = false;
-
-        // $this->validate();
 
         $this->editingDoctor->update([
             'first_name' => $this->first_name,

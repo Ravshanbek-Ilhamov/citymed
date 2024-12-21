@@ -15,6 +15,7 @@ class AuthController extends Controller
 
         $credentials = $request->only('username', 'password');
 
+        // dd($credentials);
         if (Auth::attempt($credentials)) {
             return redirect('/doctors'); 
         } else {

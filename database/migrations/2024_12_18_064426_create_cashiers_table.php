@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nurses', function (Blueprint $table) {
+        Schema::create('cashiers', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->enum('gender', ['male', 'female']);
             $table->date('date_of_birth');
-            $table->string('email')->unique()->nullable();
-            $table->string('phone_number')->unique();
+            $table->string('email');
+            $table->string('gender');
+            $table->string('phone_number');
+            $table->string('profile_picture');
             $table->string('address');
             $table->string('working_hours');
             $table->string('working_days');
-            $table->boolean('is_active')->default(true);
-            $table->string('profile_picture')->nullable();
-            $table->string('salary_type')->nullable();
-            $table->float('salary')->nullable();
+            $table->string('salary_type');
+            $table->string('salary')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nurses');
+        Schema::dropIfExists('cashiers');
     }
 };

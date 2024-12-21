@@ -49,9 +49,14 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             DoctorSeeder::class,
             NurseSeeder::class,
+
             WarehouseSeeder::class,
             PatientSeeder::class,
             RegistratorSeeder::class,
+          
+            PatientSeeder::class,
+            WorkerSeeder::class,
+            CashierSeeder::class,
         ]);
     }
 }

@@ -18,8 +18,11 @@ class Nurse extends Model
         'address',
         'service_id',
         'working_hours',
+        'working_days',
         'is_active',
         'profile_picture',
+        'salary_type',
+        'salary',
     ];
     public function services()
     {

@@ -1,5 +1,4 @@
 <div>
-    <!-- Bootstrap 5 CSS (via CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-wnpl6i29aAODbXc6Qtz7Aj0ZbCTDWCMnPS5nufY+OsWlWb/wl5U5YhQ/QHWGdVH1" crossorigin="anonymous">
 
@@ -91,8 +90,9 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="phone_number" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone_number"
-                                    wire:model.blur="phone_number" required>
+                                <input type="tel" class="form-control @error('phone_number') is-invalid @enderror"
+                                    id="phone_number" wire:model.blur="phone_number" required
+                                    placeholder="+998XXXXXXXXX">
                                 @error('phone_number')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -125,7 +125,6 @@
                             <div class="col-md-6">
                                 <label for="services" class="form-label">Service Selection</label>
                                 <select class="form-select" wire:model="selectedServices" id="services" multiple>
-                                    {{-- <option value="" disabled>Select Service</option> --}}
                                     @foreach ($services as $service)
                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
                                     @endforeach
@@ -135,12 +134,25 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="working_hours" class="form-label">Working Hours</label>
-                                <input type="text" class="form-control" id="working_hours"
-                                    wire:model.blur="working_hours" required>
-                                @error('working_hours')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="from_time" class="form-label">From</label>
+                                        <input type="time" class="form-control" id="from_time"
+                                            wire:model.blur="from_time" required>
+                                        @error('from_time')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="to_time" class="form-label">To</label>
+                                        <input type="time" class="form-control" id="to_time"
+                                            wire:model.blur="to_time" required>
+                                        @error('to_time')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -169,7 +181,22 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Nurse available days <span
+                                    class="text-danger">*</span></label>
+                            <div class="d-flex gap-3">
+                                @foreach (['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'] as $day)
+                                    <div class="form-check">
+                                        <input type="checkbox" wire:model="working_days" value="{{ $day }}"
+                                            id="{{ $day }}" class="form-check-input">
+                                        <label class="form-check-label"
+                                            for="{{ $day }}">{{ $day }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                     @if ($editingForm)
                         <div class="row">
                             <div class="col-md-12">
@@ -186,10 +213,8 @@
                 @else
                     <div
                         class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">
-                        <!-- Card Title -->
                         <h5 class="card-title text-primary m-0">Nurses</h5>
 
-                        <!-- Search Bar -->
                         <div class="row mb-0" style="width: 50%;">
                             <div class="col">
                                 <div class="input-group">
@@ -204,7 +229,6 @@
                             </div>
                         </div>
 
-                        <!-- Add Button -->
                         <button wire:click="SetcreateForm" class="btn btn-primary d-flex btn-round align-items-center"
                             style="gap: 0.5rem; background-color: #007bff; border-color: #007bff;">
                             <i class="fas fa-user-plus"></i>
@@ -220,7 +244,6 @@
                                     <th scope="col">Image</th>
                                     <th scope="col">Full Name & Email</th>
                                     <th scope="col">Phone Number</th>
-                                    <th scope="col">Service</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -256,7 +279,6 @@
                                             </div>
                                         </td>
                                         <td>{{ $nurse->phone_number }}</td>
-                                        <td>{{ $nurse->services->name }}</td>
                                         <td>
                                             <div
                                                 class="form-button-action justify-content-around align-items-center gap-1">
