@@ -357,6 +357,9 @@
                                             <strong>Prescription Required:</strong>
                                             {{ $selectedMedicine->is_prescription_required ? 'Yes' : 'No' }}
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>WareHouses:</strong> {{ $selectedMedicine->warehouse->pluck('name')->implode(', ') }}
+                                        </div>
                                     </div>
                                     @else
                                     <p>No medicine details to display.</p>
