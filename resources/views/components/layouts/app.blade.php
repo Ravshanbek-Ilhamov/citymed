@@ -50,7 +50,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="/direction" class="logo">
-                        <img src="assets/img/kaiadmin/logo.svg" alt="navbar brand" class="navbar-brand mr-4"
+                    
+                        <img src="{{asset('assets/img/kaiadmin/logo.svg')}}" alt="navbar brand" class="navbar-brand mr-4"
                             height="20" /> <h5 class="mt-3 ml-5" >Citymed</h5>
                     </a>
                     <div class="nav-toggle">
@@ -154,18 +155,6 @@
                             <a href="/warehouses" wire:navigate>
                                 <i class="fas fa-warehouse"></i>
                                 <p>Sklad</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <i class="fas fa-house"></i>
-                                <p>Mini sklad</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <i class="fas fa-tags"></i>
-                                <p>Mahsulotlar</p>
                             </a>
                         </li>
                     </ul>
@@ -430,7 +419,7 @@
                                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="assets/img/profile.jpg" alt="..."
+                                        <img src="{{asset('assets/img/profile.jpg')}}" alt="..."
                                             class="avatar-img rounded-circle" />
                                     </div>
                                     <span class="profile-username">

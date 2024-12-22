@@ -18,7 +18,7 @@ class WarehouseFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company(), // Warehouse name
+            'name' => 'Main Warehouse', // Warehouse name
             'code' => $this->faker->unique()->bothify('WH-####'), // Unique code
             'login' => 'warehouse', // Unique username
             'password' => Hash::make('password'), // Default password
