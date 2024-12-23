@@ -15,6 +15,8 @@ class Payment extends Model
         'service_id',
         'doctor_id',
         'nurse_id',
+        'phone_number',
+        'fullName',
         'summ',
         'payment_time',
     ]; 

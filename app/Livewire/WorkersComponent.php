@@ -58,7 +58,6 @@ class WorkersComponent extends Component
         $this->address = $worker->address;
         $this->specialization = $worker->specialization;
         
-        // Split working hours into from_time and to_time
         if ($worker->working_hours) {
             $hours = explode(' - ', $worker->working_hours);
             $this->from_time = $hours[0] ?? null;
