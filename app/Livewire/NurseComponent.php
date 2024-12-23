@@ -44,6 +44,7 @@ class NurseComponent extends Component
         $nurses = Nurse::where('first_name', 'like', $this->search . '%')
             ->orWhere('last_name', 'like', $this->search . '%')
             ->orWhere('email', 'like', $this->search . '%')
+            ->orderBy('id','desc')
             ->paginate(10);
         $this->services = Service::all();
         return view('nurses.index', ['nurses' => $nurses]);
