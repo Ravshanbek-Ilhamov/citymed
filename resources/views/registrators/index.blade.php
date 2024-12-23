@@ -206,9 +206,11 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="row mb-3">
                             <label class="form-label fw-semibold mt-2">Doctor available days <span
                                     class="text-danger">*</span></label>
-                            <div class="d-flex gap-3">
+                            <div class="d-flex">
                                 @foreach (['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'] as $day)
                                     <div class="form-check">
                                         <input type="checkbox" wire:model="working_days" value="{{ $day }}"
