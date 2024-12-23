@@ -50,7 +50,7 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="/direction" class="logo">
-                    
+
                         <img src="{{asset('assets/img/kaiadmin/logo.svg')}}" alt="navbar brand" class="navbar-brand mr-4"
                             height="20" /> <h5 class="mt-3 ml-5" >Citymed</h5>
                     </a>
@@ -139,8 +139,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{ Request::is('registrators') ? 'active' : '' }}">
+                            <a href="/registrators" wire:navigate>
                                 <i class="fas fa-user-alt"></i>
                                 <p>Registratorlar</p>
                             </a>
