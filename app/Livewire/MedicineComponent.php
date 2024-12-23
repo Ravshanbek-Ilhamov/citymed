@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Medicine;
 use App\Models\MedicineCategory;
 use App\Models\Supplier;
+use App\Models\Warehouse;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -115,9 +116,9 @@ class MedicineComponent extends Component
 
     public function store()
     {
-
         $this->validate();
-        Medicine::create([
+
+        $medicine = Medicine::create([
             'name' => $this->name,
             'category_id' => $this->category_id,
             'quantity_in_stock' => $this->quantity_in_stock,
@@ -130,6 +131,13 @@ class MedicineComponent extends Component
             'manufacturer_name' => $this->manufacturer_name,
             'manufacture_date' => $this->manufacture_date,
             'expiry_date' => $this->expiry_date,
+        ]);
+
+        $mainWarehouse = Warehouse::where('name', 'like', 'Main%')->first();
+
+        $medicine->warehouse()->attach($mainWarehouse->id, [
+            'quantity' => $this->quantity_in_stock,
+            'date_added' => now(),
         ]);
 
         $this->cancel();

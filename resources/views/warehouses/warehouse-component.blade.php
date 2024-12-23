@@ -232,6 +232,10 @@
                             </span>
                             <td>
                                 <div class="form-button-action d-flex align-items-center gap-1">
+                                    <button wire:click.prevent="distributeWarehouse({{ $warehouse->id }})" type="button" class="btn btn-sm btn-warning"
+                                        title="Distribute">
+                                        <i style="font-size: 0.9rem;" class="fas fa-bezier-curve"></i>
+                                    </button>
                                     <button wire:click.prevent="SeteditForm({{ $warehouse->id }})" type="button"
                                         class="btn btn-sm btn-primary" title="Edit Task">
                                         <i class="fa fa-edit"></i>
@@ -241,6 +245,7 @@
                                         data-bs-target="#deleteModal">
                                         <i class="fa fa-trash"></i>
                                     </button>
+                                    
                                     <!-- Delete Confirmation Modal -->
                                     <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
                                         <div class="modal-dialog">
