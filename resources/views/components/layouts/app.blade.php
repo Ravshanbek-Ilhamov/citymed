@@ -113,8 +113,8 @@
                                 <p>Kassir</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{Request::is('manager') ? 'active' : ''}}">
+                            <a href="/manager" wire:navigate> 
                                 <i class="fas fa-user"></i>
                                 <p>Manager</p>
                             </a>

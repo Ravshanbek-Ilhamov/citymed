@@ -9,6 +9,8 @@ use App\Livewire\DirectionComponent;
 use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
+use App\Livewire\ManagerComponet;
+use App\Livewire\ManagerDetailingComponent;
 use App\Livewire\MedicineCategoryComponent;
 use App\Livewire\MedicineComponent;
 use App\Livewire\MedicineSuppliersComponent;
@@ -56,3 +58,6 @@ Route::get('/cashier' , CashierComponent::class);
 Route::get('/cashier-details', CashierDetailsCompoent::class);
 
 Route::get('/warehouses', WarehouseComponent::class);
+
+Route::get('/manager', ManagerComponet::class);
+Route::get('/managers-details' , ManagerDetailingComponent::class);

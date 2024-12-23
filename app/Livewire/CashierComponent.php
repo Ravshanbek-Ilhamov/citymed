@@ -50,6 +50,7 @@ class CashierComponent extends Component
 
     private function fillcashierData($cashier)
     {
+        // dd(123);
         $this->first_name = $cashier->first_name;
         $this->last_name = $cashier->last_name;
         $this->gender = $cashier->gender;
