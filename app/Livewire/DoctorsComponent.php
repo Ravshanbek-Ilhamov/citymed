@@ -35,7 +35,6 @@ class DoctorsComponent extends Component
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
         'username' => 'required|string|unique:users,username|max:255',
-        // 'password' => 'required|string|min:6',
         'gender' => 'required|in:male,female',
         'date_of_birth' => 'required|date',
         'email' => 'required|email|unique:users,email',
@@ -45,7 +44,6 @@ class DoctorsComponent extends Component
         'years_of_experience' => 'nullable|numeric|min:0',
         'from_time' => 'required|date_format:H:i', // Validate from_time
         'to_time' => 'required|date_format:H:i|after:from_time', // Validate to_time
-        // 'working_hours' => ['nullable', 'string', 'regex:/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/'],
         'consultation_fee' => 'nullable|numeric|min:0',
         // 'profile_picture' => 'nullable|image|max:2048',
         'bio' => 'nullable|string|max:500',

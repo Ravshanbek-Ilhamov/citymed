@@ -10,6 +10,8 @@ use App\Livewire\DistributeWarehouseComponent;
 use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
+use App\Livewire\ManagerComponet;
+use App\Livewire\ManagerDetailingComponent;
 use App\Livewire\MedicineCategoryComponent;
 use App\Livewire\MedicineComponent;
 use App\Livewire\MedicineSuppliersComponent;
@@ -63,3 +65,6 @@ Route::get('/distribute-warehouse/{id}', DistributeWarehouseComponent::class);
 
 Route::get('/registrators',RegistratorComponent::class);
 Route::get('/registrator-details',RegistratorDetailsComponent::class);
+
+Route::get('/manager', ManagerComponet::class);
+Route::get('/managers-details' , ManagerDetailingComponent::class);
