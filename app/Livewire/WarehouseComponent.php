@@ -15,6 +15,7 @@ class WarehouseComponent extends Component
     public $createForm = false, $editingForm = false, $search = '', $deleteId, $nurses;
     public $selectedWarehouse = null, $name, $code, $login, $password, $capacity, $status, $note, $nurse_id = null;
     public $warehouseBeingEdited = null;
+    
     protected $rules = [
         'name' => 'required',
         'code' => 'required',
@@ -40,6 +41,10 @@ class WarehouseComponent extends Component
         $warehouse = Warehouse::findorFail($id);
         $warehouse->status = $warehouse->status == 'active' ? 'inactive' : 'active';
         $warehouse->save();
+    }
+
+    public function distributeWarehouse($id){
+        return $this->redirect("/distribute-warehouse/$id",navigate: true);
     }
 
     public function store(){

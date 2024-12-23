@@ -6,6 +6,7 @@ use App\Http\Controllers\LayoutsController;
 use App\Livewire\CashierComponent;
 use App\Livewire\CashierDetailsCompoent;
 use App\Livewire\DirectionComponent;
+use App\Livewire\DistributeWarehouseComponent;
 use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
 use App\Livewire\DoctorsComponent;
@@ -56,3 +57,4 @@ Route::get('/cashier' , CashierComponent::class);
 Route::get('/cashier-details', CashierDetailsCompoent::class);
 
 Route::get('/warehouses', WarehouseComponent::class);
+Route::get('/distribute-warehouse/{id}', DistributeWarehouseComponent::class);
