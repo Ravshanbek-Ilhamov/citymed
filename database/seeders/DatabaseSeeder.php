@@ -57,6 +57,8 @@ class DatabaseSeeder extends Seeder
             PatientSeeder::class,
             WorkerSeeder::class,
             CashierSeeder::class,
+
+            ManegrSeeder::class,
         ]);
     }
 }

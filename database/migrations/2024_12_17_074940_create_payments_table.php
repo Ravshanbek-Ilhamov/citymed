@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
             $table->foreignId('service_id')->nullable()->constrained('services')->onDelete('cascade');
-            $table->foreignId('doctor_id')->nullable()->constrained('doctors')->onDelete('cascade')->nullable();
-            $table->foreignId('nurse_id')->constrained('nurses')->onDelete('cascade')->nullable();
+            $table->foreignId('doctor_id')->nullable()->constrained('doctors')->onDelete('cascade');
+            $table->foreignId('nurse_id')->nullable()->constrained('nurses')->onDelete('cascade')->nullable();
             $table->integer('summ');
             $table->dateTime('payment_time');
             $table->string('payment_type');
