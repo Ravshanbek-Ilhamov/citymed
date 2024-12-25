@@ -53,12 +53,13 @@ class DatabaseSeeder extends Seeder
             WarehouseSeeder::class,
             PatientSeeder::class,
             RegistratorSeeder::class,
-          
+
             PatientSeeder::class,
             WorkerSeeder::class,
             CashierSeeder::class,
 
             ManegrSeeder::class,
+            PositionSeeder::class,
         ]);
     }
 }

@@ -115,7 +115,7 @@
                             </a>
                         </li>
                         <li class="nav-item {{Request::is('manager') ? 'active' : ''}}">
-                            <a href="/manager" wire:navigate> 
+                            <a href="/manager" wire:navigate>
                                 <i class="fas fa-user"></i>
                                 <p>Manager</p>
                             </a>
@@ -146,7 +146,7 @@
                             </a>
                         </li>
                         <li class="nav-item {{ Request::is('positions') ? 'active' : '' }}">
-                            <a href="/positions">
+                            <a href="/positions" wire:navigate>
                                 <i class="fas fa-briefcase"></i>
                                 <p>Lavozimlar</p>
                             </a>

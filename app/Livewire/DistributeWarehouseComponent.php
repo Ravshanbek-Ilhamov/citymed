@@ -37,7 +37,6 @@ class DistributeWarehouseComponent extends Component
         $this->maxValue = WarehouseMedicine::where('warehouse_id', $this->warehouse->id)->where('medicine_id', $id)->first()->quantity ?? 0;
     }
         
-    
 
     public function distribute(){
 
