@@ -52,6 +52,7 @@ Route::get('/positions',PositionComponent::class);
 Route::get('/medicines',MedicineComponent::class);
 Route::get('/medicine-category',MedicineCategoryComponent::class);
 Route::get('/medicine-suppliers',MedicineSuppliersComponent::class);
+Route::get('//medicines/closeToExpire',[MedicineComponent::class,'closeToExpire']);
 
 Route::get('/patients' , PatientComponent::class);
 Route::get('/patient-details' , PatientDetailscomponent::class);

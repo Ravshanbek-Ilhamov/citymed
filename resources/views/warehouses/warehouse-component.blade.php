@@ -130,7 +130,6 @@
                             @error('nurse_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-
                         <div class="col-md-6">
                             <label for="capacity" class="form-label">Capacity</label>
                             <input type="number" class="form-control" id="capacity" wire:model.blur="capacity" required>
@@ -176,7 +175,7 @@
                             </span>
                             <input type="search" wire:model.live.debounce.500ms="search"
                                 class="form-control border-start-1  ps-2"
-                                placeholder="Search warehouses by name,manager name..." style="border-color: #ced4da;">
+                                placeholder="Search warehouses by name,nurse name..." style="border-color: #ced4da;">
                         </div>
                     </div>
                 </div>
@@ -307,6 +306,9 @@
 
                                         <div class="col-md-6 mb-3">
                                             <strong>Status:</strong> {{$selectedWarehouse->status}}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Medicines:</strong> {{$selectedWarehouse->medicines->pluck('name')->implode(', ')}}
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <strong>Note:</strong> {{ $selectedWarehouse->notes }}

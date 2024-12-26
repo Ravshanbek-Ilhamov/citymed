@@ -6,6 +6,7 @@ use App\Models\Medicine;
 use App\Models\MedicineCategory;
 use App\Models\Supplier;
 use App\Models\Warehouse;
+use App\Models\WarehouseMedicine;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ class MedicineComponent extends Component
     public $createForm = false, $editingForm = false;
     public $categories, $suppliers, $search = '';
     public $medicineBeingEdited, $name, $category_id, $batch_number, $quantity_in_stock, $minimum_stock_level, $purchase_price,
-        $selling_price, $supplier_id, $manufacturer_name,
+        $selling_price, $supplier_id, $manufacturer_name, $wareHouseMedicine, $sort,
         $manufacture_date, $expiry_date, $selectedMedicine = null,
         $is_prescription_required, $deleteId;
 
@@ -38,15 +39,28 @@ class MedicineComponent extends Component
         $medicines = Medicine::whereHas('category', function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%');
         })
-            ->orWhere('name', 'like', '%' . $this->search . '%')
-            ->paginate(10);
+        ->orWhere('name', 'like', '%' . $this->search . '%')
+        ->when($this->sort, function ($query) {
+            $query->orderBy('expiry_date', 'asc');
+        })
+        ->paginate(10);
 
         $this->categories = MedicineCategory::all();
         $this->suppliers = Supplier::all();
+        $this->wareHouseMedicine = WarehouseMedicine::all();
 
         return view('medicines.index', ['medicines' => $medicines]);
     }
 
+
+    public function sortByExpiry()
+    {
+        if ($this->sort) {
+            $this->sort = false;
+        }else{
+            $this->sort = true;
+        }
+    }
 
     public function setDetailingMedicine($id)
     {
@@ -134,6 +148,13 @@ class MedicineComponent extends Component
         ]);
 
         $mainWarehouse = Warehouse::where('name', 'like', 'Main%')->first();
+
+        if (!$mainWarehouse) {
+            $mainWarehouse = Warehouse::create([
+                'name' => 'Main Warehouse',
+            ]);
+        }
+
 
         $medicine->warehouse()->attach($mainWarehouse->id, [
             'quantity' => $this->quantity_in_stock,

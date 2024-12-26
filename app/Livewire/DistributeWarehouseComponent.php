@@ -13,11 +13,14 @@ class DistributeWarehouseComponent extends Component
     public $warehouse, $warehouses,$medicines;
     public $name, $warehouse_id,$medicine_id,$quantity, $maxValue;
 
-    public $rules = [
-        'warehouse_id' => 'required',
-        'medicine_id' => 'required',
-        'quantity' => 'required',
-    ];
+    protected function rules()
+    {
+        return [
+            'warehouse_id' => 'required',
+            'medicine_id' => 'required',
+            'quantity' => 'required|integer|min:1|max:'.$this->maxValue,
+        ];
+    }
 
 
     public function mount($id)
@@ -40,7 +43,7 @@ class DistributeWarehouseComponent extends Component
 
     public function distribute(){
 
-        $this->validate();
+        $this->validate($this->rules());
 
         $warehouse = Warehouse::findorFail($this->warehouse_id);
 
