@@ -20,18 +20,25 @@ class WarehouseComponent extends Component
         'name' => 'required',
         'code' => 'required',
         'nurse_id' => 'nullable|exists:nurses,id',
-        'login' => 'required|string|max:255',
+        'login' => 'required|string|unique:warehouses',
         'capacity' => 'nullable|numeric',
         'note' => 'nullable|string',
     ];
-  
+
     public function render()
     {
-        $warehouses = Warehouse::where('name', 'like', '%'.$this->search.'%')
-                                    ->paginate(10);
+        $warehouses = Warehouse::where('name', 'like', '%' . $this->search . '%')
+            ->orWhereHas('nurse', function ($query) {
+                $query->where('first_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('last_name', 'like', '%' . $this->search . '%');
+            })
+            ->paginate(10);
+
         $this->nurses = Nurse::all();
+
         return view('warehouses.warehouse-component', compact('warehouses'));
     }
+
 
     public function setDetailingWarehouse($id){
         $this->selectedWarehouse = Warehouse::findorFail($id);

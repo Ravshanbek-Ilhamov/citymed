@@ -42,9 +42,9 @@
             <li class="nav-item active">
                 <a wire:navigate href="/medicines">Medicines</a>
             </li>
-            <li class="nav-item">
-                <a wire:navigate href="#">Purchase Medicine</a>
-            </li>
+            {{-- <li class="nav-item"> --}}
+                {{-- <a wire:navigate href="/medicines/closeToExpire">Close To Expire</a> --}}
+            {{-- </li> --}}
             <li class="nav-item">
                 <a wire:navigate href="#">Used Medicine</a>
             </li>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="category_id" class="form-label">Category</label>
-                            <select class="form-select" id="category_id" wire:model.blur="category_id" required>
+                            <select class="form-control" id="category_id" wire:model.blur="category_id" required>
                                 <option value="" selected>Select Category</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="is_prescription_required" class="form-label">Prescription Required</label>
-                            <select class="form-select" id="is_prescription_required"
+                            <select class="form-control" id="is_prescription_required"
                                 wire:model.blur="is_prescription_required" required>
                                 <option value="1" selected>Yes</option>
                                 <option value="0">No</option>
@@ -148,7 +148,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="supplier_id" class="form-label">Supplier</label>
-                            <select class="form-select" id="supplier_id" wire:model.blur="supplier_id" required>
+                            <select class="form-control" id="supplier_id" wire:model.blur="supplier_id" required>
                                 <option value="" selected>Select Supplier</option>
                                 @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->first_name . ' ' .
@@ -222,17 +222,19 @@
                     <span>Add Medicine</span>
                 </button>
             </div>
-
+                        {{-- @php
+                            dd($medicines);
+                        @endphp --}}
             <div class="card-body">
                 <table class="table table-striped mt-3">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Name & Manufacturer</th>
                             <th scope="col">Category</th>
                             <th scope="col">Quantity in Stock</th>
                             <th scope="col">Selling Price</th>
-                            <th scope="col">Expiry Date</th>
+                            <th scope="col" wire:click="sortByExpiry" >Expiry Date</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -246,7 +248,7 @@
                                         class="text-decoration-none" data-bs-toggle="modal"
                                         data-bs-target="#medicineDetailsModal">
                                         <span
-                                            style="font-weight: bold; color: {{$medicine->quantity_in_stock <= $medicine->minimum_stock_level ? 'red' : '#4A90E2'}};">
+                                            style="font-weight: bold; color: {{$wareHouseMedicine->where('medicine_id', $medicine->id)->sum('quantity') <= $medicine->minimum_stock_level ? 'red' : '#4A90E2'}};">
                                             {{ strtoupper($medicine->name[0]) }}{{ substr($medicine->name, 1) }}
                                         </span>
                                     </a>
@@ -255,10 +257,10 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="text-center">{{$medicine->category->name}}</td>
+                            <td class="text-center">{{ucfirst($medicine->category->name)}}</td>
                             <td class="text-center"
-                                style="color: {{$medicine->quantity_in_stock <= $medicine->minimum_stock_level ? 'red' : ''}};">
-                                {{$medicine->quantity_in_stock}}
+                                style="color: {{$wareHouseMedicine->where('medicine_id', $medicine->id)->sum('quantity') <= $medicine->minimum_stock_level ? 'red' : ''}};">
+                                {{$wareHouseMedicine->where('medicine_id', $medicine->id)->sum('quantity') ?? 0}}
                             </td>
                             <td class="text-center">${{$medicine->selling_price}}</td>
                             <td class="text-center">{{$medicine->expiry_date}}</td>
@@ -275,26 +277,28 @@
                                     </button>
 
                                     <!-- Delete Confirmation Modal -->
-                                        <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Confirm Deletion</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Are you sure you want to delete this medicine?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btn-round" data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="btn btn-danger btn-round" wire:click="deleteConfirmed"
-                                                            data-bs-dismiss="modal">
-                                                            Delete
-                                                        </button>
-                                                    </div>
+                                    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirm Deletion</h5>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this medicine?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-round"
+                                                        data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger btn-round"
+                                                        wire:click="deleteConfirmed" data-bs-dismiss="modal">
+                                                        Delete
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -358,7 +362,8 @@
                                             {{ $selectedMedicine->is_prescription_required ? 'Yes' : 'No' }}
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <strong>WareHouses:</strong> {{ $selectedMedicine->warehouse->pluck('name')->implode(', ') }}
+                                            <strong>WareHouses:</strong> {{
+                                            $selectedMedicine->warehouse->pluck('name')->implode(', ') }} 
                                         </div>
                                     </div>
                                     @else
