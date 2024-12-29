@@ -13,7 +13,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        return view('doctors.index');
+        return view('admin-page.doctors.index');
     }
 
     /**

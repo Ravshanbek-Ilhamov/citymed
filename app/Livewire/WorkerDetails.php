@@ -23,6 +23,6 @@ class WorkerDetails extends Component
     }
     public function render()
     {
-        return view('workers.worker-details');
+        return view('admin-page.workers.worker-details');
     }
 }

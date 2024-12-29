@@ -66,7 +66,7 @@ class DirectionComponent extends Component
     public function render()
     {
         $this->directions = Direction::all();
-        return view('directions.index');
+        return view('admin-page.directions.index');
     }
 
     public function updateStatus($directionId, $is_active)

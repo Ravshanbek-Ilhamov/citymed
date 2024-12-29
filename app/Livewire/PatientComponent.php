@@ -44,7 +44,7 @@ class PatientComponent extends Component
             ->orWhere('phone_number', 'like', '%' . $this->search . '%')
             ->paginate(10);
             // dd($patients);
-        return view('patients.index',compact('patients'));
+        return view('admin-page.patients.index',compact('patients'));
     }
 
     public function resetInputFields()

@@ -33,7 +33,7 @@ class MedicineSuppliersComponent extends Component
                                     ->orWhere('email', 'like', '%' . $this->search . '%')
                                     ->orWhere('company_name', 'like', '%' . $this->search . '%')
                                     ->paginate(10);
-        return view('medicines.medicine-suppliers', compact('medicineSuppliers'));
+        return view('admin-page.medicines.medicine-suppliers', compact('medicineSuppliers'));
     }
 
 

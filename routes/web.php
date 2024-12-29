@@ -43,7 +43,6 @@ Route::get('/doctor-details',DoctorDetailsComponent::class);
 Route::get('/nurses',NurseComponent::class);
 Route::get('/nurse-details',NurseDetailsComponent::class);
 
-Route::get('/categories', SelectComponent::class);
 Route::get('/workers' , WorkersComponent::class);
 Route::get('/worker-details' , WorkerDetails::class);
 

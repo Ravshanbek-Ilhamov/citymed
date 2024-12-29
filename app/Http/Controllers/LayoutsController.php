@@ -11,6 +11,6 @@ class LayoutsController extends Controller
     // public function index()
     // {
     //     $directions = Direction::with('services')->get(); // Fetch directions with related services
-    //     return view('your-view-name', compact('directions'));
+    //     return view('admin-page.your-view-name', compact('directions'));
     // } 
 }    

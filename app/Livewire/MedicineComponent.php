@@ -49,7 +49,7 @@ class MedicineComponent extends Component
         $this->suppliers = Supplier::all();
         $this->wareHouseMedicine = WarehouseMedicine::all();
 
-        return view('medicines.index', ['medicines' => $medicines]);
+        return view('admin-page.medicines.index', ['medicines' => $medicines]);
     }
 
 

@@ -15,7 +15,7 @@ class DirectionController extends Controller
     public function index()
     {
         $directions = Direction::all();
-        return view('directions.index' , compact('directions'));
+        return view('admin-page.directions.index' , compact('directions'));
     }
 
     /**

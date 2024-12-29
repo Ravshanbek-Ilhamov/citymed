@@ -36,7 +36,7 @@ class WarehouseComponent extends Component
 
         $this->nurses = Nurse::all();
 
-        return view('warehouses.warehouse-component', compact('warehouses'));
+        return view('admin-page.warehouses.warehouse-component', compact('warehouses'));
     }
 
 
