@@ -23,6 +23,6 @@ class PatientDetailscomponent extends Component
 
     public function render()
     {
-        return view('patients.patient-detailscomponent');
+        return view('admin-page.patients.patient-detailscomponent');
     }
 }

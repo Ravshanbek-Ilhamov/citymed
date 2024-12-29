@@ -23,7 +23,7 @@ class NurseDetailsComponent extends Component
 
     public function render()
     {
-        return view('nurses.nurse-details-component', [
+        return view('admin-page.nurses.nurse-details-component', [
             'nurse' => $this->nurse,
         ])->layout('components.layouts.app');
     }

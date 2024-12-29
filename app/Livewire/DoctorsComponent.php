@@ -90,7 +90,7 @@ class DoctorsComponent extends Component
         ->paginate(10);
 
         $this->directions = Direction::all();
-        return view('doctors.index', ['doctors' => $doctors]);
+        return view('admin-page.doctors.index', ['doctors' => $doctors]);
     }
 
 

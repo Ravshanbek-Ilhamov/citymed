@@ -23,7 +23,7 @@ class CashierDetailsCompoent extends Component
 
     public function render()
     {
-        return view('cashiers.cashier-details-compoent', [
+        return view('admin-page.cashiers.cashier-details-compoent', [
             'cashier' => $this->cashier,
         ])->layout('components.layouts.app');
     }

@@ -31,7 +31,7 @@ class ManagerComponet extends Component
             ->orWhere('last_name', 'like', '%' . $this->search . '%')
             ->get();
 
-        return view('manager.index');
+        return view('admin-page.manager.index');
     }
 
     public function SetcreateForm()

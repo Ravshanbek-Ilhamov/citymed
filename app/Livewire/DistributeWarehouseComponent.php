@@ -33,7 +33,7 @@ class DistributeWarehouseComponent extends Component
 
     public function render()
     {
-        return view('warehouses.distribute-warehouse-component');
+        return view('admin-page.warehouses.distribute-warehouse-component');
     }
 
     public function medicineSelected($id){

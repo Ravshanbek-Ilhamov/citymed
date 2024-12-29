@@ -66,7 +66,7 @@ class PositionComponent extends Component
     public function render()
     {
         $this->positions = Position::all();
-        return view('positions/index');
+        return view('admin-page.positions/index');
     }
 
     public function updateStatus($positionId, $is_active)

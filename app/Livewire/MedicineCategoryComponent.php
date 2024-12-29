@@ -22,7 +22,7 @@ class MedicineCategoryComponent extends Component
     {
         $medicineCategories = MedicineCategory::where('name', 'like' ,$this->search . '%')
         ->paginate(10);
-        return view('medicines.medicine-category', compact('medicineCategories'));
+        return view('admin-page.medicines.medicine-category', compact('medicineCategories'));
     }
 
     public function SetcreateForm(){
