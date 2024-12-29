@@ -23,7 +23,7 @@ class DoctorDetailsComponent extends Component
 
     public function render()
     {
-        return view('doctors.doctor-details-component', [
+        return view('admin-page.doctors.doctor-details-component', [
             'doctor' => $this->doctor,
         ])->layout('components.layouts.app');
     }

@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <label for="code" class="form-label">Select warehouse to distribute </label>
 
-                            <select class="form-select" wire:model.blur="warehouse_id" id="warehouse_id">
+                            <select class="form-control" wire:model.blur="warehouse_id" id="warehouse_id">
                                 <option value="null" selected>Select WareHouse </option>
                                 @foreach ($warehouses as $warehouse)
                                     <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
@@ -68,7 +68,7 @@
                         <div class="col-md-6">
                             <label for="login" class="form-label">Select Medicine</label>
 
-                            <select wire:change="medicineSelected($event.target.value)" class="form-select" wire:model.blur="medicine_id" id="medicine_id">
+                            <select wire:change="medicineSelected($event.target.value)" class="form-control" wire:model.blur="medicine_id" id="medicine_id">
                                 <option value="null" selected>Select Medicine </option>
                                 @foreach ($medicines as $medicine)
                                     <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>

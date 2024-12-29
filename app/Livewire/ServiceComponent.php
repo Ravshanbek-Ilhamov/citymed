@@ -30,7 +30,7 @@ class ServiceComponent extends Component
         $services = Service::paginate(10);
 
         // dd($services);
-        return view('services.index' ,['services' =>$services]);
+        return view('admin-page.services.index' ,['services' =>$services]);
     }
 
     public function toggleForm()

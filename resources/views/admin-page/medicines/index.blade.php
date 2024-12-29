@@ -2,7 +2,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-wlpxaVfwE0jaufrGrO2BTKqfnKtvsLJwAnfhEZHY4f2FHOuRLqheNOzQ5W2E6Z7m" crossorigin="anonymous">
     </script>
-    {{-- <style>
+    <style>
         .breadcrumbs {
             display: flex;
             gap: 20px;
@@ -42,9 +42,9 @@
             <li class="nav-item active">
                 <a wire:navigate href="/medicines">Medicines</a>
             </li>
-            <li class="nav-item">
-                <a wire:navigate href="#">Purchase Medicine</a>
-            </li>
+            {{-- <li class="nav-item"> --}}
+                {{-- <a wire:navigate href="/medicines/closeToExpire">Close To Expire</a> --}}
+            {{-- </li> --}}
             <li class="nav-item">
                 <a wire:navigate href="#">Used Medicine</a>
             </li>
@@ -52,23 +52,9 @@
                 <a wire:navigate href="#">Medicine Bills</a>
             </li>
         </ul>
-    </div> --}}
-    <div class="page-header">
-        {{-- <h3 class="fw-bold mb-3">Tables</h3> --}}
-        <ul class="breadcrumbs mb-3">
-            <li class="nav-home">
-                <a href="#">
-                    <i class="icon-home"></i>
-                </a>
-            </li>
-            <li class="separator">
-                <i class="icon-arrow-right"></i>
-            </li>
-            <li class="nav-item">
-                <a href="#">WareHouses</a>
-            </li>
-        </ul>
     </div>
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -82,7 +68,7 @@
                 @if ($createForm || $editingForm)
 
                 <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="card-title">Add WareHouse</div>
+                    <div class="card-title">Add Medicine</div>
                     <button wire:click="cancel" class="btn btn-primary btn-round">Back</button>
                 </div>
 
@@ -90,60 +76,108 @@
                     <!-- Row 1: Name -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="name" class="form-label">WareHouse Name</label>
+                            <label for="name" class="form-label">Medicine Name</label>
                             <input type="text" class="form-control" id="name" wire:model.blur="name" required>
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="code" class="form-label">Code</label>
-                            <input type="text" class="form-control" id="code" wire:model.blur="code" required>
-                            @error('code') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="category_id" class="form-label">Category</label>
+                            <select class="form-control" id="category_id" wire:model.blur="category_id" required>
+                                <option value="" selected>Select Category</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <!-- Row 2: Category and Description -->
                     <div class="row mb-3">
+
                         <div class="col-md-6">
-                            <label for="login" class="form-label">Login</label>
-                            <input type="text" class="form-control" id="login" wire:model.blur="login" required>
-                            @error('login') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="quantity_in_stock" class="form-label">Quantity in Stock</label>
+                            <input type="number" class="form-control" id="quantity_in_stock"
+                                wire:model.blur="quantity_in_stock" required>
+                            @error('quantity_in_stock') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" wire:model.blur="password"
-                                required>
-                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="minimum_stock_level" class="form-label">Minimum Stock Level</label>
+                            <input type="number" class="form-control" id="minimum_stock_level"
+                                wire:model.blur="minimum_stock_level" required>
+                            @error('minimum_stock_level') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <!-- Row 3: Batch Number and Quantity -->
                     <div class="row mb-3">
-
                         <div class="col-md-6">
-                            <label for="nurse_id" class="form-label">Select Nurse:(Nullable)</label>
-                            <select class="form-select"  wire:model.blur="nurse_id" id="nurse_id">
-                                <option value= "null" selected>Select Nurse </option>
-                                @foreach ($nurses as $nurse) 
-                                    <option value="{{ $nurse->id }}">{{ $nurse->first_name }} {{ $nurse->last_name}}</option>
-                                @endforeach
-                            </select>
-                            @error('nurse_id') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="batch_number" class="form-label">Batch Number</label>
+                            <input type="text" class="form-control" id="batch_number" wire:model.blur="batch_number"
+                                required>
+                            @error('batch_number') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-
-
                         <div class="col-md-6">
-                            <label for="capacity" class="form-label">Capacity</label>
-                            <input type="number" class="form-control" id="capacity" wire:model.blur="capacity" required>
-                            @error('capacity') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="is_prescription_required" class="form-label">Prescription Required</label>
+                            <select class="form-control" id="is_prescription_required"
+                                wire:model.blur="is_prescription_required" required>
+                                <option value="1" selected>Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            @error('is_prescription_required') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
+                    <!-- Row 4: Minimum Stock Level and Price -->
                     <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label for="note" class="form-label">Note (Nullable)</label>
-                            <textarea class="form-control" wire:model.blur="note" id="note" cols="30"
-                                rows="2"></textarea>
-                            @error('note') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div class="col-md-6">
+                            <label for="selling_price" class="form-label">Selling Price</label>
+                            <input type="number" class="form-control" id="selling_price" wire:model.blur="selling_price"
+                                required>
+                            @error('selling_price') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="purchase_price" class="form-label">Purchase Price</label>
+                            <input type="number" class="form-control" id="purchase_price"
+                                wire:model.blur="purchase_price" required>
+                            @error('purchase_price') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Selling Price and Discount -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="supplier_id" class="form-label">Supplier</label>
+                            <select class="form-control" id="supplier_id" wire:model.blur="supplier_id" required>
+                                <option value="" selected>Select Supplier</option>
+                                @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}">{{ $supplier->first_name . ' ' .
+                                    $supplier->last_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('supplier_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="manufacturer_name" class="form-label">Manufacturer</label>
+                            <input type="text" class="form-control" id="manufacturer_name"
+                                wire:model.blur="manufacturer_name" required>
+                            @error('manufacturer_name') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <!-- Row 7: Country of Origin and Manufacture Date -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="manufacture_date" class="form-label">Manufacture Date</label>
+                            <input type="date" class="form-control" id="manufacture_date"
+                                wire:model.blur="manufacture_date" required>
+                            @error('manufacture_date') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="expiry_date" class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiry_date" wire:model.blur="expiry_date"
+                                required>
+                            @error('expiry_date') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -164,7 +198,7 @@
             <div
                 class="card-header d-flex justify-content-between align-items-center bg-light border-bottom shadow-sm py-3 px-4 rounded-top">
                 <!-- Card Title -->
-                <h5 class="card-title text-primary m-0">WareHouses</h5>
+                <h5 class="card-title text-primary m-0">Medicines</h5>
 
                 <!-- Search Bar -->
                 <div class="row mb-0" style="width: 50%;">
@@ -175,8 +209,8 @@
                                 <i class="fa fa-search text-muted"></i>
                             </span>
                             <input type="search" wire:model.live.debounce.500ms="search"
-                                class="form-control border-start-1  ps-2"
-                                placeholder="Search warehouses by name,manager name..." style="border-color: #ced4da;">
+                                class="form-control border-start-1  ps-2" placeholder="Search medicines by name..."
+                                style="border-color: #ced4da;">
                         </div>
                     </div>
                 </div>
@@ -185,67 +219,63 @@
                 <button wire:click="SetcreateForm" class="btn btn-primary d-flex btn-round align-items-center"
                     style="gap: 0.5rem; background-color: #007bff; border-color: #007bff;">
                     <i class="fas fa-user-plus"></i>
-                    <span>Add WareHouse</span>
+                    <span>Add Medicine</span>
                 </button>
             </div>
-
+                        {{-- @php
+                            dd($medicines);
+                        @endphp --}}
             <div class="card-body">
                 <table class="table table-striped mt-3">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name & Code</th>                            
-                            <th scope="col">Nurse</th>
-                            {{-- <th scope="col">Note</th> --}}
-                            <th scope="col">Capacity</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Name & Manufacturer</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Quantity in Stock</th>
+                            <th scope="col">Selling Price</th>
+                            <th scope="col" wire:click="sortByExpiry" >Expiry Date</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($warehouses as $warehouse)
+                        @foreach ($medicines as $medicine)
                         <tr>
-                            <td class="text-center">{{$warehouse->id}}</td>
+                            <td class="text-center">{{$medicine->id}}</td>
                             <td>
                                 <div class="d-flex flex-column">
-                                    <a href="#" wire:click.prevent="setDetailingWarehouse({{$warehouse->id}})"
+                                    <a href="#" wire:click.prevent="setDetailingMedicine({{$medicine->id}})"
                                         class="text-decoration-none" data-bs-toggle="modal"
-                                        data-bs-target="#detailModal">
-                                        <span style="font-weight: bold; color:#4A90E2;">
-                                            {{ ucfirst($warehouse->name) }}
+                                        data-bs-target="#medicineDetailsModal">
+                                        <span
+                                            style="font-weight: bold; color: {{$wareHouseMedicine->where('medicine_id', $medicine->id)->sum('quantity') <= $medicine->minimum_stock_level ? 'red' : '#4A90E2'}};">
+                                            {{ strtoupper($medicine->name[0]) }}{{ substr($medicine->name, 1) }}
                                         </span>
                                     </a>
                                     <span style="font-size: 0.9rem; color: #6c757d;">
-                                        {{$warehouse->code}}
+                                        {{$medicine->manufacturer_name}}
                                     </span>
                                 </div>
                             </td>
-                            {{-- <td class="text-center">{{$warehouse->notes}}</td> --}}
-                            <td class="justify-content-center">{{ $warehouse->nurse ? $warehouse->nurse->first_name . ' ' . $warehouse->nurse->last_name : 'N/A'}}</td>
-                            <td class="justify-content-center">{{$warehouse->capacity}}</td>
-                            <td class="justify-content-center">
-                                <span wire:click="switchWerehouseSatus({{$warehouse->id}})"
-                                    class="badge bg-{{$warehouse->status == 'active' ? 'success' : 'danger'}}"
-                                    style="font-size: 0.9rem;">
-                                    {{ucfirst($warehouse->status)}}
+                            <td class="text-center">{{ucfirst($medicine->category->name)}}</td>
+                            <td class="text-center"
+                                style="color: {{$wareHouseMedicine->where('medicine_id', $medicine->id)->sum('quantity') <= $medicine->minimum_stock_level ? 'red' : ''}};">
+                                {{$wareHouseMedicine->where('medicine_id', $medicine->id)->sum('quantity') ?? 0}}
                             </td>
-                            </span>
+                            <td class="text-center">${{$medicine->selling_price}}</td>
+                            <td class="text-center">{{$medicine->expiry_date}}</td>
                             <td>
                                 <div class="form-button-action d-flex align-items-center gap-1">
-                                    <button wire:click.prevent="distributeWarehouse({{ $warehouse->id }})" type="button" class="btn btn-sm btn-warning"
-                                        title="Distribute">
-                                        <i style="font-size: 0.9rem;" class="fas fa-bezier-curve"></i>
-                                    </button>
-                                    <button wire:click.prevent="SeteditForm({{ $warehouse->id }})" type="button"
+                                    <button wire:click.prevent="SeteditForm({{ $medicine->id }})" type="button"
                                         class="btn btn-sm btn-primary" title="Edit Task">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button wire:click="prepareDelete({{ $warehouse->id }})"
+                                    <button wire:click="prepareDelete({{ $medicine->id }})"
                                         class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal">
                                         <i class="fa fa-trash"></i>
                                     </button>
-                                    
+
                                     <!-- Delete Confirmation Modal -->
                                     <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1">
                                         <div class="modal-dialog">
@@ -256,7 +286,7 @@
                                                         data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Are you sure you want to delete this warehouse?
+                                                    Are you sure you want to delete this medicine?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btn-round"
@@ -273,43 +303,67 @@
                             </td>
                         </tr>
                         @endforeach
-                        {{ $warehouses->links('vendor.livewire.bootstrap') }}
+                        {{ $medicines->links('vendor.livewire.bootstrap') }}
                     </tbody>
 
-                    <!-- WareHouse Details Modal -->
-                    <div wire:ignore.self class="modal fade" id="detailModal" tabindex="-1"
-                        aria-labelledby="detailModalLabel" aria-hidden="true">
+                    <!-- Medicine Details Modal -->
+                    <div wire:ignore.self class="modal fade" id="medicineDetailsModal" tabindex="-1"
+                        aria-labelledby="medicineDetailsModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="detailModalLabel">
-                                        WareHouse Details
+                                    <h5 class="modal-title" id="medicineDetailsModalLabel">
+                                        Medicine Details
                                     </h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    @if($selectedWarehouse)
+                                    @if($selectedMedicine)
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <strong>Name:</strong> {{ $selectedWarehouse->name }}
+                                            <strong>Name:</strong> {{ $selectedMedicine->name }}
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <strong>Code:</strong> {{ $selectedWarehouse->code }}
+                                            <strong>Category:</strong> {{ $selectedMedicine->category->name }}
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <strong>Login:</strong> {{ $selectedWarehouse->login }}
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <strong>Capacity:</strong> {{ $selectedWarehouse->capacity }}
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <strong>Status:</strong> {{$selectedWarehouse->status}}
+                                            <strong>Batch Number:</strong> {{ $selectedMedicine->batch_number }}
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <strong>Note:</strong> {{ $selectedWarehouse->notes }}
+                                            <strong>Manufacturer:</strong> {{ $selectedMedicine->manufacturer_name }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Quantity in Stock:</strong> {{ $selectedMedicine->quantity_in_stock
+                                            }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Minimum Stock Level:</strong> {{
+                                            $selectedMedicine->minimum_stock_level }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Purchase Price:</strong> ${{ $selectedMedicine->purchase_price }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Selling Price:</strong> ${{ $selectedMedicine->selling_price }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Supplier:</strong> {{ $selectedMedicine->supplier->first_name . ' '
+                                            . $selectedMedicine->supplier->last_name }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Manufacture Date:</strong> {{ $selectedMedicine->manufacture_date }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Expiry Date:</strong> {{ $selectedMedicine->expiry_date }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>Prescription Required:</strong>
+                                            {{ $selectedMedicine->is_prescription_required ? 'Yes' : 'No' }}
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <strong>WareHouses:</strong> {{
+                                            $selectedMedicine->warehouse->pluck('name')->implode(', ') }} 
                                         </div>
                                     </div>
                                     @else
@@ -323,6 +377,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 </table>
             </div>
             @endif

@@ -29,7 +29,7 @@ class CashierComponent extends Component
             ->orWhere('last_name', 'like', '%' . $this->search . '%')
             ->get();
 
-        return view('cashiers.index');
+        return view('admin-page.cashiers.index');
     }
 
     public function SetcreateForm()

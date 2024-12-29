@@ -23,7 +23,7 @@ class RegistratorDetailsComponent extends Component
 
     public function render()
     {
-        return view('registrators.registrator-details-component', [
+        return view('admin-page.registrators.registrator-details-component', [
             'registrator' => $this->registrator,
         ])->layout('components.layouts.app');
     }

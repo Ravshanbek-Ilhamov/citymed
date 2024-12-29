@@ -29,7 +29,7 @@ class WorkersComponent extends Component
             ->orWhere('last_name', 'like', '%' . $this->search . '%')
             ->get();
 
-        return view('workers.workers-component');
+        return view('admin-page.workers.workers-component');
     }
 
     public function SetcreateForm()

@@ -47,7 +47,7 @@ class NurseComponent extends Component
             ->orderBy('id','desc')
             ->paginate(10);
         $this->services = Service::all();
-        return view('nurses.index', ['nurses' => $nurses]);
+        return view('admin-page.nurses.index', ['nurses' => $nurses]);
     }
 
     public function store()

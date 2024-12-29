@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
-use Livewire\WithPagination;
 
 class ManagerComponet extends Component
 {
@@ -31,7 +30,7 @@ class ManagerComponet extends Component
             ->orWhere('last_name', 'like', '%' . $this->search . '%')
             ->get();
 
-        return view('manager.index');
+        return view('admin-page.manager.index');
     }
 
     public function SetcreateForm()
@@ -62,10 +61,13 @@ class ManagerComponet extends Component
         $this->working_days = array_fill_keys(explode(',', $manager->working_days), true);
         $this->email = $manager->email;
         
+        // Parse working hours with proper format
         if ($manager->working_hours) {
             $hours = explode(' - ', $manager->working_hours);
-            $this->from_time = $hours[0] ?? null;
-            $this->to_time = $hours[1] ?? null;
+            if (count($hours) == 2) {
+                $this->from_time = Carbon::createFromFormat('h:i A', trim($hours[0]))->format('H:i');
+                $this->to_time = Carbon::createFromFormat('h:i A', trim($hours[1]))->format('H:i');
+            }
         }
         
         $this->working_hours = $manager->working_hours;
@@ -128,8 +130,6 @@ class ManagerComponet extends Component
 
     private function preparemanagerDataForUpdate($manager)
     {
-        $data['working_hours'] = Carbon::createFromFormat('H:i', $this->from_time)->format('h:i A') . ' - ' . Carbon::createFromFormat('H:i', $this->to_time)->format('h:i A');
-
         $data = [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -138,18 +138,20 @@ class ManagerComponet extends Component
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'salary' => $this->salary,
-            'working_hours' => $this->from_time . ' - ' . $this->to_time,
+            'working_days' => !empty($this->working_days) ? implode(',', array_keys(array_filter($this->working_days))) : $manager->working_days,
             'is_active' => $this->is_active,
             'salary_type' => $this->salary_type,
         ];
     
         if ($this->from_time && $this->to_time) {
-            $data['working_hours'] = Carbon::createFromFormat('H:i', $this->from_time)->format('h:i A') . ' - ' . Carbon::createFromFormat('H:i', $this->to_time)->format('h:i A');
+            $data['working_hours'] = Carbon::createFromFormat('H:i', $this->from_time)->format('h:i A') .
+                ' - ' .
+                Carbon::createFromFormat('H:i', $this->to_time)->format('h:i A');
         } else {
             $data['working_hours'] = $manager->working_hours;
         }
     
-        if ($this->profile_picture && $this->profile_picture instanceof \Illuminate\Http\UploadedFile) {
+        if ($this->profile_picture instanceof \Illuminate\Http\UploadedFile) {
             if ($manager->profile_picture && Storage::exists('public/' . $manager->profile_picture)) {
                 Storage::delete('public/' . $manager->profile_picture);
             }
@@ -159,6 +161,17 @@ class ManagerComponet extends Component
         }
     
         return $data;
+    }
+    protected function cleanupOldUpload()
+    {
+        if ($this->profile_picture instanceof \Illuminate\Http\UploadedFile) {
+            $this->profile_picture = null;
+        }
+    }
+
+    public function hydrate()
+    {
+        $this->cleanupOldUpload();
     }
 
     protected function validationRules($isUpdate = false)
