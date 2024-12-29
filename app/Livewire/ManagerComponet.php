@@ -217,7 +217,7 @@ class ManagerComponet extends Component
         ];
     }
 
-    public function cancel()
+    public function cancel()    
     {
         $this->createForm = false;
         $this->editingForm = false;
