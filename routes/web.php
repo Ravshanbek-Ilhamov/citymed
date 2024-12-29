@@ -3,12 +3,14 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LayoutsController;
+use App\Http\Middleware\RedirectBasedOnRole;
 use App\Livewire\CashierComponent;
 use App\Livewire\CashierDetailsCompoent;
 use App\Livewire\DirectionComponent;
 use App\Livewire\DistributeWarehouseComponent;
 use App\Livewire\ServiceComponent;
 use App\Livewire\DoctorDetailsComponent;
+use App\Livewire\DoctorPageComponent;
 use App\Livewire\DoctorsComponent;
 use App\Livewire\ManagerComponet;
 use App\Livewire\ManagerDetailingComponent;
@@ -26,19 +28,23 @@ use App\Livewire\SelectComponent;
 use App\Livewire\WarehouseComponent;
 use App\Livewire\WorkerDetails;
 use App\Livewire\WorkersComponent;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[AuthController::class,'index'])->name('login.index');
 Route::post('/login',[AuthController::class,'login'])->name('login');
-Route::get('/layouts' , [LayoutsController::class, 'index']);
 
-Route::resource('doctors', DoctorController::class);
+// Route::middleware(['redirect.role'])->group(function () {
+// });
+
+
 Route::get('/direction' , DirectionComponent::class);
 Route::get('service' , ServiceComponent::class);
 
-Route::get('/doctors', DoctorsComponent::class);
+Route::get('/doctors', DoctorsComponent::class)->middleware('redirect.role');
 Route::get('/doctor-details',DoctorDetailsComponent::class);
+Route::get('/doctor-page',DoctorPageComponent::class);
 
 Route::get('/nurses',NurseComponent::class);
 Route::get('/nurse-details',NurseDetailsComponent::class);
@@ -55,7 +61,6 @@ Route::get('//medicines/closeToExpire',[MedicineComponent::class,'closeToExpire'
 
 Route::get('/patients' , PatientComponent::class);
 Route::get('/patient-details' , PatientDetailscomponent::class);
-
 
 Route::get('/cashier' , CashierComponent::class);
 Route::get('/cashier-details', CashierDetailsCompoent::class);

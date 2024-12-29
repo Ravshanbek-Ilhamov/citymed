@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function index(){
+
+        if (Auth::check()) {
+            Auth::logout();
+        }
+
         return view('auth.login.index');
     }
 
