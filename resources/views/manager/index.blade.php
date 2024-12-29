@@ -56,13 +56,14 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="gender" class="form-label">Gender</label>
-                                <select class="form-select" id="gender" wire:model.blur="gender" required>
-                                    <option value="" selected>Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                <select class="form-control" id="gender" wire:model.blur="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male" {{ $gender === 'male' ? 'selected' : '' }}>Male</option>
+                                    <option value="female" {{ $gender === 'female' ? 'selected' : '' }}>Female</option>
                                 </select>
                                 @error('gender') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+                        
                             <div class="col-md-6">
                                 <label for="date_of_birth" class="form-label">Date of Birth</label>
                                 <input type="date" class="form-control" id="date_of_birth" wire:model.blur="date_of_birth" required>
@@ -99,9 +100,15 @@
                             <div class="col-md-6">
                                 <label for="profile_picture" class="form-label">Profile Picture</label>
                                 <input type="file" class="form-control" id="profile_picture" wire:model.blur="profile_picture">
-                                @if ($profile_picture and file_exists(storage_path('app/public/' . $profile_picture)))
-                                    <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_picture) }}" alt="Profile Picture">
+                                
+                                @if ($profile_picture)
+                                    @if (is_string($profile_picture))
+                                        <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ asset('storage/' . $profile_picture) }}" alt="Profile Picture">
+                                    @elseif ($profile_picture instanceof \Illuminate\Http\UploadedFile)
+                                        <img style="border-radius: 50%; width: 80px; height: 80px" src="{{ $profile_picture->temporaryUrl() }}" alt="Profile Picture">
+                                    @endif
                                 @endif
+                                
                                 @error('profile_picture') 
                                     <span class="text-danger">{{ $message }}</span> 
                                 @enderror
