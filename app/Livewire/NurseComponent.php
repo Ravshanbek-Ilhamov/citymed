@@ -94,6 +94,7 @@ class NurseComponent extends Component
         $this->times = explode('-', $nurse->working_hours);
         $this->from_time = $this->times[0];
         $this->to_time = $this->times[1];
+
         $this->working_days = explode(',', $nurse->working_days);
         $this->profile_picture = $nurse->profile_picture;
         $this->is_active = $nurse->is_active;
@@ -122,7 +123,7 @@ class NurseComponent extends Component
             $this->editingNurse->services()->sync($this->selectedServices);
         }
 
-        if ($this->profile_picture) {
+        if ($this->profile_picture instanceof \Illuminate\Http\UploadedFile) {
             if ($this->editingNurse->profile_picture && Storage::disk('public')->exists($this->editingNurse->profile_picture)) {
                 Storage::disk('public')->delete($this->editingNurse->profile_picture);
             }

@@ -415,7 +415,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                {{ $registrators->links('vendor.livewire.bootstrap') }}
                             </tbody>
                         </table>
                     </div>

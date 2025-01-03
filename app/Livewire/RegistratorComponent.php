@@ -46,7 +46,7 @@ class RegistratorComponent extends Component
     {
         $registrators = Registrator::where('first_name', 'like', '%' . $this->search . '%')
             ->orWhere('last_name', 'like', '%' . $this->search . '%')
-            ->orderBy('id','desc');
+            ->orderBy('id','desc')->get();
 
         return view('registrators.index', ['registrators' => $registrators]);
     }
